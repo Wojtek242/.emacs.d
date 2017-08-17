@@ -41,6 +41,13 @@
   ;; Visual configuration.
   ;; --------------------------------------------------------------------------
 
+  ;; Font ---------------------------------------------------------------------
+
+  (setq default-frame-alist '((font . "Source Code Pro-10")))
+  ;; Emacs does not set italic face automatically
+  (set-face-attribute 'italic nil
+                      :family "Source Code Pro-Italic")
+
   ;; Fullscreen ---------------------------------------------------------------
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -58,6 +65,14 @@
   ;; Line number --------------------------------------------------------------
 
   (setq-default linum-format "%4d \u2502") ;; Line number format
-  (add-hook 'prog-mode-hook 'linum-mode) ;; only in programming modes
+  (add-hook 'prog-mode-hook 'linum-mode)   ;; Only in programming modes
+
+  ;; Theme --------------------------------------------------------------------
+
+  ;; This is required until this init file gets moved to .emacs.d
+  (add-to-list 'custom-theme-load-path
+               (file-name-as-directory (file-name-directory load-file-name)))
+
+  (load-theme 'havoc t) ;; Load personal theme
 
 ) ;; ((gc-cons-threshold most-positive-fixnum))
