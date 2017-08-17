@@ -8,8 +8,6 @@
 ;; Based on Spacemacs theme by Nasser Alshammari
 ;; URL: https://github.com/nashamri/spacemacs-theme
 ;;
-;; Also inspired by the FSF misterioso theme
-;;
 ;;; License: GPLv3
 
 (defmacro dyn-let (varlist fn setfaces setvars)
@@ -744,7 +742,7 @@
 
     ))
 
-(deftheme havoc "A dark theme inspired by the Spacemacs-Dark and Misterioso themes")
+(deftheme havoc "A dark theme inspired by the Spacemacs-Dark theme")
 
 (create-theme 'havoc)
 
