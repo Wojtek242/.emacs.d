@@ -37,4 +37,27 @@
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
+  ;; --------------------------------------------------------------------------
+  ;; Visual configuration.
+  ;; --------------------------------------------------------------------------
+
+  ;; Fullscreen ---------------------------------------------------------------
+
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+  ;; Visual clutter -----------------------------------------------------------
+
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+
+  ;; Scrolling ----------------------------------------------------------------
+
+  (setq-default scroll-preserve-screen-position 1)
+
+  ;; Line number --------------------------------------------------------------
+
+  (setq-default linum-format "%4d \u2502") ;; Line number format
+  (add-hook 'prog-mode-hook 'linum-mode) ;; only in programming modes
+
 ) ;; ((gc-cons-threshold most-positive-fixnum))
