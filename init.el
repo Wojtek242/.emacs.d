@@ -29,4 +29,12 @@
   (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
   (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
+  ;; --------------------------------------------------------------------------
+  ;; Include MELPA.
+  ;; --------------------------------------------------------------------------
+
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
 ) ;; ((gc-cons-threshold most-positive-fixnum))
