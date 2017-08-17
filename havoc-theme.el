@@ -650,9 +650,6 @@
      `(spaceline-flycheck-warning((,class (:foreground ,war))))
      `(spaceline-python-venv ((,class (:foreground ,comp))))
 
-;;;;; spacemacs-specific
-     `(spacemacs-transient-state-title-face ((,class (:background nil :foreground ,comp :box nil :inherit bold))))
-
 ;;;;; swiper
      `(swiper-line-face ((,class (:background ,highlight :inherit bold))))
      `(swiper-match-face-1 ((,class (:inherit bold))))
