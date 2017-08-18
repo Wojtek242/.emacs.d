@@ -69,10 +69,7 @@
 
   ;; Theme --------------------------------------------------------------------
 
-  ;; This is required until this init file gets moved to .emacs.d
-  (add-to-list 'custom-theme-load-path
-               (file-name-as-directory (file-name-directory load-file-name)))
+  (load-theme 'underwater t) ;; Load personal theme
 
-  (load-theme 'havoc t) ;; Load personal theme
 
 ) ;; ((gc-cons-threshold most-positive-fixnum))
