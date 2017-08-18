@@ -75,6 +75,21 @@
     (setq-default indent-tabs-mode indent-tabs-mode))
 
   ;; --------------------------------------------------------------------------
+  ;; Convenience keyboard shortcuts.
+  ;; --------------------------------------------------------------------------
+
+  (defun kill-default-buffer ()
+    "Kill the currently active buffer with no confirmation."
+    (interactive)
+    (let (kill-buffer-query-functions) (kill-buffer)))
+
+  (global-set-key (kbd "C-x k") 'kill-default-buffer) ;; Kill current buffer
+  (global-set-key (kbd "C-c w") 'whitespace-mode)     ;; Toggle whitespace mode
+  (global-set-key (kbd "C-x k") 'kill-default-buffer) ;; Kill current buffer
+  (global-set-key (kbd "M-o") 'other-window)          ;; Change window
+  (global-set-key (kbd "M-s M-o") 'occur)             ;; Occur
+
+  ;; --------------------------------------------------------------------------
   ;; Configure garbage collection.
   ;;
   ;; Based on advice from:
