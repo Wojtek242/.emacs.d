@@ -59,6 +59,22 @@
   (package-initialize)
 
   ;; --------------------------------------------------------------------------
+  ;; Formatting
+  ;; --------------------------------------------------------------------------
+
+  (setq-default tab-width 8)                         ;; Tab width
+  (setq-default indent-tabs-mode nil)                ;; No tabs
+  (setq-default fill-column 79)                      ;; Line width
+  (setq-default whitespace-line-column fill-column)  ;; For whitespace mode
+  (setq-default c-default-style "linux")             ;; Default C style
+
+  (defun toggle-indent-tabs-mode ()
+    "Toggle a indent-tabs-mode between a defined and undefined state."
+    (interactive)
+    (setq indent-tabs-mode (not indent-tabs-mode))
+    (setq-default indent-tabs-mode indent-tabs-mode))
+
+  ;; --------------------------------------------------------------------------
   ;; Configure garbage collection.
   ;;
   ;; Based on advice from:
