@@ -38,10 +38,14 @@
 
 (deftheme underwater "Port of underwater Vim theme")
 
-(let ((*background-color*   "#102235")
+(let ((*bg-1*               "#102235")
+      (*bg-2*               "#233445")
+      (*bg-3*               "#364555")
+      (*bg-4*               "#495765")
       (*brown*              "#E64")
       (*comments*           "#4E6F91")
-      (*constant*           "#A45BAD") ;; #FFC287")
+      (*comments-bg*        "#102235")
+      (*constant*           "#A45BAD")
       (*current-line*       "#18374f")
       (*cursor-block*       "#6785c5")
       (*cursor-underscore*  "#FFFAAA")
@@ -57,7 +61,6 @@
       (*number*             "#96DEFA")
       (*operators*          "#3E71A1")
       (*parens*             "magenta")
-      (*red*                "#C62626")
       (*red-light*          "#FFB6B0")
       (*regexp*             "#EF7760")
       (*regexp-alternate*   "#FF0")
@@ -65,12 +68,17 @@
       (*search-fg*          "#E2DAEF")
       (*search-bg*          "#AF81F4")
       (*string*             "#89E14B")
+      (*success*            "#86dc2f")
+      (*ttip*               "#e1e1e0")
+      (*ttip-sl*            "#005577")
+      (*ttip-bg*            "#495765")
       (*type*               "#5BA0EB")
       (*variable*           "#8AC6F2")
       (*vertical-border*    "#0A1721")
       (*visual-selection*   "#262D51")
+      (*warning*            "#C62626")
 
-      ;;;; Rainbow delimiters
+      ;; Rainbow delimiters
       (*rdd-1*              "#7EB8E3")
       (*rdd-2*              "#73AAD4")
       (*rdd-3*              "#679CC5")
@@ -79,14 +87,45 @@
       (*rdd-6*              "#457299")
       (*rdd-7*              "#3A648A")
       (*rdd-8*              "#2F577C")
-      (*rdd-9*              "#30597E"))
+      (*rdd-9*              "#30597E")
+
+      ;; Magit colors
+      (*diff-added-bg*      "#336622")
+      (*diff-added-fg*      "#ddffdd")
+      (*diff-added-hl-bg*   "#337733")
+      (*diff-added-hl-fg*   "#cceecc")
+      (*diff-base-bg*       "#666622")
+      (*diff-base-fg*       "#ffffcc")
+      (*diff-base-hl-bg*    "#777722")
+      (*diff-base-hl-fg*    "#eeeebb")
+      (*diff-rmvd-bg*       "#663333")
+      (*diff-rmvd-fg*       "#ffdddd")
+      (*diff-rmvd-hl-bg*    "#773333")
+      (*diff-rmvd-hl-fg*    "#eecccc")
+
+      ;; Base colors
+      (*aqua*                "#2d9574")
+      (*aqua-bg*             "#293235")
+      (*green*               "green")
+      (*green-bg*            "#293235")
+      (*green-bg-s*          "#29422d")
+      (*cyan*                "cyan")
+      (*cyan-bg*             "#003355")
+      (*red*                 "red")
+      (*red-bg*              "#3c2a2c")
+      (*red-bg-s*            "#512e31")
+      (*blue*                "#4f97d7")
+      (*blue-bg*             "#293239")
+      (*magenta*             "magenta")
+      (*yellow*              "yellow")
+      (*yellow-bg*           "#32322c"))
 
   (custom-theme-set-faces
    'underwater
 
    `(bold ((t (:bold t))))
    `(button ((t (:foreground, *keywords* :underline t))))
-   `(default ((t (:background, *background-color* :foreground, *normal*))))
+   `(default ((t (:background, *bg-1* :foreground, *normal*))))
    `(header-line ((t (:background, *mode-line-bg* :foreground, *normal*)))) ;; info header
    `(highlight ((t (:background, *current-line*))))
    `(highlight-face ((t (:background, *current-line*))))
@@ -104,7 +143,7 @@
    `(font-lock-doc-string-face ((t (:foreground, *string*))))
    `(font-lock-function-name-face ((t (:foreground, *method-declaration* :inherit bold))))
    `(font-lock-keyword-face ((t (:inherit bold :foreground, *keywords*))))
-   `(font-lock-negation-char-face ((t (:foreground, *red*))))
+   `(font-lock-negation-char-face ((t (:foreground, *warning*))))
    `(font-lock-preprocessor-face ((t (:foreground, *keywords*))))
    `(font-lock-reference-face ((t (:foreground, *constant*))))
    `(font-lock-regexp-grouping-backslash ((t (:foreground, *regexp*))))
@@ -112,7 +151,7 @@
    `(font-lock-string-face ((t (:foreground, *string*))))
    `(font-lock-type-face ((t (:foreground, *type* :inherit bold))))
    `(font-lock-variable-name-face ((t (:foreground, *variable*))))
-   `(font-lock-warning-face ((t (:foreground, *red*))))
+   `(font-lock-warning-face ((t (:foreground, *warning*))))
 
    ;; GUI
    `(fringe ((t (:foreground, *normal* :background, *fringe*))))
@@ -126,20 +165,16 @@
    `(vertical-border ((t (:foreground, *vertical-border*)))) ;; between splits
 
    ;; show-paren
-   `(show-paren-mismatch ((t (:background, *red* :foreground, *normal* :weight bold))))
-   `(show-paren-match ((t (:background, *background-color* :foreground, *parens* :weight bold))))
+   `(show-paren-mismatch ((t (:background, *warning* :foreground, *normal* :weight bold))))
+   `(show-paren-match ((t (:background, *bg-1* :foreground, *parens* :weight bold))))
 
    ;; search
    `(isearch ((t (:background, *search-bg* :foreground, *search-fg*))))
-   `(isearch-fail ((t (:background, *red*))))
+   `(isearch-fail ((t (:background, *warning*))))
    `(lazy-highlight ((t (:background, *operators* :foreground, *search-fg*))))
 
    ;; erb/rhtml-mode
    `(erb-out-delim-face ((t (:foreground, *regexp*))))
-
-   ;; magit
-   `(magit-diff-add ((t (:foreground, *string*))))
-   `(magit-diff-del ((t (:foreground, *red*))))
 
    ;; enh-ruby-mode
    `(enh-ruby-op-face ((t (:foreground, *operators*))))
@@ -151,7 +186,7 @@
    `(org-level-1 ((t (:foreground, *string*))))
    `(org-special-keyword ((t (:foreground, *variable*))))
    `(org-link ((t (:foreground, *keywords* :underline t))))
-   `(org-checkbox ((t (:foreground, *keywords* :background, *background-color* :bold t))))
+   `(org-checkbox ((t (:foreground, *keywords* :background, *bg-1* :bold t))))
    `(org-clock-overlay ((t (:foreground, *mode-line-bg* :background, *string*))))
 
    ;; rainbow delimiters mode
@@ -163,7 +198,65 @@
    `(rainbow-delimiters-depth-6-face  ((t (:foreground ,*rdd-6*))))
    `(rainbow-delimiters-depth-7-face  ((t (:foreground ,*rdd-7*))))
    `(rainbow-delimiters-depth-8-face  ((t (:foreground ,*rdd-8*))))
-   `(rainbow-delimiters-depth-9-face  ((t (:foreground ,*rdd-9*))))))
+   `(rainbow-delimiters-depth-9-face  ((t (:foreground ,*rdd-9*))))
+
+   ;;;;; magit
+   `(magit-blame-culprit ((t :background ,*cyan-bg* :foreground ,*yellow*)))
+   `(magit-blame-date    ((t :background ,*cyan-bg* :foreground ,*green*)))
+   `(magit-blame-hash    ((t :background ,*cyan-bg* :foreground ,*method-declaration*)))
+   `(magit-blame-header  ((t :background ,*cyan-bg* :foreground ,*green*)))
+   `(magit-blame-heading ((t :background ,*cyan-bg* :foreground ,*green*)))
+   `(magit-blame-name    ((t :background ,*cyan-bg* :foreground ,*yellow*)))
+   `(magit-blame-sha1    ((t :background ,*cyan-bg* :foreground ,*method-declaration*)))
+   `(magit-blame-subject ((t :background ,*cyan-bg* :foreground ,*yellow*)))
+   `(magit-blame-summary ((t :background ,*cyan-bg* :foreground ,*yellow*)))
+   `(magit-blame-time    ((t :background ,*cyan-bg* :foreground ,*green*)))
+   `(magit-branch ((t (:foreground ,*constant* :inherit bold))))
+   `(magit-branch-current ((t (:foreground ,*blue* :inherit bold :box t))))
+   `(magit-branch-local ((t (:foreground ,*blue* :inherit bold))))
+   `(magit-branch-remote ((t (:foreground ,*aqua* :inherit bold))))
+   `(magit-diff-context-highlight ((t (:background ,*bg-2* :foreground ,*normal*))))
+   `(magit-diff-file-header ((t (:background ,*comments-bg* :foreground ,*comments*))))
+   `(magit-diff-file-heading ((t (:background ,*comments-bg* :foreground ,*comments*))))
+   `(magit-diff-file-heading-highlight ((t (:background ,*comments-bg* :foreground ,*comments*))))
+   `(magit-diff-hunk-header ((t (:background ,*ttip-bg* :foreground ,*ttip*))))
+   `(magit-diff-hunk-heading ((t (:background ,*ttip-bg* :foreground ,*ttip*))))
+   `(magit-diff-hunk-heading-highlight ((t (:background ,*ttip-bg* :foreground ,*ttip*))))
+   `(magit-diff-added ((t (:background ,*diff-added-bg* :foreground ,*diff-added-fg*))))
+   `(magit-diff-added-highlight ((t (:background ,*diff-added-hl-bg* :foreground ,*diff-added-hl-fg*))))
+   `(magit-diff-base ((t (:background ,*diff-base-bg* :foreground ,*diff-base-fg*))))
+   `(magit-diff-base-highlight ((t (:background ,*diff-base-hl-bg* :foreground ,*diff-base-hl-fg*))))
+   `(magit-diff-removed ((t (:background ,*diff-rmvd-bg* :foreground ,*diff-rmvd-fg*))))
+   `(magit-diff-removed-highlight ((t (:background ,*diff-rmvd-hl-bg* :foreground ,*diff-rmvd-hl-fg*))))
+   `(magit-diffstat-added ((t (:foreground ,*green*))))
+   `(magit-diffstat-removed ((t (:foreground ,*red*))))
+   `(magit-hash ((t (:foreground ,*variable*))))
+   `(magit-hunk-heading ((t (:background ,*bg-3*))))
+   `(magit-hunk-heading-highlight ((t (:background ,*bg-3*))))
+   `(magit-item-highlight ((t :background ,*bg-2*)))
+   `(magit-log-author ((t (:foreground ,*method-declaration*))))
+   `(magit-log-head-label-head ((t (:background ,*yellow* :foreground ,*bg-1* :inherit bold))))
+   `(magit-log-head-label-local ((t (:background ,*keywords* :foreground ,*bg-1* :inherit bold))))
+   `(magit-log-head-label-remote ((t (:background ,*success* :foreground ,*bg-1* :inherit bold))))
+   `(magit-log-head-label-tags ((t (:background ,*magenta* :foreground ,*bg-1* :inherit bold))))
+   `(magit-log-head-label-wip ((t (:background ,*cyan* :foreground ,*bg-1* :inherit bold))))
+   `(magit-log-sha1 ((t (:foreground ,*string*))))
+   `(magit-process-ng ((t (:foreground ,*warning* :inherit bold))))
+   `(magit-process-ok ((t (:foreground ,*method-declaration* :inherit bold))))
+   `(magit-reflog-amend ((t (:foreground ,*magenta*))))
+   `(magit-reflog-checkout ((t (:foreground ,*blue*))))
+   `(magit-reflog-cherry-pick ((t (:foreground ,*green*))))
+   `(magit-reflog-commit ((t (:foreground ,*green*))))
+   `(magit-reflog-merge ((t (:foreground ,*green*))))
+   `(magit-reflog-other ((t (:foreground ,*cyan*))))
+   `(magit-reflog-rebase ((t (:foreground ,*magenta*))))
+   `(magit-reflog-remote ((t (:foreground ,*cyan*))))
+   `(magit-reflog-reset ((t (:foreground ,*red*))))
+   `(magit-section-heading ((t (:foreground ,*keywords* :inherit bold))))
+   `(magit-section-highlight ((t (:background ,*bg-2*))))
+   `(magit-section-title ((t (:background ,*bg-1* :foreground ,*keywords* :inherit bold))))
+
+   ))
 
 ;;;###autoload
 (when (and (boundp 'custom-theme-load-path) load-file-name)
