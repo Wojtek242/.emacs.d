@@ -19,10 +19,14 @@
 
   ;; Font ---------------------------------------------------------------------
 
-  (setq default-frame-alist '((font . "Source Code Pro-10")))
-  ;; Emacs does not set italic face automatically
-  (set-face-attribute 'italic nil
-                      :family "Source Code Pro-Italic")
+  (let* ((font-name "Source Code Pro")
+         (font-size 10)
+         (font-spec (concat font-name "-" (int-to-string font-size))))
+
+    (set-frame-font font-spec nil t)
+    (add-to-list 'default-frame-alist `(font . ,font-spec))
+    (set-face-attribute 'italic nil           ;; Emacs does not set italic face
+                        :family (concat font-name "-Italic")))
 
   ;; Fullscreen ---------------------------------------------------------------
 
