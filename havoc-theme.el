@@ -144,11 +144,11 @@
    `(font-lock-warning-face ((t (:foreground, *warning*))))
 
    ;; GUI
-   `(fringe ((t (:foreground, *normal* :background, *fringe*))))
+   `(fringe ((t (:foreground, *normal* :background, *bg-1*))))
    `(header-line ((t (:background, *fringe* :foreground, *normal*)))) ;; info header
    `(linum ((t (:foreground, *line-number* :background, *vertical-border*))))
    `(minibuffer-prompt ((t (:inherit bold :foreground, *variable*))))
-   `(mode-line ((t (:background, *mode-line-bg* :foreground, *mode-line-fg*))))
+   `(mode-line ((t (:background, *cyan-bg* :foreground, *mode-line-fg*))))
    `(mode-line-inactive ((t (:background, *mode-line-bg* :foreground, *mode-line-inactive*))))
    `(cursor ((t (:background, *cursor-block*))))
    `(text-cursor ((t (:background, *cursor-underscore*))))
