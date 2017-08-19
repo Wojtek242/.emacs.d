@@ -39,6 +39,7 @@
       (*current-line*       "#18374f")
       (*cursor-block*       "#6785c5")
       (*cursor-underscore*  "#FFFAAA")
+      (*fg-standout*        "#FFEC99")
       (*fringe*             "#0A1721")
       (*keywords*           "#8AC6F2")
       (*light-purple*       "#FFCCFF")
@@ -143,13 +144,16 @@
    `(font-lock-variable-name-face ((t (:foreground, *variable*))))
    `(font-lock-warning-face ((t (:foreground, *warning*))))
 
+   ;; whitespace
+   `(whitespace-space ((t (:foreground ,*fg-standout*))))
+
    ;; GUI
    `(fringe ((t (:foreground, *normal* :background, *bg-1*))))
    `(header-line ((t (:background, *fringe* :foreground, *normal*)))) ;; info header
    `(linum ((t (:foreground, *line-number* :background, *vertical-border*))))
    `(minibuffer-prompt ((t (:inherit bold :foreground, *variable*))))
-   `(mode-line ((t (:background, *cyan-bg* :foreground, *mode-line-fg*))))
-   `(mode-line-inactive ((t (:background, *mode-line-bg* :foreground, *mode-line-inactive*))))
+   `(mode-line ((t (:background, *cyan-bg* :foreground, *normal*))))
+   `(mode-line-inactive ((t (:background, *mode-line-bg* :foreground, *mode-line-fg*))))
    `(cursor ((t (:background, *cursor-block*))))
    `(text-cursor ((t (:background, *cursor-underscore*))))
    `(vertical-border ((t (:foreground, *vertical-border*)))) ;; between splits
