@@ -1,12 +1,11 @@
-;;; underwater-theme.el --- A gentle, deep blue color theme
+;;; havoc-theme.el --- A gentle, deep blue color theme
 
-;; Copyright (C) 2012 Jon-Michael Deldin
+;; Copyright (C) 2017 Wojciech Kozlowski
 
-;; Author: Jon-Michael Deldin <dev@jmdeldin.com>
+;; Author: Wojciech Kozlowski <wojciech.kozlowski@vivaldi.net>
 ;; Keywords: faces
-;; Package-Version: 20131117.1602
 ;; Compatibility: 24.1
-;; Version: 1.1.0
+;; Version: 0.0.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -23,20 +22,11 @@
 
 ;;; Commentary:
 
-;; This is an Emacs 24 port of underwater-mod.vim by Mario Gutierrez
-;; from URL `http://www.vim.org/scripts/script.php?script_id=3132'.
-;;
-;; To use this theme, download it to ~/.emacs.d/themes. In your `.emacs'
-;; or `init.el', add this line:
-;;
-;;   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;;
-;; Once you have reloaded your configuration (`eval-buffer'), do `M-x
-;; load-theme' and select "underwater".
+;; This an adaptation of the underwater theme by Jon-Michael Deldin
 
 ;;; Code:
 
-(deftheme underwater "Port of underwater Vim theme")
+(deftheme havoc "Adaptation of underwater Emacs theme")
 
 (let ((*bg-1*               "#102235")
       (*bg-2*               "#233445")
@@ -121,7 +111,7 @@
       (*yellow-bg*           "#32322c"))
 
   (custom-theme-set-faces
-   'underwater
+   'havoc
 
    `(bold ((t (:bold t))))
    `(button ((t (:foreground, *keywords* :underline t))))
@@ -267,5 +257,5 @@
 ;; no-byte-compile: t
 ;; End:
 
-(provide-theme 'underwater)
-;;; underwater-theme.el ends here
+(provide-theme 'havoc)
+;;; havoc-theme.el ends here

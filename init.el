@@ -47,7 +47,7 @@
 
   ;; Theme --------------------------------------------------------------------
 
-  (load-theme 'underwater t) ;; Load personal theme
+  (load-theme 'havoc t) ;; Load personal theme
 
   ;; --------------------------------------------------------------------------
   ;; Package configuration.
