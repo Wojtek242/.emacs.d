@@ -70,15 +70,15 @@
       (*warning*            "#C62626")
 
       ;; Rainbow delimiters
-      (*rdd-1*              "#7EB8E3")
-      (*rdd-2*              "#73AAD4")
-      (*rdd-3*              "#679CC5")
-      (*rdd-4*              "#5C8EB7")
-      (*rdd-5*              "#5180A8")
-      (*rdd-6*              "#457299")
-      (*rdd-7*              "#3A648A")
-      (*rdd-8*              "#2F577C")
-      (*rdd-9*              "#30597E")
+      (*rdd-1*              "#8AC6F2")
+      (*rdd-2*              "#AF81F4")
+      (*rdd-3*              "#89E14B")
+      (*rdd-4*              "turquoise")
+      (*rdd-5*              "#FFEC99")
+      (*rdd-6*              "#8AC6F2")
+      (*rdd-7*              "#AF81F4")
+      (*rdd-8*              "#89E14B")
+      (*rdd-9*              "turquoise")
 
       ;; Magit colors
       (*diff-added-bg*      "#336622")
@@ -122,6 +122,7 @@
    `(highlight-face ((t (:background, *current-line*))))
    `(hl-line ((t (:background, *current-line* :underline t))))
    `(info-xref ((t (:foreground, *keywords* :underline t))))
+   `(Info-quoted ((t (:foreground, *keywords*))))
    `(region ((t (:background, *visual-selection*))))
    `(underline ((nil (:underline t))))
 
@@ -158,10 +159,6 @@
    `(text-cursor ((t (:background, *cursor-underscore*))))
    `(vertical-border ((t (:foreground, *vertical-border*)))) ;; between splits
 
-   ;; show-paren
-   `(show-paren-mismatch ((t (:background, *warning* :foreground, *normal* :weight bold))))
-   `(show-paren-match ((t (:background, *bg-1* :foreground, *parens* :weight bold))))
-
    ;; search
    `(isearch ((t (:background, *search-bg* :foreground, *search-fg*))))
    `(isearch-fail ((t (:background, *warning*))))
@@ -182,6 +179,10 @@
    `(org-link ((t (:foreground, *keywords* :underline t))))
    `(org-checkbox ((t (:foreground, *keywords* :background, *bg-1* :bold t))))
    `(org-clock-overlay ((t (:foreground, *mode-line-bg* :background, *string*))))
+
+   ;; show-paren
+   `(show-paren-mismatch ((t (:background, *bg-1* :foreground, *red* :weight bold :underline t))))
+   `(show-paren-match ((t (:background, *bg-1* :foreground, *green* :weight bold :underline t))))
 
    ;; rainbow delimiters mode
    `(rainbow-delimiters-depth-1-face  ((t (:foreground ,*rdd-1*))))
