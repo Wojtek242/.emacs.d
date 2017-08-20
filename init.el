@@ -109,4 +109,10 @@
   (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
   (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
+  ;; --------------------------------------------------------------------------
+  ;; Increase recursion limits.
+  ;; --------------------------------------------------------------------------
+  (setq-default max-specpdl-size 20000) ;; ~15x original value
+  (setq-default max-lisp-eval-depth 24000) ;; 30x orignal value
+
 ) ;; ((gc-cons-threshold most-positive-fixnum))

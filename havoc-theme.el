@@ -181,8 +181,8 @@
    `(org-clock-overlay ((t (:foreground, *mode-line-bg* :background, *string*))))
 
    ;; show-paren
-   `(show-paren-mismatch ((t (:background, *bg-1* :foreground, *red* :weight bold :underline t))))
-   `(show-paren-match ((t (:background, *bg-1* :foreground, *green* :weight bold :underline t))))
+   `(show-paren-mismatch ((t (:foreground, *red* :weight bold :underline t))))
+   `(show-paren-match ((t (:foreground, *green* :weight bold :underline t))))
 
    ;; rainbow delimiters mode
    `(rainbow-delimiters-depth-1-face  ((t (:foreground ,*rdd-1*))))
