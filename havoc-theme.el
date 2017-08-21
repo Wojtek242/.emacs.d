@@ -151,7 +151,7 @@
    ;; GUI
    `(fringe ((t (:foreground, *normal* :background, *bg-1*))))
    `(header-line ((t (:background, *fringe* :foreground, *normal*)))) ;; info header
-   `(linum ((t (:foreground, *line-number* :background, *vertical-border*))))
+   `(linum ((t (:foreground, *line-number* :background, *vertical-border* :underline nil :bold nil :italic nil))))
    `(minibuffer-prompt ((t (:inherit bold :foreground, *variable*))))
    `(mode-line ((t (:background, *cyan-bg* :foreground, *normal*))))
    `(mode-line-inactive ((t (:background, *mode-line-bg* :foreground, *mode-line-fg*))))
