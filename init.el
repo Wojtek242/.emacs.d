@@ -69,6 +69,7 @@
   ;;                                                                         ;;
   ;; *********************************************************************** ;;
 
+
   ;; --------------------------------------------------------------------------
   ;; Package configuration.
   ;; --------------------------------------------------------------------------
@@ -78,22 +79,20 @@
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (package-initialize)
 
-  (unless (require 'use-package nil 'noerror)
-    (package-refresh-contents)
-    (package-install 'use-package))
+  (load "~/.emacs.d/init-packages/init-packages.el")
+  (init-packages-init '(use-package
+                        magit
+                        rainbow-delimiters
+                        highlight-parentheses))
 
-  (use-package magit
-    :ensure t)
+  (use-package magit)
 
-  (use-package rainbow-delimiters
-    :ensure t)
+  (use-package rainbow-delimiters)
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-  (use-package highlight-parentheses
-    :ensure t)
-  (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
-
+  (use-package highlight-parentheses)
   (add-hook 'prog-mode-hook 'show-paren-mode)
+  (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
   (setq hl-paren-colors '("#86dc2f"
                           "IndianRed1"
                           "IndianRed3"
@@ -108,6 +107,7 @@
   ;;                                                                         ;;
   ;;                                                                         ;;
   ;; *********************************************************************** ;;
+
 
   ;; --------------------------------------------------------------------------
   ;; Load any custom variables.
