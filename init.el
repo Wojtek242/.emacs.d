@@ -64,7 +64,7 @@
   ;;                                                                         ;;
   ;;                                                                         ;;
   ;; Visual configuration must come before this point so that the frame can  ;;
-  ;; be set up before before time consuming package management.              ;;
+  ;; be set up before any time consuming package management.                 ;;
   ;;                                                                         ;;
   ;;                                                                         ;;
   ;; *********************************************************************** ;;
