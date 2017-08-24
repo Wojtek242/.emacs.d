@@ -14,6 +14,11 @@
 (let ((gc-cons-threshold most-positive-fixnum))
 
   ;; --------------------------------------------------------------------------
+  ;; Change file in which custom variable changes are saved.
+  ;; --------------------------------------------------------------------------
+  (setq custom-file "~/.emacs.d/custom.el")
+
+  ;; --------------------------------------------------------------------------
   ;; Visual configuration.
   ;; --------------------------------------------------------------------------
 
@@ -146,5 +151,11 @@
   ;; --------------------------------------------------------------------------
   (setq-default max-specpdl-size 20000) ;; ~15x original value
   (setq-default max-lisp-eval-depth 24000) ;; 30x orignal value
+
+  ;; --------------------------------------------------------------------------
+  ;; Load any custom variables.
+  ;; --------------------------------------------------------------------------
+  (when (file-exists-p custom-file)
+    (load custom-file))
 
 ) ;; Reset garbage collection settings.
