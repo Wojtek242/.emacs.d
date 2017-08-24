@@ -14,11 +14,6 @@
 (let ((gc-cons-threshold most-positive-fixnum))
 
   ;; --------------------------------------------------------------------------
-  ;; Change file in which custom variable changes are saved.
-  ;; --------------------------------------------------------------------------
-  (setq custom-file "~/.emacs.d/custom.el")
-
-  ;; --------------------------------------------------------------------------
   ;; Visual configuration.
   ;; --------------------------------------------------------------------------
 
@@ -60,6 +55,21 @@
   (load-theme 'havoc t) ;; Load personal theme
 
   ;; --------------------------------------------------------------------------
+  ;; Change file in which custom variable changes are saved.
+  ;; --------------------------------------------------------------------------
+  (setq custom-file "~/.emacs.d/custom.el")
+
+
+  ;; *********************************************************************** ;;
+  ;;                                                                         ;;
+  ;;                                                                         ;;
+  ;; Visual configuration must come before this point so that the frame can  ;;
+  ;; be set up before before time consuming package management.              ;;
+  ;;                                                                         ;;
+  ;;                                                                         ;;
+  ;; *********************************************************************** ;;
+
+  ;; --------------------------------------------------------------------------
   ;; Package configuration.
   ;; --------------------------------------------------------------------------
 
@@ -88,6 +98,22 @@
                           "IndianRed1"
                           "IndianRed3"
                           "IndianRed4"))
+
+
+  ;; *********************************************************************** ;;
+  ;;                                                                         ;;
+  ;;                                                                         ;;
+  ;; Any further non-package specific configuration should be set below this ;;
+  ;; point so that it does not get overridden by package configuration.      ;;
+  ;;                                                                         ;;
+  ;;                                                                         ;;
+  ;; *********************************************************************** ;;
+
+  ;; --------------------------------------------------------------------------
+  ;; Load any custom variables.
+  ;; --------------------------------------------------------------------------
+  (when (file-exists-p custom-file)
+    (load custom-file))
 
   ;; --------------------------------------------------------------------------
   ;; Formatting
@@ -137,25 +163,19 @@
   ;; http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
   ;; --------------------------------------------------------------------------
 
-  (defun my-minibuffer-setup-hook ()
+  (defun minibuffer-gc-setup-hook ()
     (setq gc-cons-threshold most-positive-fixnum))
 
-  (defun my-minibuffer-exit-hook ()
+  (defun minibuffer-gc-exit-hook ()
     (setq gc-cons-threshold 800000))
 
-  (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-  (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+  (add-hook 'minibuffer-setup-hook #'minibuffer-gc-setup-hook)
+  (add-hook 'minibuffer-exit-hook #'minibuffer-gc-exit-hook)
 
   ;; --------------------------------------------------------------------------
   ;; Increase recursion limits.
   ;; --------------------------------------------------------------------------
   (setq-default max-specpdl-size 20000) ;; ~15x original value
   (setq-default max-lisp-eval-depth 24000) ;; 30x orignal value
-
-  ;; --------------------------------------------------------------------------
-  ;; Load any custom variables.
-  ;; --------------------------------------------------------------------------
-  (when (file-exists-p custom-file)
-    (load custom-file))
 
 ) ;; Reset garbage collection settings.
