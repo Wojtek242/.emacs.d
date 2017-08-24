@@ -59,7 +59,7 @@
       (*search-fg*          "#E2DAEF")
       (*search-bg*          "#AF81F4")
       (*string*             "#89E14B")
-      (*success*            "#86dc2f")
+      (*success*            "#86DC2F")
       (*ttip*               "#e1e1e0")
       (*ttip-sl*            "#005577")
       (*ttip-bg*            "#495765")
@@ -181,8 +181,11 @@
    `(org-clock-overlay ((t (:foreground, *mode-line-bg* :background, *string*))))
 
    ;; show-paren
-   `(show-paren-mismatch ((t (:foreground, *red* :weight bold :underline t))))
-   `(show-paren-match ((t (:foreground, *green* :weight bold :underline t))))
+   `(show-paren-mismatch ((t (:foreground, *warning* :weight ultra-bold :underline t))))
+   `(show-paren-match ((t (:foreground, *success* :weight ultra-bold :underline t))))
+
+   ;; highlight-parentheses
+   `(hl-paren-face ((t (:weight ultra-bold))))
 
    ;; rainbow delimiters mode
    `(rainbow-delimiters-depth-1-face  ((t (:foreground ,*rdd-1*))))
