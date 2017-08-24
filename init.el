@@ -62,6 +62,27 @@
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (package-initialize)
 
+  (unless (require 'use-package nil 'noerror)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (use-package magit
+    :ensure t)
+
+  (use-package rainbow-delimiters
+    :ensure t)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+  (use-package highlight-parentheses
+    :ensure t)
+  (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
+
+  (add-hook 'prog-mode-hook 'show-paren-mode)
+  (setq hl-paren-colors '("#86dc2f"
+                          "IndianRed1"
+                          "IndianRed3"
+                          "IndianRed4"))
+
   ;; --------------------------------------------------------------------------
   ;; Formatting
   ;; --------------------------------------------------------------------------
