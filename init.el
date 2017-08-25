@@ -62,6 +62,10 @@
 
   ;; *********************************************************************** ;;
   ;;                                                                         ;;
+  ;;                                 MODULES                                 ;;
+  ;;                                                                         ;;
+  ;; ----------------------------------------------------------------------- ;;
+  ;;                                                                         ;;
   ;;                                                                         ;;
   ;; Visual configuration must come before this point so that the frame can  ;;
   ;; be set up before any time consuming package management.                 ;;
@@ -71,7 +75,7 @@
 
 
   ;; --------------------------------------------------------------------------
-  ;; Package configuration.
+  ;; Initialise and setup `package'.
   ;; --------------------------------------------------------------------------
 
   (require 'package)
@@ -79,24 +83,20 @@
                '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (package-initialize)
 
-  (load "~/.emacs.d/init-packages/init-packages.el")
-  (init-packages-init '(use-package
-                        magit
-                        rainbow-delimiters
-                        highlight-parentheses))
+  ;; --------------------------------------------------------------------------
+  ;; Load `init-packages'.
+  ;; --------------------------------------------------------------------------
 
-  (use-package magit)
+  (add-to-list 'load-path "~/.emacs.d/init-packages")
+  (require 'init-packages)
 
-  (use-package rainbow-delimiters)
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  ;; --------------------------------------------------------------------------
+  ;; Load modules.
+  ;; --------------------------------------------------------------------------
 
-  (use-package highlight-parentheses)
-  (add-hook 'prog-mode-hook 'show-paren-mode)
-  (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
-  (setq hl-paren-colors '("#86dc2f"
-                          "IndianRed1"
-                          "IndianRed3"
-                          "IndianRed4"))
+  (init-packages/init '(emacs
+                        version-control
+                        editing))
 
 
   ;; *********************************************************************** ;;
@@ -105,6 +105,10 @@
   ;; Any further non-package specific configuration should be set below this ;;
   ;; point so that it does not get overridden by package configuration.      ;;
   ;;                                                                         ;;
+  ;;                                                                         ;;
+  ;; ----------------------------------------------------------------------- ;;
+  ;;                                                                         ;;
+  ;;                               END MODULES                               ;;
   ;;                                                                         ;;
   ;; *********************************************************************** ;;
 
