@@ -34,9 +34,7 @@
      ("M-y" . helm-show-kill-ring)
      ("C-x b" . helm-mini)
      ("C-M-j" . helm-semantic-or-imenu)
-     ("C-c h M-s M-o" . helm-occur)
-     ("C-h SPC" . helm-all-mark-rings)
-     ("C-c h x" . helm-register))
+     ("C-h SPC" . helm-all-mark-rings))
     :config
     (require 'helm-config)
     (require 'helm-descbinds)
@@ -100,6 +98,11 @@
     ;; List actions using C-z.
     (define-key helm-map (kbd "C-z")  'helm-select-action)
 
+    ;; Change some Helm default key-bindings.  Due to the `helm-config' require
+    ;; these have to overridden here rather than with other keys in `:bind'.
+    (global-set-key (kbd "C-c h x") 'helm-register)
+    (global-set-key (kbd "C-c h M-o") 'helm-occur)
+
     ;; ------------------------------------------------------------------------
     ;; Activate helm-descbinds.
     ;; ------------------------------------------------------------------------
@@ -107,7 +110,7 @@
     (helm-descbinds-mode)
 
     ;; ------------------------------------------------------------------------
-    ;; Configure projectil.
+    ;; Configure projectile.
     ;; ------------------------------------------------------------------------
 
     (projectile-global-mode)
