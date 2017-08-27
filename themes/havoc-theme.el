@@ -198,6 +198,13 @@
    `(rainbow-delimiters-depth-8-face  ((t (:foreground ,*rdd-8*))))
    `(rainbow-delimiters-depth-9-face  ((t (:foreground ,*rdd-9*))))
 
+   ;;;;; diff
+   `(diff-header      ((t (:background ,*bg-4*))))
+   `(diff-file-header ((t (:foreground ,*normal*))))
+   `(diff-hunk-header ((t (:background ,*bg-3* :foreground ,*ttip*))))
+   `(diff-added       ((t (:background ,*diff-added-bg* :foreground ,*diff-added-fg*))))
+   `(diff-removed     ((t (:background ,*diff-rmvd-bg* :foreground ,*diff-rmvd-fg*))))
+
    ;;;;; magit
    `(magit-blame-culprit ((t :background ,*cyan-bg* :foreground ,*fg-standout*)))
    `(magit-blame-date    ((t :background ,*cyan-bg* :foreground ,*string*)))
