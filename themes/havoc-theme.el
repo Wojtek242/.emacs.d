@@ -26,7 +26,7 @@
 
 ;;; Code:
 
-(deftheme havoc "Adaptation of underwater Emacs theme")
+(deftheme havoc "Adaptation of underwater Emacs theme.")
 
 (let ((*bg-1*               "#102235")
       (*bg-2*               "#233445")
