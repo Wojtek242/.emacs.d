@@ -16,8 +16,17 @@
 ;;; Required packages:
 
 (setq init-packages/emacs-packages
-      '(use-package))
+
+      '(use-package)
+
+      )
 
 ;;; Configuration:
 
-(defun init-packages/init-emacs ())
+(defun init-packages/init-emacs ()
+
+  ;; --------------------------------------------------------------------------
+  ;; Empty config.
+  ;; --------------------------------------------------------------------------
+
+  )

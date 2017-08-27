@@ -97,7 +97,8 @@
 
   (init-packages/init '(emacs
                         version-control
-                        editing))
+                        editing
+                        workflow))
 
 
   ;; *********************************************************************** ;;
@@ -117,28 +118,17 @@
   ;; --------------------------------------------------------------------------
   ;; Load any custom variables.
   ;; --------------------------------------------------------------------------
-  (when (file-exists-p custom-file)
-    (load custom-file))
+  (load custom-file 'noerror)
 
   ;; --------------------------------------------------------------------------
-  ;; Formatting
+  ;; Programming style.
   ;; --------------------------------------------------------------------------
 
-  (setq-default tab-width 8)                         ;; Tab width
-  (setq-default indent-tabs-mode nil)                ;; No tabs
-  (setq-default fill-column 79)                      ;; Line width
-  (setq-default whitespace-line-column fill-column)  ;; For whitespace mode
   (setq-default c-default-style "linux")             ;; Default C style
 
   ;; --------------------------------------------------------------------------
   ;; Convenience functions.
   ;; --------------------------------------------------------------------------
-
-  (defun toggle-indent-tabs-mode ()
-    "Toggle a indent-tabs-mode between a defined and undefined state."
-    (interactive)
-    (setq indent-tabs-mode (not indent-tabs-mode))
-    (setq-default indent-tabs-mode indent-tabs-mode))
 
   (defun quit-other-window ()
     "Quit the next window in cyclic order"
@@ -154,12 +144,30 @@
   ;; Convenience keyboard shortcuts.
   ;; --------------------------------------------------------------------------
 
-  (global-set-key (kbd "C-x k") 'kill-default-buffer) ;; Kill current buffer
-  (global-set-key (kbd "C-x C-q") 'quit-other-window) ;; Kill other window
-  (global-set-key (kbd "C-c w") 'whitespace-mode)     ;; Toggle whitespace mode
-  (global-set-key (kbd "C-x k") 'kill-default-buffer) ;; Kill current buffer
-  (global-set-key (kbd "M-o") 'other-window)          ;; Change window
-  (global-set-key (kbd "M-s M-o") 'occur)             ;; Occur
+  ;; Kill current buffer without prompting.
+  (global-set-key (kbd "C-x k") 'kill-default-buffer)
+
+  ;; Kill other window (cyclic order).
+  (global-set-key (kbd "C-x C-q") 'quit-other-window)
+
+  ;; Toggle whitespace mode.
+  (global-set-key (kbd "C-c w") 'whitespace-mode)
+
+  ;; Change active window.  More convenient than "C-x o".
+  (global-set-key (kbd "M-o") 'other-window)
+
+  ;; Occur. More convenient than "M-s o"
+  (global-set-key (kbd "M-s M-o") 'occur)
+
+  ;; --------------------------------------------------------------------------
+  ;; Aliases.
+  ;; --------------------------------------------------------------------------
+
+  ;; y or n is enough.
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
+  ;; Always use ibuffer.
+  (defalias 'list-buffers 'ibuffer)
 
   ;; --------------------------------------------------------------------------
   ;; Configure garbage collection.
@@ -184,3 +192,4 @@
   (setq-default max-lisp-eval-depth 24000) ;; 30x orignal value
 
 ) ;; Reset garbage collection settings.
+(put 'erase-buffer 'disabled nil)
