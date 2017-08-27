@@ -31,16 +31,21 @@
   ;; --------------------------------------------------------------------------
   ;; Parentheses highlighting.
   ;; --------------------------------------------------------------------------
-  (use-package rainbow-delimiters)
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  (use-package rainbow-delimiters
+    :defer t
+    :init
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
-  (use-package highlight-parentheses)
-  (add-hook 'prog-mode-hook 'show-paren-mode)
-  (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
-  (setq hl-paren-colors '("#86DC2F"
-                          "IndianRed1"
-                          "IndianRed3"
-                          "IndianRed4"))
+  (use-package highlight-parentheses
+    :defer t
+    :init
+    (add-hook 'prog-mode-hook 'show-paren-mode)
+    (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
+    :config
+    (setq hl-paren-colors '("#86DC2F"
+                            "IndianRed1"
+                            "IndianRed3"
+                            "IndianRed4")))
 
   ;; --------------------------------------------------------------------------
   ;; Use UTF-8.

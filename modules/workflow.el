@@ -30,11 +30,14 @@
   ;; Enable `workgroups'.
   ;; --------------------------------------------------------------------------
 
-  (use-package workgroups2)
-  (workgroups-mode 1)
+  (use-package workgroups2
+    :defer t
+    :config
+    ;; Don't save.  Workgroups are transient to the session.
+    (setq wg-emacs-exit-save-behavior           nil)
+    (setq wg-workgroups-mode-exit-save-behavior nil))
 
-  ;; Don't save.  Workgroups are transient to the session.
-  (setq wg-emacs-exit-save-behavior           nil)
-  (setq wg-workgroups-mode-exit-save-behavior nil)
+  ;; Enable workgroups mode.
+  (workgroups-mode 1)
 
   )
