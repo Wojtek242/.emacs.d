@@ -52,9 +52,18 @@
 
   ;; Theme --------------------------------------------------------------------
 
+  ;; Add the necessary paths.
   (add-to-list 'load-path "~/.emacs.d/themes/")
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+  ;; Load the dark theme by default.
   (load-theme 'havoc-dark t) ;; Load personal theme
+
+  ;; Setup key-bindings for switching between themes.
+  (global-set-key (kbd "C-x t l") '(lambda () (interactive)
+                                     (load-theme 'havoc-light t)))
+  (global-set-key (kbd "C-x t d") '(lambda () (interactive)
+                                     (load-theme 'havoc-dark t)))
 
   ;; --------------------------------------------------------------------------
   ;; Change file in which custom variable changes are saved.
