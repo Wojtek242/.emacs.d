@@ -50,6 +50,11 @@
   (setq-default linum-format "%4d \u2502") ;; Line number format
   (add-hook 'prog-mode-hook 'linum-mode)   ;; Only in programming modes
 
+  ;; Modeline -----------------------------------------------------------------
+
+  (size-indication-mode 1)
+  (column-number-mode 1)
+
   ;; Theme --------------------------------------------------------------------
 
   ;; Add the necessary paths.
@@ -171,6 +176,14 @@
   ;; Change active window.  More convenient than "C-x o".
   (global-set-key (kbd "M-o") 'other-window)
 
+  ;; Scroll up/down.
+  (global-set-key (kbd "C-<") (lambda() (interactive)
+                                (let ((scroll-preserve-screen-position nil))
+                                  (scroll-down 1))))
+  (global-set-key (kbd "C->") (lambda() (interactive)
+                                (let ((scroll-preserve-screen-position nil))
+                                  (scroll-up 1))))
+
   ;; Setup key-bindings for switching between themes.
   (global-set-key (kbd "C-x t l") '(lambda () (interactive)
                                      (load-theme 'havoc-light t)
@@ -211,4 +224,4 @@
   (setq-default max-specpdl-size 20000) ;; ~15x original value
   (setq-default max-lisp-eval-depth 24000) ;; 30x orignal value
 
-) ;; Reset garbage collection settings.
+  ) ;; Reset garbage collection settings.

@@ -222,8 +222,4 @@
   ;; Occur. More convenient than "M-s o"
   (global-set-key (kbd "M-s M-o") 'occur)
 
-  ;; Scroll up/down.
-  (global-set-key (kbd "C-<") (lambda() (interactive) (scroll-down 1)))
-  (global-set-key (kbd "C->") (lambda() (interactive) (scroll-up 1)))
-
   )
