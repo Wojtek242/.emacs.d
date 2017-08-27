@@ -62,6 +62,18 @@ after attempting to install all other packages first."
 
 ;;; Print functions
 
+(defun init-packages/set-logs-read-only ()
+  "Set log buffer to log-view-mode."
+  (when init-packages/print-logs
+
+    (save-excursion
+      (set-buffer (get-buffer-create init-packages/log))
+      (log-view-mode))
+
+    (save-excursion
+      (set-buffer (get-buffer-create init-packages/error-log))
+      (log-view-mode))))
+
 (defun init-packages/erase-logs ()
   "Erase both log buffers."
   (when init-packages/print-logs
@@ -69,12 +81,14 @@ after attempting to install all other packages first."
     ;; Erase `init-packages/log'.
     (save-excursion
       (set-buffer (get-buffer-create init-packages/log))
+      (read-only-mode 0)
       (erase-buffer)
       (goto-char (point-min)))
 
     ;; Erase `init-packages/error-log'.
     (save-excursion
       (set-buffer (get-buffer-create init-packages/error-log))
+      (read-only-mode 0)
       (erase-buffer)
       (goto-char (point-min)))))
 
@@ -265,7 +279,8 @@ this macro."
   "Initialise all modules in MODLIST."
   (init-packages/load-module-list modlist)
   (init-packages/install-packages (init-packages/cons-package-list modlist))
-  (init-packages/init-module-list modlist))
+  (init-packages/init-module-list modlist)
+  (init-packages/set-logs-read-only))
 
 (provide 'init-packages)
 
