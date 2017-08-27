@@ -32,9 +32,9 @@
 (defun create-havoc-theme (variant theme-name) ;;    ** DARK **       ** LIGHT **
   (let ((*active-line-bg*     (if (eq variant 'dark) "#003355"        "#90AECE"))
         (*bg-1*               (if (eq variant 'dark) "#102235"        "#FFFFFF"))
-        (*bg-2*               (if (eq variant 'dark) "#233445"        "#EBEBEB"))
-        (*bg-3*               (if (eq variant 'dark) "#364555"        "#D6D6D6"))
-        (*bg-4*               (if (eq variant 'dark) "#495765"        "#C2C2C2"))
+        (*bg-2*               (if (eq variant 'dark) "#233445"        "#ECF6FF"))
+        (*bg-3*               (if (eq variant 'dark) "#364555"        "#d9e2eb"))
+        (*bg-4*               (if (eq variant 'dark) "#495765"        "#c6cfd6"))
         (*comments*           (if (eq variant 'dark) "#4E6F91"        "#B22222"))
         (*comments-bg*        (if (eq variant 'dark) "#102235"        "#FFFFFF"))
         (*constant*           (if (eq variant 'dark) "#A45BAD"        "#5F9EA0"))
