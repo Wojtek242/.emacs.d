@@ -22,7 +22,8 @@
         highlight-parentheses
         whole-line-or-region
         duplicate-thing
-        volatile-highlights)
+        volatile-highlights
+        expand-region)
 
       )
 
@@ -36,7 +37,14 @@
 
   (use-package duplicate-thing
     :defer t
-    :bind (("M-c" . duplicate-thing)))
+    :bind (("M-C" . duplicate-thing)))
+
+  ;; --------------------------------------------------------------------------
+  ;; Expand region - intelligent select.
+  ;; --------------------------------------------------------------------------
+  (use-package expand-region
+    :defer t
+    :bind (("C-'" . er/expand-region)))
 
   ;; --------------------------------------------------------------------------
   ;; Volatile highlights - highlight changes caused by undo, yank, etc.
@@ -209,5 +217,9 @@
 
   ;; Occur. More convenient than "M-s o"
   (global-set-key (kbd "M-s M-o") 'occur)
+
+  ;; Scroll up/down.
+  (global-set-key (kbd "C-<") (lambda() (interactive) (scroll-down 1)))
+  (global-set-key (kbd "C->") (lambda() (interactive) (scroll-up 1)))
 
   )
