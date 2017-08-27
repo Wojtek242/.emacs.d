@@ -105,9 +105,10 @@
   ;; Load modules.
   ;; --------------------------------------------------------------------------
 
-  (init-packages/init '(emacs
+  (init-packages/init '(editing
+                        emacs
+                        helm
                         version-control
-                        editing
                         workflow))
 
 

@@ -207,7 +207,4 @@
   ;; Toggle whitespace mode.
   (global-set-key (kbd "C-c w") 'whitespace-mode)
 
-  ;; Occur. More convenient than "M-s o"
-  (global-set-key (kbd "M-s M-o") 'occur)
-
   )

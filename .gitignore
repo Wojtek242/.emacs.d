@@ -2,4 +2,6 @@ auto-save-list
 bookmarks
 elpa
 custom.el
+recentf
+projectile-bookmarks.eld
 *~
