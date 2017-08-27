@@ -30,7 +30,7 @@
 ;;; Code:
 
 (defun create-havoc-theme (variant theme-name) ;;    ** DARK **       ** LIGHT **
-  (let ((*active-line-bg*     (if (eq variant 'dark) "#003355"        "#90AECE"))
+  (let ((*active-line*        (if (eq variant 'dark) "#003355"        "#90AECE"))
         (*bg-1*               (if (eq variant 'dark) "#102235"        "#FFFFFF"))
         (*bg-2*               (if (eq variant 'dark) "#233445"        "#ECF6FF"))
         (*bg-3*               (if (eq variant 'dark) "#364555"        "#d9e2eb"))
@@ -163,7 +163,7 @@
      `(header-line ((t (:background, *fringe* :foreground, *normal*)))) ;; info header
      `(linum ((t (:foreground, *line-number* :background, *line-number-bg* :underline nil :bold nil :italic nil))))
      `(minibuffer-prompt ((t (:inherit bold :foreground, *mb-prompt*))))
-     `(mode-line ((t (:background, *active-line-bg* :foreground, *normal*))))
+     `(mode-line ((t (:background, *active-line* :foreground, *normal*))))
      `(mode-line-inactive ((t (:background, *mode-line-bg* :foreground, *mode-line-fg*))))
      `(cursor ((t (:background, *cursor-block*))))
      `(text-cursor ((t (:background, *cursor-underscore*))))
@@ -216,16 +216,16 @@
      `(diff-removed     ((t (:background ,*diff-rmvd-bg* :foreground ,*diff-rmvd-fg*))))
 
    ;;;;; magit
-     `(magit-blame-culprit ((t :background ,*active-line-bg* :foreground ,*fg-standout*)))
-     `(magit-blame-date    ((t :background ,*active-line-bg* :foreground ,*string*)))
-     `(magit-blame-hash    ((t :background ,*active-line-bg* :foreground ,*method-declaration*)))
-     `(magit-blame-header  ((t :background ,*active-line-bg* :foreground ,*string*)))
-     `(magit-blame-heading ((t :background ,*active-line-bg* :foreground ,*string*)))
-     `(magit-blame-name    ((t :background ,*active-line-bg* :foreground ,*fg-standout*)))
-     `(magit-blame-sha1    ((t :background ,*active-line-bg* :foreground ,*method-declaration*)))
-     `(magit-blame-subject ((t :background ,*active-line-bg* :foreground ,*fg-standout*)))
-     `(magit-blame-summary ((t :background ,*active-line-bg* :foreground ,*fg-standout*)))
-     `(magit-blame-time    ((t :background ,*active-line-bg* :foreground ,*string*)))
+     `(magit-blame-culprit ((t :background ,*active-line* :foreground ,*fg-standout*)))
+     `(magit-blame-date    ((t :background ,*active-line* :foreground ,*string*)))
+     `(magit-blame-hash    ((t :background ,*active-line* :foreground ,*method-declaration*)))
+     `(magit-blame-header  ((t :background ,*active-line* :foreground ,*string*)))
+     `(magit-blame-heading ((t :background ,*active-line* :foreground ,*string*)))
+     `(magit-blame-name    ((t :background ,*active-line* :foreground ,*fg-standout*)))
+     `(magit-blame-sha1    ((t :background ,*active-line* :foreground ,*method-declaration*)))
+     `(magit-blame-subject ((t :background ,*active-line* :foreground ,*fg-standout*)))
+     `(magit-blame-summary ((t :background ,*active-line* :foreground ,*fg-standout*)))
+     `(magit-blame-time    ((t :background ,*active-line* :foreground ,*string*)))
      `(magit-branch ((t (:foreground ,*constant* :inherit bold))))
      `(magit-branch-current ((t (:foreground ,*blue* :inherit bold :box t))))
      `(magit-branch-local ((t (:foreground ,*blue* :inherit bold))))
