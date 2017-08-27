@@ -30,7 +30,7 @@
 ;;; Code:
 
 (defun create-havoc-theme (variant theme-name) ;;    ** DARK **       ** LIGHT **
-  (let ((*active-line-bg*     (if (eq variant 'dark) "#003355"        "#5BA0EB"))
+  (let ((*active-line-bg*     (if (eq variant 'dark) "#003355"        "#90AECE"))
         (*bg-1*               (if (eq variant 'dark) "#102235"        "#FFFFFF"))
         (*bg-2*               (if (eq variant 'dark) "#233445"        "#EBEBEB"))
         (*bg-3*               (if (eq variant 'dark) "#364555"        "#D6D6D6"))
@@ -46,10 +46,10 @@
         (*keywords*           (if (eq variant 'dark) "#8AC6F2"        "#A020F0"))
         (*light-purple*       (if (eq variant 'dark) "#FFCCFF"        "#FFCCFF"))
         (*line-number*        (if (eq variant 'dark) "#2F577C"        "#B3B3B3"))
-        (*line-number-bg*     (if (eq variant 'dark) "#0A1721"        "#DFEFF6"))
+        (*line-number-bg*     (if (eq variant 'dark) "#0A1721"        "#FAFDFF"))
         (*mb-prompt*          (if (eq variant 'dark) "#8AC6F2"        "#0000FF"))
         (*method-declaration* (if (eq variant 'dark) "#AF81F4"        "#0000FF"))
-        (*mode-line-bg*       (if (eq variant 'dark) "#0A1721"        "#DFEFF6"))
+        (*mode-line-bg*       (if (eq variant 'dark) "#0A1721"        "#C9D5E3"))
         (*mode-line-fg*       (if (eq variant 'dark) "#8EAFD1"        "#333333"))
         (*normal*             (if (eq variant 'dark) "#DFEFF6"        "#000000"))
         (*number*             (if (eq variant 'dark) "#96DEFA"        "#AF81F4"))
