@@ -29,8 +29,20 @@
   ;; --------------------------------------------------------------------------
   ;; Load and configure `magit'.
   ;; --------------------------------------------------------------------------
+
   (use-package magit
-    :defer t)
+    :defer t
+    :bind
+    ("C-x g h" . magit-log-head)
+    ("C-x g f" . magit-log-buffer-file)
+    ("C-x g b" . magit-blame)
+    ("C-x g m" . magit-show-refs-popup)
+    ("C-x g c" . magit-branch-and-checkout)
+    ("C-x g s" . magit-status)
+    ("C-x g r" . magit-reflog)
+    ("C-x g t" . magit-tag)
+    :config
+    (add-hook 'magit-mode-hook 'magit-load-config-extensions))
 
   ;; --------------------------------------------------------------------------
   ;; Diff mode settings.
