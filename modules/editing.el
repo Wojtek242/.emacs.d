@@ -23,7 +23,8 @@
         whole-line-or-region
         duplicate-thing
         volatile-highlights
-        expand-region)
+        expand-region
+        fill-column-indicator)
 
       )
 
@@ -47,6 +48,14 @@
     :bind (("C-'" . er/expand-region)))
 
   ;; --------------------------------------------------------------------------
+  ;; Column indicator.
+  ;; --------------------------------------------------------------------------
+
+  (use-package fill-column-indicator
+    :defer t
+    :init (add-hook 'prog-mode-hook 'fci-mode))
+
+  ;; --------------------------------------------------------------------------
   ;; Volatile highlights - highlight changes caused by undo, yank, etc.
   ;; --------------------------------------------------------------------------
 
@@ -65,12 +74,7 @@
     :defer t
     :init
     (add-hook 'prog-mode-hook 'show-paren-mode)
-    (add-hook 'prog-mode-hook 'highlight-parentheses-mode)
-    :config
-    (setq hl-paren-colors '("#86DC2F"
-                            "IndianRed1"
-                            "IndianRed3"
-                            "IndianRed4")))
+    (add-hook 'prog-mode-hook 'highlight-parentheses-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Use UTF-8.

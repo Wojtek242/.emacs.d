@@ -87,6 +87,11 @@
         (*rdd-8*              (if (eq variant 'dark) "#89E14B"        "#00BB00"))
         (*rdd-9*              (if (eq variant 'dark) "#40E0D0"        "#00BBBB"))
 
+        ;; Highlight parentheses colours
+        (*hlp-1*              (if (eq variant 'dark) "#FF6A6A"        "#FF6A6A"))
+        (*hlp-2*              (if (eq variant 'dark) "#EE6363"        "#EE6363"))
+        (*hlp-3*              (if (eq variant 'dark) "#CD5555"        "#CD5555"))
+
         ;; Diff colors
         (*diff-added-bg*      (if (eq variant 'dark) "#336622"        "#DDFFDD"))
         (*diff-added-fg*      (if (eq variant 'dark) "#DDFFDD"        "#22AA22"))
@@ -213,14 +218,14 @@
      `(rainbow-delimiters-depth-8-face  ((t (:foreground ,*rdd-8*))))
      `(rainbow-delimiters-depth-9-face  ((t (:foreground ,*rdd-9*))))
 
-   ;;;;; diff
+     ;; diff
      `(diff-header      ((t (:background ,*header-bg*))))
      `(diff-file-header ((t (:foreground ,*diff-file-hdr-fg*))))
      `(diff-hunk-header ((t (:background ,*diff-hunk-hdr-bg* :foreground ,*diff-hunk-hdr-fg*))))
      `(diff-added       ((t (:background ,*diff-added-bg* :foreground ,*diff-added-fg*))))
      `(diff-removed     ((t (:background ,*diff-rmvd-bg* :foreground ,*diff-rmvd-fg*))))
 
-   ;;;;; magit
+     ;; magit
      `(magit-blame-culprit ((t :background ,*active-line* :foreground ,*fg-standout*)))
      `(magit-blame-date    ((t :background ,*active-line* :foreground ,*string*)))
      `(magit-blame-hash    ((t :background ,*active-line* :foreground ,*method-declaration*)))
@@ -276,7 +281,7 @@
      `(magit-section-highlight ((t (:background ,*bg-2*))))
      `(magit-section-title ((t (:background ,*bg-1* :foreground ,*keywords* :inherit bold))))
 
-   ;;;;; helm
+     ;; helm
      `(helm-bookmark-directory ((t (:inherit helm-ff-directory))))
      `(helm-bookmark-file ((t (:foreground ,*base*))))
      `(helm-bookmark-gnus ((t (:foreground ,*comp*))))
@@ -316,12 +321,21 @@
      `(helm-time-zone-home ((t (:foreground ,*comp* :background ,*bg-1*))))
      `(helm-visible-mark ((t (:foreground ,*keywords* :background ,*bg-3*))))
 
-   ;;;;; helm-swoop
+     ;; helm-swoop
      `(helm-swoop-target-line-block-face ((t (:foreground ,*base* :background ,*current-line*))))
      `(helm-swoop-target-line-face ((t (:background ,*current-line*))))
      `(helm-swoop-target-word-face ((t (:background ,*current-line* :foreground ,*mat*))))
 
-     )))
+     )
+
+    ;; Define values for colours that don't use faces.
+    (setq fci-rule-color *bg-3*)
+    (setq hl-paren-colors '(*success*
+                            *hlp-1*
+                            *hlp-2*
+                            *hlp-3*))
+
+    ))
 
 ;;;###autoload
 (when (and (boundp 'custom-theme-load-path) load-file-name)

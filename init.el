@@ -59,12 +59,6 @@
   ;; Load the dark theme by default.
   (load-theme 'havoc-dark t) ;; Load personal theme
 
-  ;; Setup key-bindings for switching between themes.
-  (global-set-key (kbd "C-x t l") '(lambda () (interactive)
-                                     (load-theme 'havoc-light t)))
-  (global-set-key (kbd "C-x t d") '(lambda () (interactive)
-                                     (load-theme 'havoc-dark t)))
-
   ;; --------------------------------------------------------------------------
   ;; Change file in which custom variable changes are saved.
   ;; --------------------------------------------------------------------------
@@ -151,6 +145,19 @@
     (interactive)
     (let (kill-buffer-query-functions) (kill-buffer)))
 
+  (defun refresh-non-face-colours ()
+    "Restart modes that use colours not set with face variables.
+    This has to be called whenever the active theme changes to
+    refresh these colours."
+
+    (when (and (fboundp 'fci-mode)
+               (fci-mode))
+      (fci-mode 1))
+
+    (when (and (fboundp 'highlight-parentheses-mode)
+               (highlight-parentheses-mode))
+      (highlight-parentheses-mode 1)))
+
   ;; --------------------------------------------------------------------------
   ;; Convenience keyboard shortcuts.
   ;; --------------------------------------------------------------------------
@@ -163,6 +170,14 @@
 
   ;; Change active window.  More convenient than "C-x o".
   (global-set-key (kbd "M-o") 'other-window)
+
+  ;; Setup key-bindings for switching between themes.
+  (global-set-key (kbd "C-x t l") '(lambda () (interactive)
+                                     (load-theme 'havoc-light t)
+                                     (refresh-non-face-colours)))
+  (global-set-key (kbd "C-x t d") '(lambda () (interactive)
+                                     (load-theme 'havoc-dark t)
+                                     (refresh-non-face-colours)))
 
   ;; --------------------------------------------------------------------------
   ;; Aliases.
