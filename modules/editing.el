@@ -17,7 +17,8 @@
 
 (setq init-packages/editing-packages
 
-      '(rainbow-delimiters
+      '(rainbow-mode
+        rainbow-delimiters
         highlight-parentheses
         whole-line-or-region)
 

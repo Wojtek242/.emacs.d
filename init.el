@@ -52,8 +52,9 @@
 
   ;; Theme --------------------------------------------------------------------
 
+  (add-to-list 'load-path "~/.emacs.d/themes/")
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-  (load-theme 'havoc t) ;; Load personal theme
+  (load-theme 'havoc-dark t) ;; Load personal theme
 
   ;; --------------------------------------------------------------------------
   ;; Change file in which custom variable changes are saved.
