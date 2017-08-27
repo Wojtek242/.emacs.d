@@ -31,7 +31,6 @@
   ;; --------------------------------------------------------------------------
 
   (use-package workgroups2
-    :defer t
     :config
     ;; Don't save.  Workgroups are transient to the session.
     (setq wg-emacs-exit-save-behavior           nil)

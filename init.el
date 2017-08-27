@@ -160,14 +160,8 @@
   ;; Kill other window (cyclic order).
   (global-set-key (kbd "C-x C-q") 'quit-other-window)
 
-  ;; Toggle whitespace mode.
-  (global-set-key (kbd "C-c w") 'whitespace-mode)
-
   ;; Change active window.  More convenient than "C-x o".
   (global-set-key (kbd "M-o") 'other-window)
-
-  ;; Occur. More convenient than "M-s o"
-  (global-set-key (kbd "M-s M-o") 'occur)
 
   ;; --------------------------------------------------------------------------
   ;; Aliases.

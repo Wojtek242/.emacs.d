@@ -20,13 +20,30 @@
       '(rainbow-mode
         rainbow-delimiters
         highlight-parentheses
-        whole-line-or-region)
+        whole-line-or-region
+        duplicate-thing
+        volatile-highlights)
 
       )
 
 ;; Configuration:
 
 (defun init-packages/init-editing ()
+
+  ;; --------------------------------------------------------------------------
+  ;; Duplicate things.
+  ;; --------------------------------------------------------------------------
+
+  (use-package duplicate-thing
+    :defer t
+    :bind (("M-c" . duplicate-thing)))
+
+  ;; --------------------------------------------------------------------------
+  ;; Volatile highlights - highlight changes caused by undo, yank, etc.
+  ;; --------------------------------------------------------------------------
+
+  (use-package volatile-highlights)
+  (volatile-highlights-mode t)
 
   ;; --------------------------------------------------------------------------
   ;; Parentheses highlighting.
@@ -182,5 +199,15 @@
                    (member major-mode yank-indent-modes)))
       (let ((transient-mark-mode nil))
         (yank-advised-indent-function (region-beginning) (region-end)))))
+
+  ;; --------------------------------------------------------------------------
+  ;; Additional key-bindingds.
+  ;; --------------------------------------------------------------------------
+
+  ;; Toggle whitespace mode.
+  (global-set-key (kbd "C-c w") 'whitespace-mode)
+
+  ;; Occur. More convenient than "M-s o"
+  (global-set-key (kbd "M-s M-o") 'occur)
 
   )
