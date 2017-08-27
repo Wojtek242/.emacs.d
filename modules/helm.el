@@ -34,7 +34,7 @@
      ("M-y" . helm-show-kill-ring)
      ("C-x b" . helm-mini)
      ("C-M-j" . helm-semantic-or-imenu)
-     ("M-s M-o" . helm-occur)
+     ("C-c h M-s M-o" . helm-occur)
      ("C-h SPC" . helm-all-mark-rings)
      ("C-c h x" . helm-register))
     :config
