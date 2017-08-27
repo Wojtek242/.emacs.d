@@ -202,4 +202,3 @@
   (setq-default max-lisp-eval-depth 24000) ;; 30x orignal value
 
 ) ;; Reset garbage collection settings.
-(put 'erase-buffer 'disabled nil)
