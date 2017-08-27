@@ -128,6 +128,7 @@
      `(header-line ((t (:background, *mode-line-bg* :foreground, *normal*)))) ;; info header
      `(highlight ((t (:background, *current-line*))))
      `(highlight-face ((t (:background, *current-line*))))
+     `(vhl/default-face ((t (:background, *bg-2*))))
      `(hl-line ((t (:background, *current-line* :underline t))))
      `(info-xref ((t (:foreground, *keywords* :underline t))))
      `(Info-quoted ((t (:foreground, *keywords*))))
