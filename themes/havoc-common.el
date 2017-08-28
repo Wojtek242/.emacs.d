@@ -330,10 +330,10 @@
 
     ;; Define values for colours that don't use faces.
     (setq fci-rule-color *bg-3*)
-    (setq hl-paren-colors '(*success*
-                            *hlp-1*
-                            *hlp-2*
-                            *hlp-3*))
+    (setq hl-paren-colors `(,*success*
+                            ,*hlp-1*
+                            ,*hlp-2*
+                            ,*hlp-3*))
 
     ))
 
