@@ -39,7 +39,6 @@
      ("C-h SPC" . helm-all-mark-rings))
     :config
     (require 'helm-config)
-    (require 'helm-descbinds)
 
     ;; Helm prefix ------------------------------------------------------------
 
@@ -109,16 +108,19 @@
     ;; Activate helm-descbinds.
     ;; ------------------------------------------------------------------------
 
-    (helm-descbinds-mode)
+    (use-package helm-descbinds
+      :init
+      (helm-descbinds-mode))
 
     ;; ------------------------------------------------------------------------
     ;; Configure projectile.
     ;; ------------------------------------------------------------------------
 
-    (projectile-global-mode)
-    (setq-default projectile-completion-system 'helm)
-    (helm-projectile-on)
-
-    )
+    (use-package helm-projectile
+      :init
+      (projectile-global-mode)
+      :config
+      (setq-default projectile-completion-system 'helm)
+      (helm-projectile-on)))
 
   )

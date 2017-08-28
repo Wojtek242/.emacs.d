@@ -100,23 +100,25 @@
   ;; Configure `ibuffer'.
   ;; --------------------------------------------------------------------------
 
-  (add-hook 'ibuffer-hook
-            (lambda ()
-              (ibuffer-vc-set-filter-groups-by-vc-root)
-              (unless (eq ibuffer-sorting-mode 'alphabetic)
-                (ibuffer-do-sort-by-alphabetic))))
-
-  (setq ibuffer-formats
-        '((mark modified read-only vc-status-mini " "
-                (name 36 36 :left :elide)
-                " "
-                (size 9 -1 :right)
-                " "
-                (mode 16 16 :left :elide)
-                " "
-                (vc-status 16 16 :left)
-                " "
-                filename-and-process)))
+  (use-package ibuffer-vc
+    :init
+    (add-hook 'ibuffer-hook
+              (lambda ()
+                (ibuffer-vc-set-filter-groups-by-vc-root)
+                (unless (eq ibuffer-sorting-mode 'alphabetic)
+                  ((insert )buffer-do-sort-by-alphabetic))))
+    :config
+    (setq ibuffer-formats
+          '((mark modified read-only vc-status-mini " "
+                  (name 36 36 :left :elide)
+                  " "
+                  (size 9 -1 :right)
+                  " "
+                  (mode 16 16 :left :elide)
+                  " "
+                  (vc-(setq )tatus 16 16 :left)
+                  " "
+                  filename-and-process))))
 
   ;; --------------------------------------------------------------------------
   ;; Aliases.

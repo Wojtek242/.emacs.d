@@ -17,13 +17,13 @@
 
 (setq init-packages/editing-packages
 
-      '(rainbow-mode
-        whole-line-or-region
-        duplicate-thing
+      '(duplicate-thing
         expand-region
         fill-column-indicator
-        volatile-highlights
+        rainbow-mode
         undo-tree
+        volatile-highlights
+        whole-line-or-region
         ws-butler)
 
       )
@@ -59,12 +59,11 @@
     (add-hook 'text-mode-hook 'fci-mode))
 
   ;; --------------------------------------------------------------------------
-  ;; Volatile highlights - highlight changes caused by undo, yank, etc.
+  ;; Rainbow mode.
   ;; --------------------------------------------------------------------------
 
-  (use-package volatile-highlights
-    :init
-    (volatile-highlights-mode t))
+  (use-package rainbow-mode
+    :defer t)
 
   ;; --------------------------------------------------------------------------
   ;; Undo tree.  To undo "C-\", to redo "C-_", undo tree "C-x u".
@@ -75,15 +74,31 @@
     (global-undo-tree-mode))
 
   ;; --------------------------------------------------------------------------
-  ;; Use UTF-8.
+  ;; Volatile highlights - highlight changes caused by undo, yank, etc.
   ;; --------------------------------------------------------------------------
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-language-environment "UTF-8")
-  (prefer-coding-system 'utf-8)
+
+  (use-package volatile-highlights
+    :init
+    (volatile-highlights-mode t))
 
   ;; --------------------------------------------------------------------------
-  ;; Convenient editing settings.
+  ;; Kill line when calling kill-region without a selected region.
+  ;; --------------------------------------------------------------------------
+
+  (use-package whole-line-or-region
+    :init
+    (whole-line-or-region-global-mode t))
+
+  ;; --------------------------------------------------------------------------
+  ;; `ws-butler' will cleanup whitespace on all modified files on save.
+  ;; --------------------------------------------------------------------------
+
+  (use-package ws-butler
+    :init
+    (ws-butler-global-mode))
+
+  ;; --------------------------------------------------------------------------
+  ;; Non-package related editing settings.
   ;; --------------------------------------------------------------------------
 
   ;; Kill whole line when point at beginning of line.
@@ -92,11 +107,13 @@
   ;; Replace selected rather than inserting text at point.
   (delete-selection-mode)
 
-  ;; Kill line when calling kill-region without a selected region.
-  (whole-line-or-region-global-mode t)
-
-  ;; `ws-butler' will cleanup whitespace on all modified files on save.
-  (ws-butler-global-mode)
+  ;; --------------------------------------------------------------------------
+  ;; Use UTF-8.
+  ;; --------------------------------------------------------------------------
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-language-environment "UTF-8")
+  (prefer-coding-system 'utf-8)
 
   ;; --------------------------------------------------------------------------
   ;; Formatting
