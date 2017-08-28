@@ -107,6 +107,7 @@
   (init-packages/init '(editing
                         emacs
                         helm
+                        parentheses
                         version-control
                         workflow))
 

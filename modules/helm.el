@@ -49,7 +49,7 @@
 
     ;; Helm settings ----------------------------------------------------------
 
-    (setq
+    (setq-default
      ;; Open helm buffer inside current window, not occupy whole other window.
      helm-split-window-in-side-p t
      ;; Move to end or beginning of list when reaching top or bottom of list.
@@ -114,7 +114,7 @@
     ;; ------------------------------------------------------------------------
 
     (projectile-global-mode)
-    (setq projectile-completion-system 'helm)
+    (setq-default projectile-completion-system 'helm)
     (helm-projectile-on)
 
     )

@@ -18,8 +18,6 @@
 (setq init-packages/editing-packages
 
       '(rainbow-mode
-        rainbow-delimiters
-        highlight-parentheses
         whole-line-or-region
         duplicate-thing
         volatile-highlights
@@ -43,6 +41,7 @@
   ;; --------------------------------------------------------------------------
   ;; Expand region - intelligent select.
   ;; --------------------------------------------------------------------------
+
   (use-package expand-region
     :defer t
     :bind (("C-'" . er/expand-region)))
@@ -63,20 +62,6 @@
   (volatile-highlights-mode t)
 
   ;; --------------------------------------------------------------------------
-  ;; Parentheses highlighting.
-  ;; --------------------------------------------------------------------------
-  (use-package rainbow-delimiters
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-
-  (use-package highlight-parentheses
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook 'show-paren-mode)
-    (add-hook 'prog-mode-hook 'highlight-parentheses-mode))
-
-  ;; --------------------------------------------------------------------------
   ;; Use UTF-8.
   ;; --------------------------------------------------------------------------
   (set-terminal-coding-system 'utf-8)
@@ -89,7 +74,7 @@
   ;; --------------------------------------------------------------------------
 
   ;; Kill whole line when point at beginning of line.
-  (setq kill-whole-line t)
+  (setq-default kill-whole-line t)
 
   ;; Replace selected rather than inserting text at point.
   (delete-selection-mode)
@@ -183,7 +168,7 @@
     '(python-mode slim-mode haml-mode)
     "Modes for which auto-indenting is suppressed.")
 
-  (defvar yank-advised-indent-threshold 1000
+  (defvar yank-advised-indent-threshold 10000
     "Threshold (# chars) over which indentation does not
     automatically occur.")
 
