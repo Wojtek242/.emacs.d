@@ -33,7 +33,7 @@
   (use-package magit
     :defer t
     :bind
-    ("C-x g h" . magit-log-head)
+    ("C-x g l" . magit-log-head)
     ("C-x g f" . magit-log-buffer-file)
     ("C-x g b" . magit-blame)
     ("C-x g m" . magit-show-refs-popup)
