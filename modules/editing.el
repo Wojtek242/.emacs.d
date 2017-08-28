@@ -20,9 +20,10 @@
       '(rainbow-mode
         whole-line-or-region
         duplicate-thing
-        volatile-highlights
         expand-region
-        fill-column-indicator)
+        fill-column-indicator
+        volatile-highlights
+        undo-tree)
 
       )
 
@@ -62,6 +63,13 @@
   (volatile-highlights-mode t)
 
   ;; --------------------------------------------------------------------------
+  ;; Undo tree.  To undo "C-\", to redo "C-_", undo tree "C-x u".
+  ;; --------------------------------------------------------------------------
+
+  (use-package undo-tree)
+  (global-undo-tree-mode)
+
+  ;; --------------------------------------------------------------------------
   ;; Use UTF-8.
   ;; --------------------------------------------------------------------------
   (set-terminal-coding-system 'utf-8)
@@ -86,10 +94,15 @@
   ;; Formatting
   ;; --------------------------------------------------------------------------
 
-  (setq-default tab-width 8)                         ;; Tab width
-  (setq-default indent-tabs-mode nil)                ;; No tabs
-  (setq-default fill-column 79)                      ;; Line width
-  (setq-default whitespace-line-column fill-column)  ;; For whitespace mode
+  (setq-default
+   ;; Indentation size - applies even when indent-tabs-mode is nil.
+   tab-width 8
+   ;; Do not use tab characters for indentation.
+   indent-tabs-mode nil
+   ;; Standard fill-column width - last character is for end of line glyph.
+   fill-column 79
+   ;; Highlight lines that are too long in whitespace mode.
+   whitespace-line-column fill-column)
 
   ;; --------------------------------------------------------------------------
   ;; Commands.
@@ -198,7 +211,7 @@
         (yank-advised-indent-function (region-beginning) (region-end)))))
 
   ;; --------------------------------------------------------------------------
-  ;; Additional key-bindingds.
+  ;; Additional key-bindings.
   ;; --------------------------------------------------------------------------
 
   ;; Toggle whitespace mode.
