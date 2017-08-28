@@ -50,7 +50,7 @@
         (*keywords*           (if (eq variant 'dark) "#8AC6F2"        "#A020F0"))
         (*light-purple*       (if (eq variant 'dark) "#FFCCFF"        "#FFCCFF"))
         (*line-number*        (if (eq variant 'dark) "#2F577C"        "#B3B3B3"))
-        (*line-number-bg*     (if (eq variant 'dark) "#0A1721"        "#FAFDFF"))
+        (*line-number-bg*     (if (eq variant 'dark) "#071017"        "#FAFDFF"))
         (*mat*                (if (eq variant 'dark) "#86DC2F"        "#BA2F59"))
         (*mb-prompt*          (if (eq variant 'dark) "#8AC6F2"        "#0000FF"))
         (*method-declaration* (if (eq variant 'dark) "#AF81F4"        "#0000FF"))

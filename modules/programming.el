@@ -28,10 +28,29 @@
 
   ;; --------------------------------------------------------------------------
   ;; Line numbers.
+  ;;
+  ;; Ideally, we could just use linum-format "%4d \u2502".  However, the
+  ;; unicode character for the vertical line causes the screen to flicker on
+  ;; some screens when typing or moving the cursor. Using `nlinum' does not
+  ;; solve the problem.  A compromise is to instead use a whitespace character
+  ;; of a different colour.
+  ;;
+  ;; Furthermore, since `linum' can struggle with large buffers, it is disabled
+  ;; once the number of lines cannot fit into linum-format anymore.  `nlinum'
+  ;; is meant to solve the problem, but it updates line numbers after a visible
+  ;; pause if a line is inderted/deleted.
   ;; --------------------------------------------------------------------------
 
-  (setq-default linum-format "%4d \u2502") ;; Line number format
-  (add-hook 'prog-mode-hook 'linum-mode)   ;; Only in programming modes
+  (defun linum-format-func (line)
+    (concat
+     (propertize (format "%4d " line) 'face 'linum)
+     (propertize " " 'face 'mode-line-inactive)))
+
+  (setq-default linum-format 'linum-format-func)
+  (add-hook 'prog-mode-hook '(lambda ()
+                               (unless (> (count-lines (point-min) (point-max))
+                                          9999)
+                                 (linum-mode))))
 
   ;; --------------------------------------------------------------------------
   ;; Formatting settings.
