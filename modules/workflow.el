@@ -31,12 +31,11 @@
   ;; --------------------------------------------------------------------------
 
   (use-package workgroups2
+    :init
+    (workgroups-mode 1)
     :config
     ;; Don't save.  Workgroups are transient to the session.
     (setq wg-emacs-exit-save-behavior           nil)
     (setq wg-workgroups-mode-exit-save-behavior nil))
-
-  ;; Enable workgroups mode.
-  (workgroups-mode 1)
 
   )

@@ -43,8 +43,9 @@
   ;; Enable yasnippet.
   ;; --------------------------------------------------------------------------
 
-  (use-package yasnippet)
-  (yas-global-mode 1)
+  (use-package yasnippet
+    :init
+    (yas-global-mode 1))
 
   ;; --------------------------------------------------------------------------
   ;; Automatically indent yanked text in programming mode.

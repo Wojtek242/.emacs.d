@@ -49,6 +49,9 @@
     (add-hook 'prog-mode-hook 'highlight-parentheses-mode))
 
   (use-package smartparens
+    :init
+    (smartparens-global-mode t)
+    (show-smartparens-global-mode t)
     :config
     (require 'smartparens-config)
 
@@ -108,8 +111,5 @@
      sp-navigate-reindent-after-up-in-string nil
      ;; Do not highlight space between parentheses.
      sp-highlight-pair-overlay nil))
-
-  (smartparens-global-mode t)
-  (show-smartparens-global-mode t)
 
   )

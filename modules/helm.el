@@ -28,6 +28,8 @@
 (defun init-packages/init-helm ()
 
   (use-package helm
+    :init
+    (helm-mode 1)
     :bind
     (("C-x C-f" . helm-find-files)
      ("M-x" . helm-M-x)
@@ -118,7 +120,5 @@
     (helm-projectile-on)
 
     )
-
-  (helm-mode 1)
 
   )

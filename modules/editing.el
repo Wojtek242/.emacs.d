@@ -61,15 +61,17 @@
   ;; Volatile highlights - highlight changes caused by undo, yank, etc.
   ;; --------------------------------------------------------------------------
 
-  (use-package volatile-highlights)
-  (volatile-highlights-mode t)
+  (use-package volatile-highlights
+    :init
+    (volatile-highlights-mode t))
 
   ;; --------------------------------------------------------------------------
   ;; Undo tree.  To undo "C-\", to redo "C-_", undo tree "C-x u".
   ;; --------------------------------------------------------------------------
 
-  (use-package undo-tree)
-  (global-undo-tree-mode)
+  (use-package undo-tree
+    :init
+    (global-undo-tree-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Use UTF-8.
