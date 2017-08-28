@@ -108,6 +108,7 @@
                         emacs
                         helm
                         parentheses
+                        programming
                         version-control
                         workflow))
 
