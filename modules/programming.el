@@ -48,6 +48,19 @@
     (yas-global-mode 1))
 
   ;; --------------------------------------------------------------------------
+  ;; Trailing whitespace.
+  ;; --------------------------------------------------------------------------
+
+  ;; The following setting of `show-trailing-whitespace' is incompatible with
+  ;; fci-mode.  The only known workaround is to have whitespace mode on with
+  ;; whitespace-style set such that only trailing whitespace is shown.  At the
+  ;; moment, just rely on `ws-butler'.
+
+  ;; (add-hook 'prog-mode-hook (lambda ()
+  ;;                             (interactive)
+  ;;                             (setq show-trailing-whitespace t)))
+
+  ;; --------------------------------------------------------------------------
   ;; Automatically indent yanked text in programming mode.
   ;; --------------------------------------------------------------------------
 

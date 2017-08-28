@@ -23,7 +23,8 @@
         expand-region
         fill-column-indicator
         volatile-highlights
-        undo-tree)
+        undo-tree
+        ws-butler)
 
       )
 
@@ -94,6 +95,9 @@
   ;; Kill line when calling kill-region without a selected region.
   (whole-line-or-region-global-mode t)
 
+  ;; `ws-butler' will cleanup whitespace on all modified files on save.
+  (ws-butler-global-mode)
+
   ;; --------------------------------------------------------------------------
   ;; Formatting
   ;; --------------------------------------------------------------------------
@@ -107,6 +111,27 @@
    fill-column 79
    ;; Highlight lines that are too long in whitespace mode.
    whitespace-line-column fill-column)
+
+  ;; --------------------------------------------------------------------------
+  ;; Completion help.
+  ;; --------------------------------------------------------------------------
+
+  ;; hippie-expand is a better version of dabbrev-expand.
+  (global-set-key (kbd "M-/") 'hippie-expand)
+
+  (setq-default
+   hippie-expand-try-functions-list
+   '(try-expand-dabbrev ;; Search current buffer.
+     try-expand-dabbrev-all-buffers ;; Search all other buffers.
+     try-expand-dabbrev-from-kill ;; Search the kill ring.
+     try-complete-file-name-partially ;; Complete text partially as file name.
+     try-complete-file-name ;; Complete text as file name.
+     try-expand-all-abbrevs ;; Expand according to all abbrev tables.
+     try-expand-list ;; Complete the current list to a list in the buffer.
+     try-expand-line ;; Complete the current line to a line in the buffer.
+     try-complete-lisp-symbol-partially ;; Complete partially as Elisp symbol.
+     try-complete-lisp-symbol) ;; Complete as Elisp symbol.
+   )
 
   ;; --------------------------------------------------------------------------
   ;; Commands.

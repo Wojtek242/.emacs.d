@@ -138,7 +138,7 @@
      `(highlight ((t (:background, *current-line*))))
      `(highlight-face ((t (:background, *current-line*))))
      `(vhl/default-face ((t (:background, *bg-2*))))
-     `(hl-line ((t (:background, *current-line* :underline t))))
+     `(hl-line ((t (:background, *current-line*))))
      `(info-xref ((t (:foreground, *keywords* :underline t))))
      `(Info-quoted ((t (:foreground, *keywords*))))
      `(region ((t (:background, *visual-selection*))))

@@ -80,7 +80,7 @@
     (define-key smartparens-mode-map (kbd "C-<right>") 'sp-forward-slurp-sexp)
     (define-key smartparens-mode-map (kbd "C-<left>") 'sp-forward-barf-sexp)
 
-    (define-key smartparens-mode-map (kbd "M-S-d") 'sp-splice-sexp)
+    (define-key smartparens-mode-map (kbd "M-D") 'sp-splice-sexp)
     (define-key smartparens-mode-map (kbd "C-S-d") 'sp-splice-sexp-killing-forward)
     (define-key smartparens-mode-map (kbd "C-M-<backspace>") 'sp-splice-sexp-killing-backward)
     (define-key smartparens-mode-map (kbd "C-S-<backspace>") 'sp-splice-sexp-killing-around)
@@ -105,7 +105,7 @@
 
     (setq-default
      ;; Jump to closing parenthesis when closing symbol is typed.
-     sp-autoskip-closing-pair 'always
+     sp-autoskip-closing-pair t
      ;; Do not automatically reindent anything.
      sp-navigate-reindent-after-up nil
      sp-navigate-reindent-after-up-in-string nil

@@ -17,7 +17,8 @@
 
 (setq init-packages/emacs-packages
 
-      '(use-package)
+      '(use-package
+        ibuffer-vc)
 
       )
 
@@ -32,7 +33,7 @@
   (setq-default scroll-preserve-screen-position 1)
 
   ;; --------------------------------------------------------------------------
-  ;; Convenience functions.
+  ;; Functions.
   ;; --------------------------------------------------------------------------
 
   (defun quit-other-window ()
@@ -88,6 +89,34 @@
   (global-set-key (kbd "C-x t d") '(lambda () (interactive)
                                      (load-theme 'havoc-dark t)
                                      (refresh-non-face-colours)))
+
+  ;; --------------------------------------------------------------------------
+  ;; Update buffers when files change.
+  ;; --------------------------------------------------------------------------
+
+  (global-auto-revert-mode)
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure `ibuffer'.
+  ;; --------------------------------------------------------------------------
+
+  (add-hook 'ibuffer-hook
+            (lambda ()
+              (ibuffer-vc-set-filter-groups-by-vc-root)
+              (unless (eq ibuffer-sorting-mode 'alphabetic)
+                (ibuffer-do-sort-by-alphabetic))))
+
+  (setq ibuffer-formats
+        '((mark modified read-only vc-status-mini " "
+                (name 36 36 :left :elide)
+                " "
+                (size 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " "
+                (vc-status 16 16 :left)
+                " "
+                filename-and-process)))
 
   ;; --------------------------------------------------------------------------
   ;; Aliases.
