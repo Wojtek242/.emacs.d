@@ -18,13 +18,24 @@
 
 (setq init-packages/programming-packages
 
-      '(yasnippet)
+      '(company
+        yasnippet)
 
       )
 
 ;; Configuration:
 
 (defun init-packages/init-programming ()
+
+  ;; --------------------------------------------------------------------------
+  ;; Company - complete anything.
+  ;; --------------------------------------------------------------------------
+
+  (use-package company
+    :init
+    (add-hook 'after-init-hook 'global-company-mode)
+    :config
+    (setq company-backends (delete 'company-clang company-backends)))
 
   ;; --------------------------------------------------------------------------
   ;; Enable yasnippet.
