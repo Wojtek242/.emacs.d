@@ -96,13 +96,15 @@
   ;; Load modules.
   ;; --------------------------------------------------------------------------
 
-  (init-packages/init '(editing
+  (init-packages/init '(
+                        editing
                         emacs
                         helm
                         parentheses
                         programming
                         version-control
-                        workflow))
+                        workflow
+                        ))
 
 
   ;; *********************************************************************** ;;

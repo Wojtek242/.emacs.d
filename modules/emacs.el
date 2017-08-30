@@ -62,7 +62,7 @@
   ;; Key-bindings -------------------------------------------------------------
 
   ;; Kill other window (cyclic order).
-  (global-set-key (kbd "C-x C-q") 'quit-other-window)
+  (global-set-key (kbd "C-z") 'quit-other-window)
 
   ;; Kill current buffer without prompting.
   (global-set-key (kbd "C-x k") 'kill-default-buffer)
@@ -116,7 +116,7 @@
                   " "
                   (mode 16 16 :left :elide)
                   " "
-                  (vc-(setq )tatus 16 16 :left)
+                  (vc-status 16 16 :left)
                   " "
                   filename-and-process))))
 

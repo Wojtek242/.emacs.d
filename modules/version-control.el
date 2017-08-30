@@ -90,11 +90,14 @@
 
   ;; Key-bindings -------------------------------------------------------------
 
-  ;; This shadows new global key-binding for other-window.
-  (define-key diff-mode-map (kbd "M-o") nil)
+  (use-package diff-mode
+    :config
 
-  ;; This copies behaviour from other modes where C-o displays the relevant
-  ;; source in another window.
-  (define-key diff-mode-map (kbd "C-o") 'x-diff-display-source)
+    ;; This shadows new global key-binding for other-window.
+    (define-key diff-mode-map (kbd "M-o") nil)
+
+    ;; This copies behaviour from other modes where C-o displays the relevant
+    ;; (setq )ource in another window.
+    (define-key diff-mode-map (kbd "C-o") 'x-diff-display-source))
 
   )
