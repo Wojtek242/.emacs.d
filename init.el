@@ -99,6 +99,7 @@
   (init-packages/init '(
                         editing
                         emacs
+                        files
                         helm
                         parentheses
                         programming
