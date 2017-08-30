@@ -52,11 +52,18 @@
   ;; Column indicator.
   ;; --------------------------------------------------------------------------
 
+  (defun fci-mode-unless-large-file ()
+    "Enable fci-mode unless the file is too large."
+    (interactive)
+    (unless (> (count-lines (point-min) (point-max)) 9999)
+      (fci-mode)))
+
+
   (use-package fill-column-indicator
     :defer t
     :init
-    (add-hook 'prog-mode-hook 'fci-mode)
-    (add-hook 'text-mode-hook 'fci-mode))
+    (add-hook 'prog-mode-hook 'fci-mode-unless-large-file)
+    (add-hook 'text-mode-hook 'fci-mode-unless-large-file))
 
   ;; --------------------------------------------------------------------------
   ;; Rainbow mode.
