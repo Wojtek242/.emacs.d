@@ -103,6 +103,7 @@
                         helm
                         parentheses
                         programming
+                        terminal
                         version-control
                         workflow
                         ))
