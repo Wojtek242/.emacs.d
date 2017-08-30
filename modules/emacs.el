@@ -131,6 +131,13 @@
   (defalias 'list-buffers 'ibuffer)
 
   ;; --------------------------------------------------------------------------
+  ;; Address mode.
+  ;; --------------------------------------------------------------------------
+
+  (add-hook 'prog-mode-hook 'goto-address-mode)
+  (add-hook 'text-mode-hook 'goto-address-mode)
+
+  ;; --------------------------------------------------------------------------
   ;; Configure garbage collection.
   ;;
   ;; Based on advice from:

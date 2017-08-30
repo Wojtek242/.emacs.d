@@ -54,6 +54,47 @@
     :config
     (setq gud-chdir-before-run nil))
 
+  (setq-default
+   ;; Use gdb-many-windows by default.
+   gdb-many-windows t
+   ;; Display source file containing main.
+   gdb-show-main t)
+
+  ;; --------------------------------------------------------------------------
+  ;; Setup compilation-mode used by `compile' command
+  ;; --------------------------------------------------------------------------
+
+  (use-package compile
+    :bind
+    (("C-c c c" . compile)
+     ("C-c c r" . recompile))
+    :config
+    (setq-default
+     ;; Just save before compiling.
+     compilation-ask-about-save nil
+     ;; Just kill old compile processes before starting the new one.
+     compilation-always-kill t
+     ;; Automatically scroll to first error.
+     compilation-scroll-output 'first-error))
+
+  ;; --------------------------------------------------------------------------
+  ;; Makefile settings.
+  ;; --------------------------------------------------------------------------
+
+  (defun makefile-mode-tabs ()
+    (whitespace-toggle-options '(tabs))
+    (setq indent-tabs-mode t))
+
+  (add-hook 'makefile-mode-hook 'makefile-mode-tabs)
+
+  ;; --------------------------------------------------------------------------
+  ;; Ediff.
+  ;; --------------------------------------------------------------------------
+
+  (setq ediff-diff-options "-w"
+        ediff-split-window-function 'split-window-horizontally
+        ediff-window-setup-function 'ediff-setup-windows-plain)
+
   ;; --------------------------------------------------------------------------
   ;; Line numbers.
   ;;
