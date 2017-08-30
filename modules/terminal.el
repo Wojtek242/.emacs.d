@@ -18,7 +18,7 @@
 
 (setq init-packages/terminal-packages
 
-      '(shell-pop)
+      '()
 
       )
 
@@ -53,43 +53,58 @@
   (setq term-buffer-maximum-size 0)
 
   :config
-  (defun ansi-term-pop (buf)
-    "Launch terminal in BUF, preferably in other window.
-    This function will keep the default directory of the current
-    buffer"
-    (let ((term-cmd "/bin/zsh")
-          (dir default-directory))
-      (pop-to-buffer buf)
-      (let ((default-directory dir))
-        (unless (term-check-proc buf)
-          (when (string= "term-mode" major-mode)
-            (kill-buffer buf))
-          (ansi-term term-cmd)))))
+  (defun ansi-term-pop (term-cmd)
+    "Launch terminal in (preferably) other window."
+    (let ((ansi-buf nil)
+          (cur-buf (current-buffer)))
+      (setq ansi-buf (ansi-term term-cmd))
+      (switch-to-buffer cur-buf)
+      (switch-to-buffer-other-window ansi-buf)))
+
+  (defun ansi-term-recycle (term-cmd)
+    "Kill current buffer and start an *ansi-term* in it."
+    (kill-buffer (current-buffer))
+    (ansi-term term-cmd))
+
+  (defun buffer-mode (buffer)
+    "Returns the major mode associated with a buffer."
+    (with-current-buffer buffer
+      major-mode))
+
+  (defun first-matching-buffer (regex)
+    "Find first buffer whose name matches REGEXP."
+    (car (remove-if-not
+          (apply-partially #'string-match-p regex)
+          (mapcar 'buffer-name (buffer-list)))))
 
   (defun visit-ansi-term ()
-    "If the current buffer is:
-     1) a running ansi-term named *ansi-term*, run a new one.
-     2) a stopped ansi-term, kill it and create a new one.
-     3) a non ansi-term, go to an already running ansi-term
-        or start a new one while killing a defunct one"
+    "Open or switch to active ansi-term.
+     If current buffer is a term:
+       If it is running
+         Open a new ansi-term in a new window
+       If it is not running
+         Recycle (kill buffer, restart term)
+     If current buffer is not a term:
+       If a *ansi-term*<x> buffer exists
+         Switch to that ansi-term in other window
+         Recycle if necessary
+       If it does not exist
+         Open a new ansi-term in a new window"
     (interactive)
-    (let* ((is-term (string= "term-mode" major-mode))
-           (is-running (term-check-proc (buffer-name)))
-           (term-cmd "/bin/zsh")
-           (buf-name "*ansi-term*")
-           (anon-term (get-buffer buf-name)))
+    (let ((is-term (string= "term-mode" major-mode))
+          (is-running (term-check-proc (buffer-name)))
+          (term-cmd "/bin/zsh")
+          (anon-term (first-matching-buffer "^*ansi-term*")))
       (if is-term
           (if is-running
-              (if (string-match buf-name (buffer-name))
-                  (ansi-term-pop (other-buffer (current-buffer) 'visible-ok))
-                (if anon-term
-                    (switch-to-buffer buf-name)
-                  (ansi-term term-cmd)))
-            (kill-buffer (buffer-name))
-            (ansi-term term-cmd))
+              (ansi-term-pop term-cmd)
+            (ansi-term-recycle term-cmd))
         (if anon-term
-            (ansi-term-pop buf-name)
-          (ansi-term-pop (other-buffer (current-buffer) 'visible-ok))))))
+            (progn
+              (switch-to-buffer-other-window anon-term)
+              (unless (term-check-proc (buffer-name))
+                (ansi-term-recycle term-cmd)))
+          (ansi-term-pop term-cmd)))))
 
   (global-set-key (kbd "C-x '") 'visit-ansi-term))
 
