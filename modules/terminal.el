@@ -66,11 +66,6 @@
     (kill-buffer (current-buffer))
     (ansi-term term-cmd))
 
-  (defun buffer-mode (buffer)
-    "Returns the major mode associated with a buffer."
-    (with-current-buffer buffer
-      major-mode))
-
   (defun first-matching-buffer (regex)
     "Find first buffer whose name matches REGEXP."
     (car (remove-if-not
