@@ -282,6 +282,12 @@ this macro."
   (init-packages/init-module-list modlist)
   (init-packages/set-logs-read-only))
 
+(defun init-packages/init-debug (modlist)
+  "Initialise all modules in MODLIST, but don't install/delete packages."
+  (init-packages/load-module-list modlist)
+  (init-packages/init-module-list modlist)
+  (init-packages/set-logs-read-only))
+
 (provide 'init-packages)
 
 ;;; init-packages.el ends here
