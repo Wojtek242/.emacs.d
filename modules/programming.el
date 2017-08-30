@@ -46,6 +46,15 @@
     (yas-global-mode 1))
 
   ;; --------------------------------------------------------------------------
+  ;; Debugging options.
+  ;; --------------------------------------------------------------------------
+
+  (use-package gud
+    :defer t
+    :config
+    (setq gud-chdir-before-run nil))
+
+  ;; --------------------------------------------------------------------------
   ;; Line numbers.
   ;;
   ;; Ideally, we could just use linum-format "%4d \u2502".  However, the

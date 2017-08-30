@@ -158,6 +158,22 @@
    )
 
   ;; --------------------------------------------------------------------------
+  ;; Check spelling.
+  ;; --------------------------------------------------------------------------
+
+  (use-package flyspell
+    :init
+    (add-hook 'text-mode-hook 'flyspell-mode)
+    (add-hook 'org-mode-hook 'flyspell-mode)
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    :config
+    (if (executable-find "aspell")
+        (progn
+          (setq-default ispell-program-name "aspell")
+          (setq-default ispell-extra-args '("--sug-mode=ultra")))
+      (setq-default ispell-program-name "ispell")))
+
+  ;; --------------------------------------------------------------------------
   ;; Commands.
   ;; --------------------------------------------------------------------------
 
