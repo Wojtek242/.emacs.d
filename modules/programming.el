@@ -19,6 +19,8 @@
 (setq init-packages/programming-packages
 
       '(company
+        racer
+        rust-mode
         yasnippet)
 
       )
@@ -36,6 +38,29 @@
     (add-hook 'after-init-hook 'global-company-mode)
     :config
     (setq company-backends (delete 'company-clang company-backends)))
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure Rust environment.
+  ;; --------------------------------------------------------------------------
+
+  (use-package rust-mode
+    :defer t)
+
+  ;; This requires some additional setup as the racer binary must be installed
+  ;; and the Rust libstd sources must be installed.
+  ;; $ rustup component add rust-src
+  ;; $ cargo install racer
+  (use-package racer
+    :init
+    (add-hook 'rust-mode-hook #'racer-mode)
+    (add-hook 'racer-mode-hook #'eldoc-mode)
+    :config
+    (setq-default
+     racer-rust-src-path "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/")
+
+    (require 'rust-mode)
+    (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+    (setq company-tooltip-align-annotations t))
 
   ;; --------------------------------------------------------------------------
   ;; Enable yasnippet.
