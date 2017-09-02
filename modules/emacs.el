@@ -107,11 +107,11 @@
     refresh these colours."
 
     (when (and (fboundp 'fci-mode)
-               fci-mode)
+               (member 'fci-mode minor-mode-list))
       (fci-mode 1))
 
     (when (and (fboundp 'highlight-parentheses-mode)
-               (highlight-parentheses-mode))
+               highlight-parentheses-mode)
       (highlight-parentheses-mode 1)))
 
   ;; Key-bindings -------------------------------------------------------------

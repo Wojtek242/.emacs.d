@@ -127,6 +127,6 @@
     (use-package swiper-helm
       :defer t
       :bind
-      (("M-s M-s" . swiper-helm))))
+      (("C-c h C-s" . swiper-helm))))
 
   )

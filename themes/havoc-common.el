@@ -46,6 +46,9 @@
         (*fg-standout*        (if (eq variant 'dark) "#FFEC99"        "#551A8B"))
         (*fringe*             (if (eq variant 'dark) "#0A1721"        "#F2F2F2"))
         (*head1*              (if (eq variant 'dark) "#4F97D7"        "#3A81C3"))
+        (*head2*              (if (eq variant 'dark) "#2D9574"        "#2D9574"))
+        (*head3*              (if (eq variant 'dark) "#67B11D"        "#67B11D"))
+        (*head4*              (if (eq variant 'dark) "#AF81F4"        "#AF81F4"))
         (*header-bg*          (if (eq variant 'dark) "#495765"        "#E2DAEF"))
         (*keywords*           (if (eq variant 'dark) "#8AC6F2"        "#A020F0"))
         (*light-purple*       (if (eq variant 'dark) "#FFCCFF"        "#FFCCFF"))
@@ -167,7 +170,7 @@
 
      ;; Highglight
      `(highlight-numbers-number ((t (:foreground, *keywords*))))
-     `(highlight-symbol-face ((t (:background, *bg-3*))))
+     `(highlight-symbol-face ((t (:background, *blue-bg*))))
 
      ;; whitespace
      `(whitespace-space       ((t (:foreground ,*whitespace-fg*))))
@@ -378,6 +381,21 @@
      `(helm-swoop-target-line-block-face ((t (:foreground ,*base* :background ,*current-line*))))
      `(helm-swoop-target-line-face ((t (:background ,*current-line*))))
      `(helm-swoop-target-word-face ((t (:background ,*current-line* :foreground ,*mat*))))
+
+     ;; swiper
+     `(swiper-line-face    ((t (:background ,*current-line* :inherit bold))))
+     `(swiper-match-face-1 ((t (:inherit bold :underline t))))
+     `(swiper-match-face-2 ((t (:foreground ,*head1* :underline t))))
+     `(swiper-match-face-3 ((t (:foreground ,*head4* :underline t))))
+     `(swiper-match-face-4 ((t (:foreground ,*head3* :underline t))))
+
+     ;; ivy
+     `(ivy-current-match ((t (:background ,*current-line* :inherit bold))))
+     `(ivy-minibuffer-match-face-1 ((t (:inherit bold))))
+     `(ivy-minibuffer-match-face-2 ((t (:foreground ,*head1* :underline t))))
+     `(ivy-minibuffer-match-face-3 ((t (:foreground ,*head4* :underline t))))
+     `(ivy-minibuffer-match-face-4 ((t (:foreground ,*head3* :underline t))))
+     `(ivy-remote ((t (:foreground ,*cyan*))))
 
      )
 

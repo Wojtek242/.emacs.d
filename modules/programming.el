@@ -29,6 +29,7 @@
         rust-mode
         sr-speedbar
         stickyfunc-enhance
+        swiper
         yasnippet)
 
       )
@@ -169,6 +170,15 @@
         (user-error "Speedbar window is not live")))
 
     (global-set-key (kbd "M-m") #'goto-speedbar))
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure `swiper'.
+  ;; --------------------------------------------------------------------------
+
+  (use-package swiper
+    :defer t
+    :bind
+    (("M-s M-s" . swiper)))
 
   ;; --------------------------------------------------------------------------
   ;; Enable yasnippet.
