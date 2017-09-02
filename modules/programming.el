@@ -168,7 +168,7 @@
           (set-frame-selected-window (window-frame) sr-speedbar-window)
         (user-error "Speedbar window is not live")))
 
-    (global-set-key (kbd "M-m") #'goto-speedbar)
+    (global-set-key (kbd "M-m") #'goto-speedbar))
 
   ;; --------------------------------------------------------------------------
   ;; Enable yasnippet.
