@@ -4,6 +4,7 @@
 ;;
 ;; Author: Wojciech Kozlowski <wojciech.kozlowski@vivaldi.net>
 ;; URL: https://gitlab.wojciechkozlowski.eu/config/emacs.d
+;; URL: https://github.com/Wojtek242/.emacs.d
 ;; Created: 17 Aug 2017
 ;;
 ;;; License: GPLv3
