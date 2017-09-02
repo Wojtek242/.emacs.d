@@ -67,13 +67,14 @@
         (*string*             (if (eq variant 'dark) "#89E14B"        "#BC8F8F"))
         (*success*            (if (eq variant 'dark) "#86DC2F"        "#42AE2C"))
         (*ttip*               (if (eq variant 'dark) "#E1E1E0"        "#000000"))
-        (*ttip-sl*            (if (eq variant 'dark) "#005577"        "#AF81F4"))
+        (*ttip-sl*            (if (eq variant 'dark) "#3E71A1"        "#AF81F4"))
         (*ttip-bg*            (if (eq variant 'dark) "#495765"        "#E2DAEF"))
         (*type*               (if (eq variant 'dark) "#5BA0EB"        "#228B22"))
         (*variable*           (if (eq variant 'dark) "#8AC6F2"        "#B8860B"))
         (*vertical-border*    (if (eq variant 'dark) "#0A1721"        "#C2C2C2"))
         (*visual-selection*   (if (eq variant 'dark) "#262D51"        "#8AC6F2"))
         (*warning*            (if (eq variant 'dark) "#C62626"        "#C62626"))
+        (*whitespace-bg*      (if (eq variant 'dark) "#2AA1AE"        "#A020F0"))
         (*whitespace-fg*      (if (eq variant 'dark) "#4E6F91"        "#D3D3D3"))
 
         ;; Rainbow delimiters
@@ -123,7 +124,7 @@
         (*red-bg*             (if (eq variant 'dark) "#3C2A2C"        "#3C2A2C"))
         (*red-bg-s*           (if (eq variant 'dark) "#512E31"        "#512E31"))
         (*blue*               (if (eq variant 'dark) "#4F97D7"        "#4F97D7"))
-        (*blue-bg*            (if (eq variant 'dark) "#293239"        "#293239"))
+        (*blue-bg*            (if (eq variant 'dark) "#333377"        "#293239"))
         (*magenta*            (if (eq variant 'dark) "#FF00FF"        "#FF00FF"))
         (*yellow*             (if (eq variant 'dark) "#FFFF00"        "#FFFF00"))
         (*yellow-bg*          (if (eq variant 'dark) "#32322C"        "#32322C")))
@@ -137,12 +138,13 @@
      `(header-line ((t (:background, *mode-line-bg* :foreground, *normal*)))) ;; info header
      `(highlight ((t (:background, *current-line*))))
      `(highlight-face ((t (:background, *current-line*))))
-     `(vhl/default-face ((t (:background, *bg-2*))))
      `(hl-line ((t (:background, *current-line*))))
      `(info-xref ((t (:foreground, *keywords* :underline t))))
      `(Info-quoted ((t (:foreground, *keywords*))))
+     `(match ((t (:background, *current-line*))))
      `(region ((t (:background, *visual-selection*))))
      `(underline ((nil (:underline t))))
+     `(vhl/default-face ((t (:background, *bg-2*))))
 
      ;; font-lock
      `(font-lock-builtin-face ((t (:foreground, *operators*))))
@@ -163,10 +165,15 @@
      `(font-lock-variable-name-face ((t (:foreground, *variable*))))
      `(font-lock-warning-face ((t (:foreground, *warning*))))
 
+     ;; Highglight
+     `(highlight-numbers-number ((t (:foreground, *keywords*))))
+     `(highlight-symbol-face ((t (:background, *bg-3*))))
+
      ;; whitespace
      `(whitespace-space       ((t (:foreground ,*whitespace-fg*))))
      `(whitespace-indentation ((t (:foreground ,*whitespace-fg*))))
-     `(whitespace-trailing    ((t (:background ,*keywords* :foreground ,*whitespace-fg*))))
+     `(whitespace-trailing    ((t (:background ,*whitespace-bg* :foreground ,*whitespace-fg*))))
+     `(trailing-whitespace    ((t (:background ,*whitespace-bg* :foreground ,*whitespace-fg*))))
 
      ;; GUI
      `(fringe ((t (:foreground, *normal* :background, *bg-1*))))
@@ -218,12 +225,58 @@
      `(rainbow-delimiters-depth-8-face  ((t (:foreground ,*rdd-8*))))
      `(rainbow-delimiters-depth-9-face  ((t (:foreground ,*rdd-9*))))
 
+     ;; company
+     `(company-echo-common ((t (:background ,*normal* :foreground ,*bg-1*))))
+     `(company-preview ((t (:background ,*ttip-bg* :foreground ,*ttip*))))
+     `(company-preview-common ((t (:background ,*ttip-bg* :foreground ,*normal*))))
+     `(company-preview-search ((t (:inherit match))))
+     `(company-scrollbar-bg ((t (:background ,*bg-2*))))
+     `(company-scrollbar-fg ((t (:background ,*cursor-block*))))
+     `(company-template-field ((t (:inherit region))))
+     `(company-tooltip ((t (:background ,*ttip-bg* :foreground ,*ttip*))))
+     `(company-tooltip-annotation ((t (:foreground ,*keywords*))))
+     `(company-tooltip-common ((t (:background ,*ttip-bg* :foreground ,*normal*))))
+     `(company-tooltip-common-selection ((t (:foreground ,*normal*))))
+     `(company-tooltip-mouse ((t (:inherit *highlight*))))
+     `(company-tooltip-search ((t (:inherit match))))
+     `(company-tooltip-selection ((t (:background ,*ttip-sl* :foreground ,*normal*))))
+
      ;; diff
-     `(diff-header      ((t (:background ,*header-bg*))))
-     `(diff-file-header ((t (:foreground ,*diff-file-hdr-fg*))))
-     `(diff-hunk-header ((t (:background ,*diff-hunk-hdr-bg* :foreground ,*diff-hunk-hdr-fg*))))
-     `(diff-added       ((t (:background ,*diff-added-bg* :foreground ,*diff-added-fg*))))
-     `(diff-removed     ((t (:background ,*diff-rmvd-bg* :foreground ,*diff-rmvd-fg*))))
+     `(diff-header            ((t (:background ,*header-bg*))))
+     `(diff-file-header       ((t (:foreground ,*diff-file-hdr-fg*))))
+     `(diff-hunk-header       ((t (:background ,*diff-hunk-hdr-bg* :foreground ,*diff-hunk-hdr-fg*))))
+     `(diff-added             ((t (:foreground ,*green*))))
+     `(diff-changed           ((t :foreground ,*keywords*)))
+     `(diff-removed           ((t (:foreground ,*red*))))
+     `(diff-indicator-added   ((t :foreground ,*green*)))
+     `(diff-indicator-changed ((t :foreground ,*keywords*)))
+     `(diff-indicator-removed ((t :foreground ,*red*)))
+     `(diff-refine-added      ((t :background ,*green* :foreground ,*bg-4*)))
+     `(diff-refine-changed    ((t :background ,*keywords* :foreground ,*bg-4*)))
+     `(diff-refine-removed    ((t :background ,*red* :foreground ,*bg-4*)))
+
+     ;; diff-hl
+     `(diff-hl-change ((t :background ,*blue-bg* :foreground ,*blue*)))
+     `(diff-hl-delete ((t :background ,*diff-rmvd-bg* :foreground ,*red*)))
+     `(diff-hl-insert ((t :background ,*diff-added-bg* :foreground ,*green*)))
+
+     ;; ediff
+     `(ediff-current-diff-A        ((t (:background ,*diff-rmvd-bg* :foreground ,*diff-rmvd-fg*))))
+     `(ediff-current-diff-Ancestor ((t (:background ,*aqua-bg* :foreground ,*aqua*))))
+     `(ediff-current-diff-B        ((t (:background ,*diff-added-bg* :foreground ,*diff-added-fg*))))
+     `(ediff-current-diff-C        ((t (:background ,*blue-bg* :foreground ,*blue*))))
+     `(ediff-even-diff-A           ((t (:background ,*bg-2*))))
+     `(ediff-even-diff-Ancestor    ((t (:background ,*bg-2*))))
+     `(ediff-even-diff-B           ((t (:background ,*bg-2*))))
+     `(ediff-even-diff-C           ((t (:background ,*bg-2*))))
+     `(ediff-fine-diff-A           ((t (:background nil :inherit bold))))
+     `(ediff-fine-diff-Ancestor    ((t (:background nil :inherit bold))))
+     `(ediff-fine-diff-B           ((t (:background nil :inherit bold))))
+     `(ediff-fine-diff-C           ((t (:background nil :inherit bold))))
+     `(ediff-odd-diff-A            ((t (:background ,*bg-2*))))
+     `(ediff-odd-diff-Ancestor     ((t (:background ,*bg-2*))))
+     `(ediff-odd-diff-B            ((t (:background ,*bg-2*))))
+     `(ediff-odd-diff-C            ((t (:background ,*bg-2*))))
 
      ;; magit
      `(magit-blame-culprit ((t :background ,*active-line* :foreground ,*fg-standout*)))
