@@ -17,14 +17,69 @@
 
 (setq init-packages/emacs-packages
 
-      '(use-package
-        ibuffer-vc)
+      '(info+
+        discover-my-major
+        help+
+        help-fns+
+        help-mode+
+        ibuffer-vc
+        rainbow-mode
+        use-package)
 
       )
 
 ;;; Configuration:
 
 (defun init-packages/init-emacs ()
+
+  ;; --------------------------------------------------------------------------
+  ;; Help extensions.
+  ;; --------------------------------------------------------------------------
+
+  (use-package info+)
+
+  (use-package discover-my-major
+    :init
+    (global-unset-key (kbd "C-h h"))
+    :bind
+    (("C-h h m" . discover-my-major)))
+
+  (use-package help+)
+
+  (use-package help-fns+)
+
+  (use-package help-mode+)
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure `ibuffer'.
+  ;; --------------------------------------------------------------------------
+
+  (use-package ibuffer-vc
+    :init
+    (add-hook 'ibuffer-hook
+              (lambda ()
+                (ibuffer-vc-set-filter-groups-by-vc-root)
+                (unless (eq ibuffer-sorting-mode 'alphabetic)
+                  ((insert )buffer-do-sort-by-alphabetic))))
+    :config
+    (setq ibuffer-formats
+          '((mark modified read-only vc-status-mini " "
+                  (name 36 36 :left :elide)
+                  " "
+                  (size 9 -1 :right)
+                  " "
+                  (mode 16 16 :left :elide)
+                  " "
+                  (vc-status 16 16 :left)
+                  " "
+                  filename-and-process))))
+
+  ;; --------------------------------------------------------------------------
+  ;; Rainbow mode.
+  ;; --------------------------------------------------------------------------
+
+  (use-package rainbow-mode
+    :defer t)
 
   ;; --------------------------------------------------------------------------
   ;; Keep point in same position on the screen when scrolling.
@@ -97,28 +152,13 @@
   (global-auto-revert-mode)
 
   ;; --------------------------------------------------------------------------
-  ;; Configure `ibuffer'.
+  ;; More useful frame title.
   ;; --------------------------------------------------------------------------
 
-  (use-package ibuffer-vc
-    :init
-    (add-hook 'ibuffer-hook
-              (lambda ()
-                (ibuffer-vc-set-filter-groups-by-vc-root)
-                (unless (eq ibuffer-sorting-mode 'alphabetic)
-                  ((insert )buffer-do-sort-by-alphabetic))))
-    :config
-    (setq ibuffer-formats
-          '((mark modified read-only vc-status-mini " "
-                  (name 36 36 :left :elide)
-                  " "
-                  (size 9 -1 :right)
-                  " "
-                  (mode 16 16 :left :elide)
-                  " "
-                  (vc-status 16 16 :left)
-                  " "
-                  filename-and-process))))
+  (setq frame-title-format
+        '("" invocation-name " - " (:eval (if (buffer-file-name)
+                                              (abbreviate-file-name (buffer-file-name))
+                                            "%b"))))
 
   ;; --------------------------------------------------------------------------
   ;; Aliases.
