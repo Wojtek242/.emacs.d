@@ -181,7 +181,7 @@
      `(linum ((t (:foreground, *line-number* :background, *line-number-bg* :underline nil :bold nil :italic nil))))
      `(minibuffer-prompt ((t (:inherit bold :foreground, *mb-prompt*))))
      `(mode-line ((t (:background, *active-line* :foreground, *normal*))))
-     `(mode-line-inactive ((t (:background, *mode-line-bg* :foreground, *mode-line-fg*))))
+     `(mode-line-inactive ((t (:background, *mode-line-bg* :foreground, *mode-line-fg* :underline nil))))
      `(cursor ((t (:background, *cursor-block*))))
      `(text-cursor ((t (:background, *cursor-underscore*))))
      `(vertical-border ((t (:foreground, *vertical-border*)))) ;; between splits
