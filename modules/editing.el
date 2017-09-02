@@ -61,9 +61,12 @@
 
   (use-package fill-column-indicator
     :defer t
+    :bind
+    (("C-x t f" . fci-mode))
     :init
-    (add-hook 'prog-mode-hook 'fci-mode-unless-large-file)
-    (add-hook 'text-mode-hook 'fci-mode-unless-large-file))
+    ;; (add-hook 'prog-mode-hook 'fci-mode-unless-large-file)
+    ;; (add-hook 'text-mode-hook 'fci-mode-unless-large-file)
+    )
 
   ;; --------------------------------------------------------------------------
   ;; Rainbow mode.
