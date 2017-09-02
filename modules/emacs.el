@@ -130,20 +130,24 @@
   (global-set-key (kbd "M-o") 'other-window)
 
   ;; Scroll up/down, but keep point in place.
-  (global-set-key (kbd "C-<") (lambda() (interactive)
+  (global-set-key (kbd "C-<") (lambda()
+                                (interactive)
                                 (let ((scroll-preserve-screen-position nil))
                                   (scroll-down 1))))
-  (global-set-key (kbd "C->") (lambda() (interactive)
+  (global-set-key (kbd "C->") (lambda()
+                                (interactive)
                                 (let ((scroll-preserve-screen-position nil))
                                   (scroll-up 1))))
 
   ;; Setup key-bindings for switching between themes.
-  (global-set-key (kbd "C-x t l") '(lambda () (interactive)
-                                     (load-theme 'havoc-light t)
-                                     (refresh-non-face-colours)))
-  (global-set-key (kbd "C-x t d") '(lambda () (interactive)
-                                     (load-theme 'havoc-dark t)
-                                     (refresh-non-face-colours)))
+  (global-set-key (kbd "C-x t l") (lambda ()
+                                    (interactive)
+                                    (load-theme 'havoc-light t)
+                                    (refresh-non-face-colours)))
+  (global-set-key (kbd "C-x t d") (lambda ()
+                                    (interactive)
+                                    (load-theme 'havoc-dark t)
+                                    (refresh-non-face-colours)))
 
   ;; --------------------------------------------------------------------------
   ;; Update buffers when files change.

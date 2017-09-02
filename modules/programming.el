@@ -139,7 +139,8 @@
     (add-hook 'racer-mode-hook #'eldoc-mode)
     :config
     (setq-default
-     racer-rust-src-path "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/")
+     racer-rust-src-path
+     "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/")
 
     (require 'rust-mode)
     (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
@@ -157,54 +158,17 @@
     (setq-default
      sr-speedbar-skip-other-window-p t
      sr-speedbar-right-side nil
-     speedbar-show-unknown-files t)
-
-    (defun x-before-save-selected-window ()
-      (cons (selected-window)
-            ;; We save and restore all frames' selected windows, because
-            ;; `select-window' can change the frame-selected-window of
-            ;; whatever frame that window is in.  Each text terminal's
-            ;; top-frame is preserved by putting it last in the list.
-            (apply #'append
-                   (mapcar (lambda (terminal)
-                             (let ((frames (frames-on-display-list terminal))
-                                   (top-frame (tty-top-frame terminal))
-                                   alist)
-                               (if top-frame
-                                   (setq frames
-                                         (cons top-frame
-                                               (delq top-frame frames))))
-                               (dolist (f frames)
-                                 (push (cons f (frame-selected-window f))
-                                       alist))
-                               alist))
-                           (terminal-list)))))
-
-    (defun x-after-save-selected-window (state)
-      (dolist (elt (cdr state))
-        (and (frame-live-p (car elt))
-             (window-live-p (cdr elt))
-             (set-frame-selected-window (car elt) (cdr elt) 'norecord)))
-      (when (window-live-p (car state))
-        (select-window (car state) 'norecord)))
+     speedbar-show-unknown-files t
+     sr-speedbar-delete-windows t)
 
     (defun goto-speedbar ()
-      "Change window to speedbar's window.
-      This function assumes that the speedbar is either the left-
-      or right-most window"
+      "Set the speedbar window as the active window."
       (interactive)
-      (let ((selected-window (x-before-save-selected-window)))
-        (loop
-         (condition-case nil
-             (if sr-speedbar-right-side
-                 (windmove-right)
-               (windmove-left))
-           (user-error (progn
-                         (unless (string= major-mode "speedbar-mode")
-                           (x-after-save-selected-window selected-window))
-                         (return)))))))
+      (if (window-live-p sr-speedbar-window)
+          (set-frame-selected-window (window-frame) sr-speedbar-window)
+        (user-error "Speedbar window is not live")))
 
-    (global-set-key (kbd "M-m") #'goto-speedbar))
+    (global-set-key (kbd "M-m") #'goto-speedbar)
 
   ;; --------------------------------------------------------------------------
   ;; Enable yasnippet.
@@ -312,7 +276,7 @@
      (propertize " " 'face 'mode-line-inactive)))
 
   (setq-default linum-format 'linum-format-func)
-  (add-hook 'prog-mode-hook '(lambda ()
+  (add-hook 'prog-mode-hook (lambda ()
                                (unless (> (count-lines (point-min) (point-max))
                                           9999)
                                  (linum-mode))))
