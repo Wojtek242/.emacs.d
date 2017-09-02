@@ -16,7 +16,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/workflow-packages
+(setq emodule/workflow-packages
 
       '(workgroups2)
 
@@ -24,7 +24,7 @@
 
 ;;; Configuration:
 
-(defun init-packages/init-workflow ()
+(defun emodule/workflow-init ()
 
   ;; --------------------------------------------------------------------------
   ;; Enable `workgroups'.

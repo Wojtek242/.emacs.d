@@ -16,7 +16,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/terminal-packages
+(setq emodule/terminal-packages
 
       '()
 
@@ -24,7 +24,7 @@
 
 ;; Configuration:
 
-(defun init-packages/init-terminal ()
+(defun emodule/terminal-init ()
 
   (use-package term
     :init

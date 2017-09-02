@@ -15,7 +15,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/files-packages
+(setq emodule/files-packages
 
       '(vlf)
 
@@ -23,7 +23,7 @@
 
 ;;; Configuration:
 
-(defun init-packages/init-files ()
+(defun emodule/files-init ()
 
   ;; --------------------------------------------------------------------------
   ;; View large files.

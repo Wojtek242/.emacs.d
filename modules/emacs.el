@@ -15,7 +15,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/emacs-packages
+(setq emodule/emacs-packages
 
       '(info+
         discover-my-major
@@ -30,7 +30,7 @@
 
 ;;; Configuration:
 
-(defun init-packages/init-emacs ()
+(defun emodule/emacs-init ()
 
   ;; --------------------------------------------------------------------------
   ;; Help extensions.
@@ -107,7 +107,7 @@
     refresh these colours."
 
     (when (and (fboundp 'fci-mode)
-               (fci-mode))
+               fci-mode)
       (fci-mode 1))
 
     (when (and (fboundp 'highlight-parentheses-mode)

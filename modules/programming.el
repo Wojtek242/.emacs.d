@@ -16,7 +16,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/programming-packages
+(setq emodule/programming-packages
 
       '(company
         flycheck
@@ -31,7 +31,7 @@
 
 ;; Configuration:
 
-(defun init-packages/init-programming ()
+(defun emodule/programming-init ()
 
   ;; --------------------------------------------------------------------------
   ;; Company - complete anything.

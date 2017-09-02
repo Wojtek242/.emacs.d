@@ -15,7 +15,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/editing-packages
+(setq emodule/editing-packages
 
       '(duplicate-thing
         expand-region
@@ -29,7 +29,7 @@
 
 ;; Configuration:
 
-(defun init-packages/init-editing ()
+(defun emodule/editing-init ()
 
   ;; --------------------------------------------------------------------------
   ;; Duplicate things.

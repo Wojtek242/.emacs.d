@@ -16,7 +16,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/version-control-packages
+(setq emodule/version-control-packages
 
       '(magit
         diff-hl)
@@ -25,7 +25,7 @@
 
 ;;; Configuration:
 
-(defun init-packages/init-version-control ()
+(defun emodule/version-control-init ()
 
   ;; --------------------------------------------------------------------------
   ;; Load and configure `magit'.

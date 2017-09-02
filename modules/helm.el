@@ -15,7 +15,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/helm-packages
+(setq emodule/helm-packages
 
       '(helm
         helm-descbinds
@@ -25,7 +25,7 @@
 
 ;;; Configuration:
 
-(defun init-packages/init-helm ()
+(defun emodule/helm-init ()
 
   (use-package helm
     :init

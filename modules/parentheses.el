@@ -16,7 +16,7 @@
 
 ;;; Required packages:
 
-(setq init-packages/parentheses-packages
+(setq emodule/parentheses-packages
 
       '(highlight-parentheses
         rainbow-delimiters
@@ -26,7 +26,7 @@
 
 ;; Configuration:
 
-(defun init-packages/init-parentheses ()
+(defun emodule/parentheses-init ()
 
   ;; --------------------------------------------------------------------------
   ;; Highlight parentheses - this package does not use faces for colours,

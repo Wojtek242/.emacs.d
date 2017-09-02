@@ -86,27 +86,27 @@
   (package-initialize)
 
   ;; --------------------------------------------------------------------------
-  ;; Load `init-packages'.
+  ;; Load `emodule'.
   ;; --------------------------------------------------------------------------
 
-  (add-to-list 'load-path "~/.emacs.d/init-packages")
-  (require 'init-packages)
+  (add-to-list 'load-path "~/.emacs.d/emodule")
+  (require 'emodule)
 
   ;; --------------------------------------------------------------------------
   ;; Load modules.
   ;; --------------------------------------------------------------------------
 
-  (init-packages/init '(
-                        editing
-                        emacs
-                        files
-                        helm
-                        parentheses
-                        programming
-                        terminal
-                        version-control
-                        workflow
-                        ))
+  (emodule/init '(
+                  editing
+                  emacs
+                  files
+                  helm
+                  parentheses
+                  programming
+                  terminal
+                  version-control
+                  workflow
+                  ))
 
 
   ;; *********************************************************************** ;;
