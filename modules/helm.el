@@ -19,7 +19,8 @@
 
       '(helm
         helm-descbinds
-        helm-projectile)
+        helm-projectile
+        swiper-helm)
 
       )
 
@@ -121,6 +122,11 @@
       (projectile-global-mode)
       :config
       (setq-default projectile-completion-system 'helm)
-      (helm-projectile-on)))
+      (helm-projectile-on))
+
+    (use-package swiper-helm
+      :defer t
+      :bind
+      (("M-s M-s" . swiper-helm))))
 
   )

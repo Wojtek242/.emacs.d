@@ -19,12 +19,16 @@
 (setq emodule/programming-packages
 
       '(company
+        company-c-headers
+        function-args
         flycheck
         flycheck-pos-tip
         highlight-numbers
         highlight-symbol
         racer
         rust-mode
+        sr-speedbar
+        stickyfunc-enhance
         yasnippet)
 
       )
@@ -41,7 +45,49 @@
     :init
     (add-hook 'after-init-hook 'global-company-mode)
     :config
+    ;; For this to correctly complete headers, need to add all include paths to
+    ;; `company-c-headers-path-system'.
+    (add-to-list 'company-backends 'company-c-headers)
     (setq company-backends (delete 'company-clang company-backends)))
+
+  ;; Functions args -----------------------------------------------------------
+
+  (use-package function-args
+    :init
+    (use-package ivy)
+    (fa-config-default)
+    :config
+    (defun set-other-window-key ()
+      ;; function-args overrides the custom "M-o" binding, this undoes it
+      (define-key function-args-mode-map (kbd "M-o") nil)
+      (define-key function-args-mode-map (kbd "M-O") 'moo-complete))
+
+    (defun set-moo-jump-directory-key ()
+      ;; function-args overrides the default "C-M-k" binding, this undoes it
+      (define-key function-args-mode-map (kbd "C-M-k") nil)
+      (define-key function-args-mode-map (kbd "C-M-;") 'moo-jump-directory))
+
+    (defun set-fa-idx-cycle-keys ()
+      ;; function-args overrides the default "M-h" and "M-p" bindings, this
+      ;; undoes it
+      (define-key function-args-mode-map (kbd "M-h") nil)
+      (define-key function-args-mode-map (kbd "M-[") 'fa-idx-cycle-up)
+      (define-key function-args-mode-map (kbd "M-n") nil)
+      (define-key function-args-mode-map (kbd "M-]") 'fa-idx-cycle-down))
+
+    (defun set-fa-abort-key ()
+      ;; function-args overrides the default "C-M-k" binding, this undoes it
+      (define-key function-args-mode-map (kbd "M-u") nil)
+      (define-key function-args-mode-map (kbd "M-k") 'fa-abort))
+
+    (defun set-function-args-keys ()
+      ;; Collects all the function-args key overrides
+      (set-other-window-key)
+      (set-moo-jump-directory-key)
+      (set-fa-idx-cycle-keys)
+      (set-fa-abort-key))
+
+    (add-hook 'function-args-mode-hook #'set-function-args-keys))
 
   ;; --------------------------------------------------------------------------
   ;; Flycheck mode.
@@ -100,12 +146,108 @@
     (setq company-tooltip-align-annotations t))
 
   ;; --------------------------------------------------------------------------
+  ;; Speedbar.
+  ;; --------------------------------------------------------------------------
+
+  (use-package sr-speedbar
+    :defer t
+    :bind
+    (("C-c s" . sr-speedbar-toggle))
+    :config
+    (setq-default
+     sr-speedbar-skip-other-window-p t
+     sr-speedbar-right-side nil
+     speedbar-show-unknown-files t)
+
+    (defun x-before-save-selected-window ()
+      (cons (selected-window)
+            ;; We save and restore all frames' selected windows, because
+            ;; `select-window' can change the frame-selected-window of
+            ;; whatever frame that window is in.  Each text terminal's
+            ;; top-frame is preserved by putting it last in the list.
+            (apply #'append
+                   (mapcar (lambda (terminal)
+                             (let ((frames (frames-on-display-list terminal))
+                                   (top-frame (tty-top-frame terminal))
+                                   alist)
+                               (if top-frame
+                                   (setq frames
+                                         (cons top-frame
+                                               (delq top-frame frames))))
+                               (dolist (f frames)
+                                 (push (cons f (frame-selected-window f))
+                                       alist))
+                               alist))
+                           (terminal-list)))))
+
+    (defun x-after-save-selected-window (state)
+      (dolist (elt (cdr state))
+        (and (frame-live-p (car elt))
+             (window-live-p (cdr elt))
+             (set-frame-selected-window (car elt) (cdr elt) 'norecord)))
+      (when (window-live-p (car state))
+        (select-window (car state) 'norecord)))
+
+    (defun goto-speedbar ()
+      "Change window to speedbar's window.
+      This function assumes that the speedbar is either the left-
+      or right-most window"
+      (interactive)
+      (let ((selected-window (x-before-save-selected-window)))
+        (loop
+         (condition-case nil
+             (if sr-speedbar-right-side
+                 (windmove-right)
+               (windmove-left))
+           (user-error (progn
+                         (unless (string= major-mode "speedbar-mode")
+                           (x-after-save-selected-window selected-window))
+                         (return)))))))
+
+    (global-set-key (kbd "M-m") #'goto-speedbar))
+
+  ;; --------------------------------------------------------------------------
   ;; Enable yasnippet.
   ;; --------------------------------------------------------------------------
 
   (use-package yasnippet
     :init
     (yas-global-mode 1))
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure CEDET.
+  ;; --------------------------------------------------------------------------
+
+  (use-package cc-mode
+    :defer t)
+
+  ;; To add include paths for semantic to parse, add them to
+  ;; `semantic-add-system-include'.  This includes any local system includes,
+  ;; such as those in `/usr/local/include'.
+  (use-package semantic
+    :init
+    (global-semanticdb-minor-mode 1)
+    (global-semantic-idle-scheduler-mode 1)
+    (semantic-mode 1)
+    :config
+    (use-package stickyfunc-enhance)
+    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+    )
+
+  ;; For this to work, need to specify project roots in the variable
+  ;; `ede-cpp-root-project', e.g.
+  ;; (ede-cpp-root-project "project_root"
+  ;;                       :file "/dir/to/project_root/Makefile"
+  ;;                       :include-path '("/include1"
+  ;;                                       "/include2") ;; add more include
+  ;;                       ;; paths here
+  ;;                       :system-include-path '("~/linux"))
+  ;; May need to run `semantic-force-refresh' afterwards.
+  (use-package ede
+    :init
+    (global-ede-mode))
+
+  (add-hook 'c-mode-common-hook 'hs-minor-mode)
 
   ;; --------------------------------------------------------------------------
   ;; Debugging options.

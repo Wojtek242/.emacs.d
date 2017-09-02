@@ -17,7 +17,8 @@
 
 (setq emodule/files-packages
 
-      '(vlf)
+      '(recentf-ext
+        vlf)
 
       )
 
@@ -30,6 +31,7 @@
   ;; --------------------------------------------------------------------------
 
   (use-package vlf-integrate
+    :defer t
     :init
     (setq-default vlf-application 'dont-ask))
 
@@ -109,7 +111,7 @@
   ;; Remember location in file.
   ;; --------------------------------------------------------------------------
 
-  (use-package save-place
+  (use-package saveplace
     :init
     (save-place-mode 1))
 

@@ -96,11 +96,12 @@
   ;; Load modules.
   ;; --------------------------------------------------------------------------
 
-  (emodule/init '(
+  (emodule/init-debug '(
                   editing
                   emacs
                   files
                   helm
+                  helm-gtags
                   parentheses
                   programming
                   terminal
@@ -130,3 +131,4 @@
   (load custom-file 'noerror)
 
   ) ;; Reset garbage collection settings.
+(put 'narrow-to-region 'disabled nil)
