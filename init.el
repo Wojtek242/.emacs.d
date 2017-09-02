@@ -132,4 +132,3 @@
   (load custom-file 'noerror)
 
   ) ;; Reset garbage collection settings.
-(put 'narrow-to-region 'disabled nil)
