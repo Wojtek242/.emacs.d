@@ -19,6 +19,10 @@
 (setq init-packages/programming-packages
 
       '(company
+        flycheck
+        flycheck-pos-tip
+        highlight-numbers
+        highlight-symbol
         racer
         rust-mode
         yasnippet)
@@ -38,6 +42,39 @@
     (add-hook 'after-init-hook 'global-company-mode)
     :config
     (setq company-backends (delete 'company-clang company-backends)))
+
+  ;; --------------------------------------------------------------------------
+  ;; Flycheck mode.
+  ;; --------------------------------------------------------------------------
+
+  (use-package flycheck
+    :defer t
+    :init
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+    :config
+    (require 'flycheck-pos-tip)
+    (flycheck-pos-tip-mode))
+
+  ;; --------------------------------------------------------------------------
+  ;; Highlights.
+  ;; --------------------------------------------------------------------------
+
+  (use-package highlight-numbers
+    :init
+    (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+
+  (use-package highlight-symbol
+    :init
+    (highlight-symbol-nav-mode)
+    (add-hook 'prog-mode-hook (lambda () (highlight-symbol-mode)))
+    (add-hook 'org-mode-hook (lambda () (highlight-symbol-mode)))
+    :bind
+    (("M-n" . highlight-symbol-next)
+     ("M-p" . highlight-symbol-prev))
+    :config
+    (setq highlight-symbol-idle-delay 0.2
+          highlight-symbol-on-navigation-p t))
+
 
   ;; --------------------------------------------------------------------------
   ;; Configure Rust environment.
@@ -111,14 +148,6 @@
     (setq indent-tabs-mode t))
 
   (add-hook 'makefile-mode-hook 'makefile-mode-tabs)
-
-  ;; --------------------------------------------------------------------------
-  ;; Ediff.
-  ;; --------------------------------------------------------------------------
-
-  (setq ediff-diff-options "-w"
-        ediff-split-window-function 'split-window-horizontally
-        ediff-window-setup-function 'ediff-setup-windows-plain)
 
   ;; --------------------------------------------------------------------------
   ;; Line numbers.
