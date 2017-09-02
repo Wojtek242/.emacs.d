@@ -18,7 +18,8 @@
 
 (setq init-packages/version-control-packages
 
-      '(magit)
+      '(magit
+        diff-hl)
 
       )
 
@@ -43,6 +44,24 @@
     ("C-x g t" . magit-tag)
     :config
     (add-hook 'magit-mode-hook 'magit-load-config-extensions))
+
+  ;; --------------------------------------------------------------------------
+  ;; Ediff.
+  ;; --------------------------------------------------------------------------
+
+  (setq ediff-diff-options "-w"
+        ediff-split-window-function 'split-window-horizontally
+        ediff-window-setup-function 'ediff-setup-windows-plain)
+
+
+  ;; --------------------------------------------------------------------------
+  ;; Diff highlight mode.
+  ;; --------------------------------------------------------------------------
+
+  (use-package diff-hl
+    :init
+    (global-diff-hl-mode)
+    (add-hook 'dired-mode-hook 'diff-hl-dired-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Diff mode settings.
