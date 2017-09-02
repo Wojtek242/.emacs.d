@@ -176,6 +176,15 @@
   (add-hook 'text-mode-hook 'goto-address-mode)
 
   ;; --------------------------------------------------------------------------
+  ;; Tramp configuration.
+  ;; --------------------------------------------------------------------------
+
+  (use-package tramp
+    :defer t
+    :config
+    (add-to-list 'tramp-default-proxies-alist '(nil "\\`root\\'" "/ssh:%h:")))
+
+  ;; --------------------------------------------------------------------------
   ;; Configure garbage collection.
   ;;
   ;; Based on advice from:
