@@ -18,8 +18,8 @@
 
 (setq init-packages/parentheses-packages
 
-      '(rainbow-delimiters
-        highlight-parentheses
+      '(highlight-parentheses
+        rainbow-delimiters
         smartparens)
 
       )
@@ -27,15 +27,6 @@
 ;; Configuration:
 
 (defun init-packages/init-parentheses ()
-
-  ;; --------------------------------------------------------------------------
-  ;; Rainbow delimiters - colours are set by theme.
-  ;; --------------------------------------------------------------------------
-
-  (use-package rainbow-delimiters
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Highlight parentheses - this package does not use faces for colours,
@@ -47,6 +38,19 @@
     :defer t
     :init
     (add-hook 'prog-mode-hook 'highlight-parentheses-mode))
+
+  ;; --------------------------------------------------------------------------
+  ;; Rainbow delimiters - colours are set by theme.
+  ;; --------------------------------------------------------------------------
+
+  (use-package rainbow-delimiters
+    :defer t
+    :init
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+  ;; --------------------------------------------------------------------------
+  ;; Smartparens highlighting.
+  ;; --------------------------------------------------------------------------
 
   (use-package smartparens
     :init
@@ -100,7 +104,7 @@
     (sp-with-modes 'rst-mode
       (sp-local-pair "`" nil :actions nil)
       (sp-local-pair "``" "``"))
-    
+
     ;; Smartparens custom settings --------------------------------------------
 
     (setq-default

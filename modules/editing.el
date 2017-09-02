@@ -20,7 +20,6 @@
       '(duplicate-thing
         expand-region
         fill-column-indicator
-        rainbow-mode
         undo-tree
         volatile-highlights
         whole-line-or-region
@@ -52,28 +51,20 @@
   ;; Column indicator.
   ;; --------------------------------------------------------------------------
 
-  (defun fci-mode-unless-large-file ()
-    "Enable fci-mode unless the file is too large."
-    (interactive)
-    (unless (> (count-lines (point-min) (point-max)) 9999)
-      (fci-mode)))
-
-
   (use-package fill-column-indicator
     :defer t
     :bind
     (("C-x t f" . fci-mode))
     :init
+    ;; (defun fci-mode-unless-large-file ()
+    ;;   "Enable fci-mode unless the file is too large."
+    ;;   (interactive)
+    ;;   (unless (> (count-lines (point-min) (point-max)) 9999)
+    ;;     (fci-mode)))
+
     ;; (add-hook 'prog-mode-hook 'fci-mode-unless-large-file)
     ;; (add-hook 'text-mode-hook 'fci-mode-unless-large-file)
     )
-
-  ;; --------------------------------------------------------------------------
-  ;; Rainbow mode.
-  ;; --------------------------------------------------------------------------
-
-  (use-package rainbow-mode
-    :defer t)
 
   ;; --------------------------------------------------------------------------
   ;; Undo tree.  To undo "C-\", to redo "C-_", undo tree "C-x u".

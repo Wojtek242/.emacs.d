@@ -18,8 +18,8 @@
 (setq init-packages/helm-packages
 
       '(helm
-        helm-projectile
-        helm-descbinds)
+        helm-descbinds
+        helm-projectile)
 
       )
 
