@@ -139,6 +139,9 @@
                                 (let ((scroll-preserve-screen-position nil))
                                   (scroll-up 1))))
 
+  ;; Recursive grep.
+  (global-set-key (kbd "C-c g") 'rgrep)
+
   ;; Setup key-bindings for switching between themes.
   (global-set-key (kbd "C-x t l") (lambda ()
                                     (interactive)
