@@ -182,7 +182,14 @@
   (use-package tramp
     :defer t
     :config
-    (add-to-list 'tramp-default-proxies-alist '(nil "\\`root\\'" "/ssh:%h:")))
+    (setq-default tramp-default-method "ssh")
+    ;; This line proxies all sudo connections via an ssh connection to the
+    ;; provided hostname.
+    (add-to-list 'tramp-default-proxies-alist '(nil "\\`root\\'" "/ssh:%h:"))
+    ;; This rule is an exception to the above so that local sudo does not proxy
+    ;; via ssh.  This has to be added last so that it is the first element of
+    ;; the list.
+    (add-to-list 'tramp-default-proxies-alist '("localhost" "\\`root\\'" nil)))
 
   ;; --------------------------------------------------------------------------
   ;; Configure garbage collection.
