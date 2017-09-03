@@ -97,7 +97,7 @@
   ;; Load modules.
   ;; --------------------------------------------------------------------------
 
-  (emodule/init-debug '(
+  (emodule/init '(
                   editing
                   emacs
                   files
