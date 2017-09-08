@@ -23,14 +23,18 @@
         function-args
         flycheck
         flycheck-pos-tip
+        flycheck-rust
         highlight-numbers
         highlight-symbol
-        racer
         rust-mode
         sr-speedbar
         stickyfunc-enhance
         swiper
-        yasnippet)
+        toml-mode
+        yasnippet
+
+        s
+        f)
 
       )
 
@@ -99,8 +103,12 @@
     :init
     (add-hook 'after-init-hook #'global-flycheck-mode)
     :config
-    (require 'flycheck-pos-tip)
-    (flycheck-pos-tip-mode))
+    (use-package flycheck-pos-tip
+      :init
+      (flycheck-pos-tip-mode))
+    (use-package flycheck-pos-tip
+      :init
+      (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
   ;; --------------------------------------------------------------------------
   ;; Highlights.
@@ -134,18 +142,26 @@
   ;; and the Rust libstd sources must be installed.
   ;; $ rustup component add rust-src
   ;; $ cargo install racer
+  (add-to-list 'load-path "~/.emacs.d/racer")
   (use-package racer
     :init
     (add-hook 'rust-mode-hook #'racer-mode)
     (add-hook 'racer-mode-hook #'eldoc-mode)
     :config
-    (setq-default
-     racer-rust-src-path
-     "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/")
-
-    (require 'rust-mode)
+    ;; For racer to work, it needs to know where to find the standard library
+    ;; sources.  The easiest way to do it without having a machine dependent
+    ;; setup is to set the environment variable RUST_SRC_PATH.  If that's
+    ;; undesirable or not possible, set the variable below instead.
+    ;; (setq-default
+    ;;  racer-rust-src-path
+    ;;  "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/")
+    (setq-default racer-use-company-backend t)
     (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-    (setq company-tooltip-align-annotations t))
+    (setq-default company-tooltip-align-annotations t))
+
+  (use-package toml-mode
+    :defer t
+    :mode "\\.lock\\'")
 
   ;; --------------------------------------------------------------------------
   ;; Speedbar.
