@@ -110,6 +110,11 @@ If nil, we will query $CARGO_HOME at runtime."
   :type 'file
   :group 'racer)
 
+(defcustom racer-use-company-backend nil
+  "Use the asynchronous company backend."
+  :type 'boolean
+  :group 'racer)
+
 (defun racer--cargo-project-root ()
   "Find the root of the current Cargo project."
   (let ((root (locate-dominating-file (or (buffer-file-name (buffer-base-buffer)) default-directory)
@@ -752,14 +757,37 @@ If PATH is not in DIRECTORY, just abbreviate it."
     (define-key map (kbd "M-,") #'pop-tag-mark)
     map))
 
+(defun racer--get-prefix ()
+  "Get a prefix from current position."
+  (company-grab-symbol-cons "\\.\\|::" 2))
+
+(defun racer-company-backend (command &optional arg &rest ignored)
+  "`company-mode' completion back-end for racer.
+Provide completion info according to COMMAND and ARG.  IGNORED, not used."
+  (interactive (list 'interactive))
+  (cl-case command
+    (interactive (company-begin-backend 'company-racer-racer))
+    (prefix (and (derived-mode-p 'rust-mode)
+                 (not (company-in-string-or-comment))
+                 (or (racer--get-prefix) 'stop)))
+    (candidates (cons :async (lambda (callback)
+                               (funcall callback (racer-complete)))))
+    (annotation (racer-complete--annotation arg))
+    (location (racer-complete--location arg))
+    (meta (racer-complete--docsig arg))
+    (doc-buffer (racer--describe arg))))
+
 ;;;###autoload
 (define-minor-mode racer-mode
   "Minor mode for racer."
   :lighter " racer"
   :keymap racer-mode-map
   (setq-local eldoc-documentation-function #'racer-eldoc)
-  (set (make-local-variable 'completion-at-point-functions) nil)
-  (add-hook 'completion-at-point-functions #'racer-complete-at-point))
+  (if racer-use-company-backend
+      (add-to-list (make-local-variable 'company-backends)
+                   'racer-company-backend)
+    (set (make-local-variable 'completion-at-point-functions) nil)
+    (add-hook 'completion-at-point-functions #'racer-complete-at-point)))
 
 (define-obsolete-function-alias 'racer-turn-on-eldoc 'eldoc-mode)
 (define-obsolete-function-alias 'racer-activate 'racer-mode)
