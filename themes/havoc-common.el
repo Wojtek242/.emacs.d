@@ -116,6 +116,16 @@
         (*diff-hunk-hdr-bg*   (if (eq variant 'dark) "#364555"        "#E2DAEF"))
         (*diff-hunk-hdr-fg*   (if (eq variant 'dark) "#E1E1E0"        "#000000"))
 
+        ;; Terminal colors
+        (*term-black*         (if (eq variant 'dark) "#000000"        "#000000"))
+        (*term-blue*          (if (eq variant 'dark) "#6495ED"        "#6495ED"))
+        (*term-cyan*          (if (eq variant 'dark) "#00CDCD"        "#00CDCD"))
+        (*term-green*         (if (eq variant 'dark) "#00CD00"        "#00CD00"))
+        (*term-magenta*       (if (eq variant 'dark) "#CD00CD"        "#CD00CD"))
+        (*term-red*           (if (eq variant 'dark) "#CD0000"        "#CD0000"))
+        (*term-white*         (if (eq variant 'dark) "#FFFFFF"        "#FFFFFF"))
+        (*term-yellow*        (if (eq variant 'dark) "#CDCD00"        "#CDCD00"))
+
         ;; Base colors
         (*aqua*               (if (eq variant 'dark) "#2D9574"        "#2D9574"))
         (*aqua-bg*            (if (eq variant 'dark) "#293235"        "#293235"))
@@ -396,6 +406,16 @@
      `(ivy-minibuffer-match-face-3 ((t (:foreground ,*head4* :underline t))))
      `(ivy-minibuffer-match-face-4 ((t (:foreground ,*head3* :underline t))))
      `(ivy-remote ((t (:foreground ,*cyan*))))
+
+     ;; terminal colours
+     `(term-color-black   ((t (:foreground ,*term-black* :background ,*term-black*))))
+     `(term-color-blue    ((t (:foreground ,*term-blue* :background ,*term-blue*))))
+     `(term-color-cyan    ((t (:foreground ,*term-cyan* :background ,*term-cyan*))))
+     `(term-color-green   ((t (:foreground ,*term-green* :background ,*term-green*))))
+     `(term-color-magenta ((t (:foreground ,*term-magenta* :background ,*term-magenta*))))
+     `(term-color-red     ((t (:foreground ,*term-red* :background ,*term-red*))))
+     `(term-color-white   ((t (:foreground ,*term-white* :background ,*term-white*))))
+     `(term-color-yellow  ((t (:foreground ,*term-yellow* :background ,*term-yellow*))))
 
      )
 
