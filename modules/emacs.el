@@ -128,6 +128,7 @@
 
   ;; Change active window.  More convenient than "C-x o".
   (global-set-key (kbd "M-o") 'other-window)
+  (global-set-key (kbd "M-O") (lambda () (interactive) (other-window -1)))
 
   ;; Scroll up/down, but keep point in place.
   (global-set-key (kbd "C-<") (lambda()
