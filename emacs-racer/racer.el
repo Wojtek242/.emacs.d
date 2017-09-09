@@ -284,56 +284,15 @@ Return a list (exit-code stdout stderr)."
              :process-environment process-environment))
       (list exit-code stdout stderr))))
 
-(defun deferred:process-buffer-gen-x (f command args)
-  "[internal]"
-  (let ((d (deferred:next)) (uid (deferred:uid)))
-    (let ((proc-name (format "*deferred:*%s*:%s" command uid))
-          (buf-name (format " *deferred:*%s*:%s" command uid))
-          (err-buf-name (format " *deferred:err:*%s*:%s" command uid))
-          (pwd default-directory)
-          (env process-environment)
-          (con-type process-connection-type)
-          (nd (deferred:new)) proc-buf proc-err-buf proc)
-      (deferred:nextc d
-        (lambda (_x)
-          (setq proc-buf (get-buffer-create buf-name))
-          (setq proc-err-buf (get-buffer-create err-buf-name))
-          (condition-case err
-              (let ((default-directory pwd)
-                    (process-environment env)
-                    (process-connection-type con-type))
-                (make-process
-                 :name proc-name
-                 :buffer buf-name
-                 :command (cons command args)
-                 :sentinel (lambda (proc event)
-                             (unless (process-live-p proc)
-                               (deferred:post-task nd 'ok
-                                 (list (process-exit-status proc)
-                                       proc-buf
-                                       proc-err-buf))))
-                 :stderr err-buf-name)
-		(setf (deferred-cancel nd)
-		      (lambda (x) (deferred:default-cancel x)
-			(when proc
-			  (kill-process proc)
-			  (kill-buffer proc-buf)
-			  (kill-buffer proc-err-buf)))))
-	    (error (deferred:post-task nd 'ng err)))
-	  nil))
-      nd)))
-
 (defun racer--shell-command-deferred (program args)
   "Execute PROGRAM with ARGS.
 Return a list (exit-code stdout stderr)."
   (deferred:nextc
-    (deferred:process-buffer-gen-x 'start-process program args)
+    (apply #'deferred:process-w-stderr program args)
     (lambda (output)
       (let ((exit-code (nth 0 output))
-            (stdout (with-current-buffer (nth 1 output)
-                      (buffer-string)))
-            (stderr (with-current-buffer (nth 2 output)
-                      (buffer-string))))
+            (stdout (nth 1 output))
+            (stderr (nth 2 output)))
         (setq racer--prev-state
               (list
                :program program
