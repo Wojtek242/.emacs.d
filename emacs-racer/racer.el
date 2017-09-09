@@ -247,9 +247,11 @@ error."
 Evaluate BODY, then delete the temporary file."
   (declare (indent 1) (debug (symbolp body)))
   `(let ((,path-sym (make-temp-file "racer")))
-     (unwind-protect
-         (progn ,@body)
-       (delete-file ,path-sym))))
+     (deferred:nextc
+       (progn ,@body)
+       (lambda (output)
+         (delete-file ,path-sym)
+         output))))
 
 (defun racer--slurp (file)
   "Return the contents of FILE as a string."
@@ -282,16 +284,56 @@ Return a list (exit-code stdout stderr)."
              :process-environment process-environment))
       (list exit-code stdout stderr))))
 
+(defun deferred:process-buffer-gen-x (f command args)
+  "[internal]"
+  (let ((d (deferred:next)) (uid (deferred:uid)))
+    (let ((proc-name (format "*deferred:*%s*:%s" command uid))
+          (buf-name (format " *deferred:*%s*:%s" command uid))
+          (err-buf-name (format " *deferred:err:*%s*:%s" command uid))
+          (pwd default-directory)
+          (env process-environment)
+          (con-type process-connection-type)
+          (nd (deferred:new)) proc-buf proc-err-buf proc)
+      (deferred:nextc d
+        (lambda (_x)
+          (setq proc-buf (get-buffer-create buf-name))
+          (setq proc-err-buf (get-buffer-create err-buf-name))
+          (condition-case err
+              (let ((default-directory pwd)
+                    (process-environment env)
+                    (process-connection-type con-type))
+                (make-process
+                 :name proc-name
+                 :buffer buf-name
+                 :command (cons command args)
+                 :sentinel (lambda (proc event)
+                             (unless (process-live-p proc)
+                               (deferred:post-task nd 'ok
+                                 (list (process-exit-status proc)
+                                       proc-buf
+                                       proc-err-buf))))
+                 :stderr err-buf-name)
+		(setf (deferred-cancel nd)
+		      (lambda (x) (deferred:default-cancel x)
+			(when proc
+			  (kill-process proc)
+			  (kill-buffer proc-buf)
+			  (kill-buffer proc-err-buf)))))
+	    (error (deferred:post-task nd 'ng err)))
+	  nil))
+      nd)))
+
 (defun racer--shell-command-deferred (program args)
   "Execute PROGRAM with ARGS.
 Return a list (exit-code stdout stderr)."
-  (let ((exit-code 0)
-        (stderr ""))
-    ;; Create a temporary buffer for `call-process` to write stdout
-    ;; into.
-    (deferred:nextc
-      (apply #'deferred:process program args)
-      (lambda (stdout)
+  (deferred:nextc
+    (deferred:process-buffer-gen-x 'start-process program args)
+    (lambda (output)
+      (let ((exit-code (nth 0 output))
+            (stdout (with-current-buffer (nth 1 output)
+                      (buffer-string)))
+            (stderr (with-current-buffer (nth 2 output)
+                      (buffer-string))))
         (setq racer--prev-state
               (list
                :program program
@@ -319,8 +361,7 @@ Return a list of all the lines returned by the command."
 (defun racer--call-at-point-deferred (command)
   "Call racer command COMMAND at point of current buffer.
 Return a list of all the lines returned by the command."
-  ;; (racer--with-temporary-file tmp-file
-  (let ((tmp-file (make-temp-file "racer")))
+  (racer--with-temporary-file tmp-file
     (write-region nil nil tmp-file nil 'silent)
     (deferred:nextc
       (racer--call-deferred command
