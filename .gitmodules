@@ -1,0 +1,3 @@
+[submodule "emacs-deferred"]
+	path = emacs-deferred
+	url = git@github.com:Wojtek242/emacs-deferred.git
