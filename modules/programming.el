@@ -142,6 +142,7 @@
   ;; and the Rust libstd sources must be installed.
   ;; $ rustup component add rust-src
   ;; $ cargo install racer
+  (add-to-list 'load-path "~/.emacs.d/emacs-deferred")
   (add-to-list 'load-path "~/.emacs.d/emacs-racer")
   (use-package racer
     :init
