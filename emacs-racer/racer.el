@@ -288,11 +288,11 @@ Return a list (exit-code stdout stderr)."
   "Execute PROGRAM with ARGS.
 Return a list (exit-code stdout stderr)."
   (deferred:nextc
-    (apply #'deferred:process-w-stderr program args)
+    (apply #'deferred:process-ec program args)
     (lambda (output)
       (let ((exit-code (nth 0 output))
             (stdout (nth 1 output))
-            (stderr (nth 2 output)))
+            (stderr (nth 1 output)))
         (setq racer--prev-state
               (list
                :program program
