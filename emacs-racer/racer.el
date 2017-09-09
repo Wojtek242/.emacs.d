@@ -271,7 +271,7 @@ Return a list (exit-code stdout stderr)."
       (let ((exit-code (nth 0 output))
             ;; deferred does not support separate stdout and stderr.
             (stdout (nth 1 output))
-            (stderr (nth 1 output)))
+            (stderr ""))
         (setq racer--prev-state
               (list
                :program program
