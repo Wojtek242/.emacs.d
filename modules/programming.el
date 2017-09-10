@@ -261,8 +261,8 @@
 
   (use-package compile
     :bind
-    (("C-c C-c" . compile)
-     ("C-c C-r" . recompile))
+    (("C-c c" . compile)
+     ("C-c r" . recompile))
     :config
     (setq-default
      ;; Just save before compiling.

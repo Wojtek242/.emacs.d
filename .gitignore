@@ -9,4 +9,7 @@ projectile.cache
 semanticdb
 ede-projects.el
 tramp
+url
+session*
+eww-bookmarks
 *~
