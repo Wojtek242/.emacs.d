@@ -207,10 +207,7 @@ error."
                                         (format "CARGO_HOME=%s" (expand-file-name cargo-home)))
                                        process-environment)))
       (deferred:nextc
-        (if (memq 'racer-company-backend company-backends)
-            ;; If racer-company-backend is in use, call the asynchronous version.
-            (racer--shell-command-async racer-cmd (cons command args))
-          (deferred:next (racer--shell-command racer-cmd (cons command args))))
+        (racer--shell-command racer-cmd (cons command args))
         (lambda (output)
           (-let [(exit-code stdout _stderr) output]
             ;; Use `equal' instead of `zero' as exit-code can be a string
@@ -244,23 +241,39 @@ Return a list (exit-code stdout stderr)."
     (let (exit-code stdout stderr)
       ;; Create a temporary buffer for `call-process` to write stdout
       ;; into.
-      (with-temp-buffer
-        (setq exit-code
-              (apply #'call-process program nil
-                     (list (current-buffer) tmp-file-for-stderr)
-                     nil args))
-        (setq stdout (buffer-string)))
-      (setq stderr (racer--slurp tmp-file-for-stderr))
-      (setq racer--prev-state
-            (list
-             :program program
-             :args args
-             :exit-code exit-code
-             :stdout stdout
-             :stderr stderr
-             :default-directory default-directory
-             :process-environment process-environment))
-      (list exit-code stdout stderr))))
+      (deferred:nextc
+        ;; If racer-company-backend is in use, call the asynchronous version.
+        (if (memq 'racer-company-backend company-backends)
+            (deferred:nextc
+              (apply #'deferred:process-ec program args)
+              (lambda (output)
+                ;; deferred combines stdout and stderr
+                (list (nth 0 output) (nth 1 output) "")))
+          (progn
+            (with-temp-buffer
+              (setq exit-code
+                    (apply #'call-process program nil
+                           (list (current-buffer) tmp-file-for-stderr)
+                           nil args))
+              (setq stdout (buffer-string)))
+            (setq stderr (racer--slurp tmp-file-for-stderr))
+            (deferred:next
+              (lambda ()
+               (list exit-code stdout stderr)))))
+        (lambda (output)
+          (setq exit-code (nth 0 output)
+                stdout (nth 1 output)
+                stderr (nth 2 output))
+          (setq racer--prev-state
+                (list
+                 :program program
+                 :args args
+                 :exit-code exit-code
+                 :stdout stdout
+                 :stderr stderr
+                 :default-directory default-directory
+                 :process-environment process-environment))
+          (list exit-code stdout stderr))))))
 
 (defun racer--shell-command-async (program args)
   "Execute PROGRAM with ARGS.
