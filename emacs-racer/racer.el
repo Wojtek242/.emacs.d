@@ -190,10 +190,22 @@ racer or racer.el."
     (switch-to-buffer buf)
     (goto-char (point-min))))
 
-(defun racer--call (command &rest args)
+(defun racer--process-shell-ouput (output)
+  "Process OUTPUT from the racer shell call.  Return stdout if
+command exited OK, and throw an error otherwise.  The output is
+expected to be a list of (exit-code stdout stderr)"
+  (-let [(exit-code stdout stderr) output]
+    ;; Use `equal' instead of `zero' as exit-code can be a string
+    ;; "Aborted" if racer crashes.
+    (unless (equal 0 exit-code)
+      (user-error "%s exited with %s. `M-x racer-debug' for more info"
+                  racer-cmd exit-code))
+    stdout))
+
+(defun racer--call (defer command &rest args)
 "Call racer command COMMAND with args ARGS.
-Return stdout if COMMAND exits normally, otherwise show an
-error."
+Return stdout if COMMAND exits normally, otherwise show an error.
+If DEFER is non-nil, return deferred object instead"
   (let ((rust-src-path (or racer-rust-src-path (getenv "RUST_SRC_PATH")))
         (cargo-home (or racer-cargo-home (getenv "CARGO_HOME"))))
     (when (null rust-src-path)
@@ -206,20 +218,17 @@ error."
                                         (format "RUST_SRC_PATH=%s" (expand-file-name rust-src-path))
                                         (format "CARGO_HOME=%s" (expand-file-name cargo-home)))
                                        process-environment)))
-      (deferred:nextc
-        (racer--shell-command racer-cmd (cons command args))
-        (lambda (output)
-          (-let [(exit-code stdout _stderr) output]
-            ;; Use `equal' instead of `zero' as exit-code can be a string
-            ;; "Aborted" if racer crashes.
-            (unless (equal 0 exit-code)
-              (user-error "%s exited with %s. `M-x racer-debug' for more info"
-                          racer-cmd exit-code))
-            stdout))))))
+      (if defer
+          (deferred:nextc
+            (racer--shell-command-defer racer-cmd (cons command args))
+            'racer--process-shell-ouput)
+        (racer--process-shell-ouput
+         (racer--shell-command racer-cmd (cons command args)))))))
 
-(defmacro racer--with-temporary-file (path-sym &rest body)
+(defmacro racer--with-deferred-temporary-file (path-sym &rest body)
   "Create a temporary file, and bind its path to PATH-SYM.
-Evaluate BODY, then delete the temporary file."
+Evaluate BODY, then delete the temporary file once deferred task
+completes."
   (declare (indent 1) (debug (symbolp body)))
   `(let ((,path-sym (make-temp-file "racer")))
      (deferred:nextc
@@ -228,11 +237,32 @@ Evaluate BODY, then delete the temporary file."
          (delete-file ,path-sym)
          output))))
 
+(defmacro racer--with-temporary-file (path-sym &rest body)
+  "Create a temporary file, and bind its path to PATH-SYM.
+Evaluate BODY, then delete the temporary file."
+  (declare (indent 1) (debug (symbolp body)))
+  `(let ((,path-sym (make-temp-file "racer")))
+     (unwind-protect
+       (progn ,@body)
+       (delete-file ,path-sym))))
+
 (defun racer--slurp (file)
   "Return the contents of FILE as a string."
   (with-temp-buffer
     (insert-file-contents-literally file)
     (buffer-string)))
+
+(defun racer--set-prev-state (racer-cmd args exit-code stdout stderr)
+  "Set the racer--prev-state previous variable."
+  (setq racer--prev-state
+        (list
+         :program racer-cmd
+         :args args
+         :exit-code exit-code
+         :stdout stdout
+         :stderr stderr
+         :default-directory default-directory
+         :process-environment process-environment)))
 
 (defun racer--shell-command (program args)
   "Execute PROGRAM with ARGS.
@@ -241,74 +271,50 @@ Return a list (exit-code stdout stderr)."
     (let (exit-code stdout stderr)
       ;; Create a temporary buffer for `call-process` to write stdout
       ;; into.
-      (deferred:nextc
-        ;; If racer-company-backend is in use, call the asynchronous version.
-        (if (memq 'racer-company-backend company-backends)
-            (deferred:nextc
-              (apply #'deferred:process-ec program args)
-              (lambda (output)
-                ;; deferred combines stdout and stderr
-                (list (nth 0 output) (nth 1 output) "")))
-          (progn
-            (with-temp-buffer
-              (setq exit-code
-                    (apply #'call-process program nil
-                           (list (current-buffer) tmp-file-for-stderr)
-                           nil args))
-              (setq stdout (buffer-string)))
-            (setq stderr (racer--slurp tmp-file-for-stderr))
-            (deferred:next
-              (lambda ()
-               (list exit-code stdout stderr)))))
-        (lambda (output)
-          (setq exit-code (nth 0 output)
-                stdout (nth 1 output)
-                stderr (nth 2 output))
-          (setq racer--prev-state
-                (list
-                 :program program
-                 :args args
-                 :exit-code exit-code
-                 :stdout stdout
-                 :stderr stderr
-                 :default-directory default-directory
-                 :process-environment process-environment))
-          (list exit-code stdout stderr))))))
+      (with-temp-buffer
+        (setq exit-code
+              (apply #'call-process program nil
+                     (list (current-buffer) tmp-file-for-stderr)
+                     nil args))
+        (setq stdout (buffer-string)))
+      (setq stderr (racer--slurp tmp-file-for-stderr))
+      (racer--set-prev-state racer-cmd args exit-code stdout stderr)
+      (list exit-code stdout stderr))))
 
-(defun racer--shell-command-async (program args)
+(defun racer--shell-command-defer (program args)
   "Execute PROGRAM with ARGS.
 Return a list (exit-code stdout stderr)."
   (deferred:nextc
     (apply #'deferred:process-ec program args)
     (lambda (output)
+      ;; deferred combines stdout and stderr
       (let ((exit-code (nth 0 output))
-            ;; deferred does not support separate stdout and stderr.
             (stdout (nth 1 output))
             (stderr ""))
-        (setq racer--prev-state
-              (list
-               :program program
-               :args args
-               :exit-code exit-code
-               :stdout stdout
-               :stderr stderr
-               :default-directory default-directory
-               :process-environment process-environment))
-        (list exit-code stdout stderr)))))
+      (racer--set-prev-state racer-cmd args exit-code stdout stderr)
+      (list exit-code stdout stderr)))))
 
-(defun racer--call-at-point (command)
+(defun racer--call-at-point (command &optional no-defer)
   "Call racer command COMMAND at point of current buffer.
-Return a list of all the lines returned by the command."
-  (racer--with-temporary-file tmp-file
-    (write-region nil nil tmp-file nil 'silent)
-    (deferred:nextc
-      (racer--call command
-                   (number-to-string (line-number-at-pos))
-                   (number-to-string (racer--current-column))
-                   (buffer-file-name (buffer-base-buffer))
-                   tmp-file)
-      (lambda (output)
-        (s-lines (s-trim-right output))))))
+Return a list of all the lines returned by the command.
+Optionally force racer to not defer command if NO-DEFER is
+non-nil."
+  (let ((line (number-to-string (line-number-at-pos)))
+        (column (number-to-string (racer--current-column)))
+        (filename (buffer-file-name (buffer-base-buffer))))
+    (if (and (string= command "complete")
+             (not no-defer))
+        (racer--with-deferred-temporary-file tmp-file
+          (write-region nil nil tmp-file nil 'silent)
+          (deferred:nextc
+            (racer--call 'defer command line column filename tmp-file)
+            (lambda (output)
+              (s-lines (s-trim-right output)))))
+      (racer--with-temporary-file tmp-file
+        (write-region nil nil tmp-file nil 'silent)
+        (s-lines
+         (s-trim-right
+          (racer--call nil command line column filename tmp-file)))))))
 
 (defun racer--read-rust-string (string)
   "Convert STRING, a rust string literal, to an elisp string."
@@ -643,7 +649,7 @@ Commands:
              (beg (or (car bounds) (point)))
              (end (or (cdr bounds) (point))))
         (list beg end
-              (completion-table-dynamic #'racer-complete)
+              (completion-table-dynamic #'racer-complete-sync)
               :annotation-function #'racer-complete--annotation
               :company-prefix-length (racer-complete--prefix-p beg end)
               :company-docsig #'racer-complete--docsig
@@ -656,21 +662,29 @@ Commands:
         (parent (f-filename (f-parent path))))
     (f-join parent file)))
 
+(defun racer--parse-complete-candidates (candidates)
+  "Parse the completion CANDIDATES returned by racer."
+  (->> candidates
+       (--filter (s-starts-with? "MATCH" it))
+       (--map (-let [(name line col file matchtype ctx)
+                     (s-split-up-to "," (s-chop-prefix "MATCH " it) 5)]
+                (put-text-property 0 1 'line (string-to-number line) name)
+                (put-text-property 0 1 'col (string-to-number col) name)
+                (put-text-property 0 1 'file file name)
+                (put-text-property 0 1 'matchtype matchtype name)
+                (put-text-property 0 1 'ctx ctx name)
+                name))))
+
 (defun racer-complete (&optional _ignore)
   "Completion candidates at point."
   (deferred:nextc
     (racer--call-at-point "complete")
-    (lambda (output)
-      (->> output
-           (--filter (s-starts-with? "MATCH" it))
-           (--map (-let [(name line col file matchtype ctx)
-                         (s-split-up-to "," (s-chop-prefix "MATCH " it) 5)]
-                    (put-text-property 0 1 'line (string-to-number line) name)
-                    (put-text-property 0 1 'col (string-to-number col) name)
-                    (put-text-property 0 1 'file file name)
-                    (put-text-property 0 1 'matchtype matchtype name)
-                    (put-text-property 0 1 'ctx ctx name)
-                    name))))))
+    'racer--parse-complete-candidates))
+
+(defun racer-complete-sync (&optional _ignore)
+  "Completion candidates at point.  Return synchronously."
+  (racer--parse-complete-candidates
+   (racer--call-at-point "complete" 'no-defer)))
 
 (defun racer--trim-up-to (needle s)
   "Return content after the occurrence of NEEDLE in S."
@@ -787,7 +801,7 @@ If PATH is not in DIRECTORY, just abbreviate it."
     (racer--goto-func-name)
     ;; If there's a variable at point:
     (-when-let* ((rust-sym (symbol-at-point))
-                 (comp-possibilities (racer-complete))
+                 (comp-possibilities (racer-complete-sync))
                  (matching-possibility
                   (--find (string= it (symbol-name rust-sym)) comp-possibilities))
                  (prototype (get-text-property 0 'ctx matching-possibility))
