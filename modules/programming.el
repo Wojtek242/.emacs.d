@@ -20,6 +20,7 @@
 
       '(company
         company-c-headers
+        fic-mode
         function-args
         flycheck
         flycheck-pos-tip
@@ -94,6 +95,14 @@
       (set-fa-abort-key))
 
     (add-hook 'function-args-mode-hook #'set-function-args-keys))
+
+  ;; --------------------------------------------------------------------------
+  ;; FIC mode.
+  ;; --------------------------------------------------------------------------
+  (use-package fic-mode
+    :defer t
+    :init
+    (add-hook 'prog-mode-hook #'fic-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Flycheck mode.

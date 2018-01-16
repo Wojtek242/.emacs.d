@@ -417,6 +417,9 @@
      `(term-color-white   ((t (:foreground ,*term-white* :background ,*term-white*))))
      `(term-color-yellow  ((t (:foreground ,*term-yellow* :background ,*term-yellow*))))
 
+     ;; fic-mode
+     `(fic-face ((t (:foreground ,*warning* :weight bold))))
+
      )
 
     ;; Define values for colours that don't use faces.
