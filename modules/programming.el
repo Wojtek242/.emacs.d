@@ -31,6 +31,7 @@
         stickyfunc-enhance
         swiper
         toml-mode
+        vala-mode
         yasnippet
 
         s
@@ -196,6 +197,16 @@
     :defer t
     :bind
     (("M-s M-s" . swiper)))
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure Vala environment.
+  ;; --------------------------------------------------------------------------
+
+  (use-package vala-mode
+    :defer t
+    :config
+    (add-to-list 'file-coding-system-alist '("\\.vala$" . utf-8))
+    (add-to-list 'file-coding-system-alist '("\\.vapi$" . utf-8)))
 
   ;; --------------------------------------------------------------------------
   ;; Enable yasnippet.
