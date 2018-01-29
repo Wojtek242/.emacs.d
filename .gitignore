@@ -12,5 +12,6 @@ tramp
 url
 session*
 eww-bookmarks
+.cache
 \#*
 *~

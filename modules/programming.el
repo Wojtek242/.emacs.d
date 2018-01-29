@@ -23,10 +23,12 @@
         fic-mode
         function-args
         flycheck
+        flycheck-plantuml
         flycheck-pos-tip
         flycheck-rust
         highlight-numbers
         highlight-symbol
+        plantuml-mode
         rust-mode
         sr-speedbar
         stickyfunc-enhance
@@ -208,6 +210,18 @@
     (("M-s M-s" . swiper)))
 
   ;; --------------------------------------------------------------------------
+  ;; plantuml-mode
+  ;; --------------------------------------------------------------------------
+
+  (use-package plantuml-mode
+    :defer t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.pu\\'" . plantuml-mode))
+    (setq-default plantuml-jar-path "~/.emacs.d/plantuml.jar")
+    :config
+    (require 'flycheck-plantuml))
+
+  ;; --------------------------------------------------------------------------
   ;; Configure Vala environment.
   ;; --------------------------------------------------------------------------
 
@@ -290,7 +304,15 @@
      ;; Just kill old compile processes before starting the new one.
      compilation-always-kill t
      ;; Automatically scroll to first error.
-     compilation-scroll-output 'first-error))
+     compilation-scroll-output 'first-error)
+
+    ;; ansi-colors
+    (ignore-errors
+      (require 'ansi-color)
+      (defun my-colorize-compilation-buffer ()
+        (when (eq major-mode 'compilation-mode)
+          (ansi-color-apply-on-region compilation-filter-start (point-max))))
+      (add-hook 'compilation-filter-hook 'my-colorize-compilation-buffer)))
 
   ;; --------------------------------------------------------------------------
   ;; Makefile settings.
