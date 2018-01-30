@@ -20,6 +20,7 @@
 
       '(company
         company-c-headers
+        dockerfile-mode
         fic-mode
         function-args
         flycheck
@@ -35,6 +36,7 @@
         swiper
         toml-mode
         vala-mode
+        yaml-mode
         yasnippet
 
         s
@@ -97,6 +99,13 @@
       (set-fa-abort-key))
 
     (add-hook 'function-args-mode-hook #'set-function-args-keys))
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure dockerfile environment.
+  ;; --------------------------------------------------------------------------
+
+  (use-package dockerfile-mode
+    :defer t)
 
   ;; --------------------------------------------------------------------------
   ;; FIC mode.
@@ -230,6 +239,15 @@
     :config
     (add-to-list 'file-coding-system-alist '("\\.vala$" . utf-8))
     (add-to-list 'file-coding-system-alist '("\\.vapi$" . utf-8)))
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure yaml environment.
+  ;; --------------------------------------------------------------------------
+
+  (use-package yaml-mode
+    :defer t
+    :config
+    (add-hook 'yaml-mode-hook #'linum-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Enable yasnippet.
