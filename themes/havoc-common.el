@@ -212,14 +212,6 @@
      `(enh-ruby-regexp-delimiter-face ((t (:foreground, *regexp*))))
      `(enh-ruby-string-delimiter-face ((t (:foreground, *normal*))))
 
-     ;; org-mode
-     `(org-date ((t (:foreground, *light-purple* :underline t))))
-     `(org-level-1 ((t (:foreground, *string*))))
-     `(org-special-keyword ((t (:foreground, *variable*))))
-     `(org-link ((t (:foreground, *keywords* :underline t))))
-     `(org-checkbox ((t (:foreground, *keywords* :background, *bg-1* :bold t))))
-     `(org-clock-overlay ((t (:foreground, *mode-line-bg* :background, *string*))))
-
      ;; show-paren
      `(show-paren-mismatch ((t (:foreground, *warning* :weight ultra-bold :underline t))))
      `(show-paren-match ((t (:foreground, *success* :weight ultra-bold :underline t))))
@@ -419,6 +411,22 @@
 
      ;; fic-mode
      `(fic-face ((t (:foreground ,*warning* :weight bold))))
+
+     ;; org-mode
+     `(org-level-8 ((t (:weight bold :foreground ,*head4*))))
+     `(org-level-7 ((t (:weight bold :foreground ,*head3*))))
+     `(org-level-6 ((t (:weight bold :foreground ,*head2*))))
+     `(org-level-5 ((t (:weight bold :foreground ,*head1*))))
+     `(org-level-4 ((t (:weight bold :height 1.1 :foreground ,*head4*))))
+     `(org-level-3 ((t (:weight bold :height 1.25 :foreground ,*head3*))))
+     `(org-level-2 ((t (:weight bold :height 1.5 :foreground ,*head2*))))
+     `(org-level-1 ((t (:weight bold :height 1.75 :foreground ,*head1*))))
+     `(org-document-title ((t (:weight bold :height 1.5 :underline nil :foreground ,*method-declaration*))))
+     `(org-date ((t (:foreground, *light-purple* :underline t))))
+     `(org-special-keyword ((t (:foreground, *variable*))))
+     `(org-link ((t (:foreground, *keywords* :underline t))))
+     `(org-checkbox ((t (:foreground, *keywords* :background, *bg-1* :bold t))))
+     `(org-clock-overlay ((t (:foreground, *mode-line-bg* :background, *string*))))
 
      )
 

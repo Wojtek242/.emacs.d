@@ -103,6 +103,7 @@
                   files
                   helm
                   helm-gtags
+                  org
                   parentheses
                   programming
                   terminal
