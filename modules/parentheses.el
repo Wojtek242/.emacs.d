@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
-;; Author: Wojciech Kozlowski <wojciech.kozlowski@vivaldi.net>
+;; Author: Wojciech Kozlowski <wk@wojciechkozlowski.eu>
 ;; Created: 28 Aug 2017
 ;;
 ;; This file is not part of GNU Emacs.

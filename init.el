@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2017 Wojciech Kozlowski
 ;;
-;; Author: Wojciech Kozlowski <wojciech.kozlowski@vivaldi.net>
+;; Author: Wojciech Kozlowski <wk@wojciechkozlowski.eu>
 ;; URL: https://gitlab.wojciechkozlowski.eu/config/emacs.d
 ;; URL: https://github.com/Wojtek242/.emacs.d
 ;; Created: 17 Aug 2017

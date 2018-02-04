@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2017 Wojciech Kozlowski
 
-;; Author: Wojciech Kozlowski <wojciech.kozlowski@vivaldi.net>
+;; Author: Wojciech Kozlowski <wk@wojciechkozlowski.eu>
 ;; Keywords: faces
 ;; Compatibility: 24.1
 ;; Version: 0.0.1
