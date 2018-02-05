@@ -13,3 +13,4 @@
 ** Modules
 
    - [ ] Nicer status bar
+   - [ ] Incremental search counter
