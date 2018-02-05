@@ -1,0 +1,15 @@
+* Emacs wishlist
+
+** Init
+
+   - [ ] Nicer splash screen
+   - [ ] Frontend for emodule (e.g. for updates, rollbacks, init messages)
+
+** Emodule
+
+   - [ ] Updates packages
+   - [ ] Backup/rollback
+
+** Modules
+
+   - [ ] Nicer status bar
