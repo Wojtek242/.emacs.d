@@ -1,16 +1,16 @@
-* Emacs wishlist
+#+TITLE: Emacs wishlist
 
-** Init
+* Init
 
    - [ ] Nicer splash screen
    - [ ] Frontend for emodule (e.g. for updates, rollbacks, init messages)
 
-** Emodule
+* Emodule
 
    - [ ] Updates packages
    - [ ] Backup/rollback
 
-** Modules
+* Modules
 
    - [ ] Nicer status bar
    - [ ] Incremental search counter
