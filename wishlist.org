@@ -14,3 +14,8 @@
 
    - [ ] Nicer status bar
    - [ ] Incremental search counter
+
+* Theme
+
+  - [ ] Comments are too dark (problematic with big block comments)
+  - [ ] In C/C++ type is same colour as variable name
