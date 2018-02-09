@@ -53,31 +53,31 @@
       (define-key term-raw-map (kbd "C-2") 'split-window-below)
       (define-key term-raw-map (kbd "C-3") 'split-window-right)
       (define-key term-raw-map (kbd "C-0") 'delete-window))
-  (add-hook 'term-mode-hook 'x-term-setup t)
-  (setq term-buffer-maximum-size 0)
+    (add-hook 'term-mode-hook 'x-term-setup t)
+    (setq term-buffer-maximum-size 0)
 
-  :config
-  (defun ansi-term-pop (term-cmd)
-    "Launch terminal in (preferably) other window."
-    (let ((ansi-buf nil)
-          (cur-buf (current-buffer)))
-      (setq ansi-buf (ansi-term term-cmd))
-      (switch-to-buffer cur-buf)
-      (switch-to-buffer-other-window ansi-buf)))
+    :config
+    (defun ansi-term-pop (term-cmd)
+      "Launch terminal in (preferably) other window."
+      (let ((ansi-buf nil)
+            (cur-buf (current-buffer)))
+        (setq ansi-buf (ansi-term term-cmd))
+        (switch-to-buffer cur-buf)
+        (switch-to-buffer-other-window ansi-buf)))
 
-  (defun ansi-term-recycle (term-cmd)
-    "Kill current buffer and start an *ansi-term* in it."
-    (kill-buffer (current-buffer))
-    (ansi-term term-cmd))
+    (defun ansi-term-recycle (term-cmd)
+      "Kill current buffer and start an *ansi-term* in it."
+      (kill-buffer (current-buffer))
+      (ansi-term term-cmd))
 
-  (defun first-matching-buffer (regex)
-    "Find first buffer whose name matches REGEXP."
-    (car (remove-if-not
-          (apply-partially #'string-match-p regex)
-          (mapcar 'buffer-name (buffer-list)))))
+    (defun first-matching-buffer (regex)
+      "Find first buffer whose name matches REGEXP."
+      (car (remove-if-not
+            (apply-partially #'string-match-p regex)
+            (mapcar 'buffer-name (buffer-list)))))
 
-  (defun visit-ansi-term ()
-    "Open or switch to active ansi-term.
+    (defun visit-ansi-term ()
+      "Open or switch to active ansi-term.
      If current buffer is a term:
        If it is running
          Open a new ansi-term in a new window
@@ -89,70 +89,71 @@
          Recycle if necessary
        If it does not exist
          Open a new ansi-term in a new window"
-    (interactive)
-    (let ((is-term (string= "term-mode" major-mode))
-          (is-running (term-check-proc (buffer-name)))
-          (term-cmd "/bin/zsh")
-          (anon-term (first-matching-buffer "^*ansi-term*")))
-      (if is-term
-          (if is-running
-              (ansi-term-pop term-cmd)
-            (ansi-term-recycle term-cmd))
-        (if anon-term
-            (progn
-              (switch-to-buffer-other-window anon-term)
-              (unless (term-check-proc (buffer-name))
-                (ansi-term-recycle term-cmd)))
-          (ansi-term-pop term-cmd)))))
+      (interactive)
+      (let ((is-term (string= "term-mode" major-mode))
+            (is-running (term-check-proc (buffer-name)))
+            (term-cmd "/bin/zsh")
+            (anon-term (first-matching-buffer "^*ansi-term*")))
+        (if is-term
+            (if is-running
+                (ansi-term-pop term-cmd)
+              (ansi-term-recycle term-cmd))
+          (if anon-term
+              (progn
+                (switch-to-buffer-other-window anon-term)
+                (unless (term-check-proc (buffer-name))
+                  (ansi-term-recycle term-cmd)))
+            (ansi-term-pop term-cmd)))))
 
-  (global-set-key (kbd "C-x '") 'visit-ansi-term))
+    (global-set-key (kbd "C-x '") 'visit-ansi-term))
 
   ;; --------------------------------------------------------------------------
   ;; Configure eshell.
   ;; --------------------------------------------------------------------------
 
-  (setq eshell-visual-commands (nconc eshell-visual-commands '("htop"
-                                                               "tmux")))
+  (use-package eshell
+    :init
+    (defun eshell-here ()
+      "Opens up a new shell in the directory associated with the
+       current buffer's file."
+      (interactive)
+      (let* ((parent (file-name-directory (buffer-file-name)))
+             (name   (car
+                      (last
+                       (split-string parent "/" t)))))
+        (split-window-vertically)
+        (other-window 1)
+        (eshell "new")
+        (rename-buffer (concat "*eshell: " name "*"))
 
-  (defun eshell-here ()
-    "Opens up a new shell in the directory associated with the
-     current buffer's file."
-    (interactive)
-    (let* ((parent (file-name-directory (buffer-file-name)))
-           (name   (car
-                    (last
-                     (split-string parent "/" t)))))
-      (split-window-vertically)
-      (other-window 1)
-      (eshell "new")
-      (rename-buffer (concat "*eshell: " name "*"))
+        (insert (concat "ls"))
+        (eshell-send-input)))
 
-      (insert (concat "ls"))
-      (eshell-send-input)))
+    (defun delete-single-window (&optional window)
+      "Remove WINDOW from the display.  Default is `selected-window'.
+       If WINDOW is the only one in its frame, then `delete-frame' too."
+      (interactive)
+      (save-current-buffer
+        (setq window (or window (selected-window)))
+        (select-window window)
+        (kill-buffer)
+        (if (one-window-p t)
+            (delete-frame)
+          (delete-window (selected-window)))))
 
-  (defun delete-single-window (&optional window)
-    "Remove WINDOW from the display.  Default is `selected-window'.
-If WINDOW is the only one in its frame, then `delete-frame' too."
-    (interactive)
-    (save-current-buffer
-      (setq window (or window (selected-window)))
-      (select-window window)
-      (kill-buffer)
-      (if (one-window-p t)
-          (delete-frame)
-        (delete-window (selected-window)))))
+    (defun eshell/x (&rest args)
+      (delete-single-window))
 
-  (defun eshell/x (&rest args)
-    (delete-single-window))
+    (defun eshell-setup ()
+      (interactive)
+      (define-key eshell-mode-map (kbd "C-0") 'delete-window))
 
-  (defun eshell-setup ()
-    (interactive)
-    (define-key eshell-mode-map (kbd "C-0") 'delete-window))
+    (add-hook 'eshell-mode-hook 'eshell-setup t)
 
-  (add-hook 'eshell-mode-hook 'eshell-setup t)
+    (global-set-key (kbd "C-x /") 'eshell-here)
 
-  (global-set-key (kbd "C-x /") 'eshell-here)
-
+    ;; :config
+    ;; (setq eshell-visual-commands (nconc eshell-visual-commands '("htop"
+    ;;                                                              "tmux")))
+    )
   )
-Marker points into wrong buffer: #<marker at 400 in *ansi-term*>
-x
