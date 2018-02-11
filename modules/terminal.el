@@ -151,9 +151,17 @@
     (add-hook 'eshell-mode-hook 'eshell-setup t)
 
     (global-set-key (kbd "C-x /") 'eshell-here)
-
-    ;; :config
-    ;; (setq eshell-visual-commands (nconc eshell-visual-commands '("htop"
-    ;;                                                              "tmux")))
     )
+
+  (use-package em-smart
+    :config
+    (setq eshell-where-to-jump 'begin)
+    (setq eshell-review-quick-commands nil)
+    (setq eshell-smart-space-goes-to-end t))
+
+  (use-package em-term
+    :config
+    (setq eshell-visual-commands (nconc eshell-visual-commands '("htop"
+                                                                 "tmux"))))
+
   )
