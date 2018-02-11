@@ -31,7 +31,7 @@
   ;; --------------------------------------------------------------------------
 
   (use-package term
-    :init
+    :config
     (defun x-term-setup ()
       (interactive)
       (define-key term-raw-map (kbd "C-y") 'term-send-raw)
@@ -56,7 +56,6 @@
     (add-hook 'term-mode-hook 'x-term-setup t)
     (setq term-buffer-maximum-size 0)
 
-    :config
     (defun ansi-term-pop (term-cmd)
       "Launch terminal in (preferably) other window."
       (let ((ansi-buf nil)
@@ -92,7 +91,7 @@
       (interactive)
       (let ((is-term (string= "term-mode" major-mode))
             (is-running (term-check-proc (buffer-name)))
-            (term-cmd "/bin/zsh")
+            (term-cmd "/bin/bash")
             (anon-term (first-matching-buffer "^*ansi-term*")))
         (if is-term
             (if is-running
