@@ -35,5 +35,4 @@
     :bind
     (("C-c z z" . (lambda () (interactive) (workgroups-mode)))))
 
-
   )
