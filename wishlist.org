@@ -13,6 +13,11 @@
 * Modules
 
    - [ ] Nicer status bar
+     Good sources for inspiration are:
+     - [[https://github.com/Malabarba/smart-mode-line][smart-mode-line]]
+     - [[https://github.com/dbordak/telephone-line][telephone-line]]
+     - [[https://github.com/TheBB/spaceline][spaceline]]
+
    - [ ] Incremental search counter
 
 * Theme
