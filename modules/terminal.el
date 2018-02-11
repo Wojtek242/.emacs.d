@@ -111,19 +111,31 @@
   ;; --------------------------------------------------------------------------
 
   (use-package eshell
-    :init
+    :config
+    (defun eshell-pop (name)
+      "Launch terminal in (preferably) other window."
+      (let ((esh-buf nil)
+            (cur-buf (current-buffer)))
+        (setq esh-buf (eshell name))
+        (switch-to-buffer cur-buf)
+        (switch-to-buffer-other-window esh-buf)))
+
     (defun eshell-here ()
-      "Opens up a new shell in the directory associated with the
-       current buffer's file."
       (interactive)
-      (let* ((parent (file-name-directory (buffer-file-name)))
+      (let* ((parent default-directory)
              (name   (car
                       (last
-                       (split-string parent "/" t)))))
-        (split-window-vertically)
-        (other-window 1)
-        (eshell "new")
-        (rename-buffer (concat "*eshell: " name "*"))
+                       (split-string parent "/" t))))
+             (esh-buf-name (concat "*eshell: " name "*"))
+             (is-esh (string= "eshell-mode" major-mode))
+             (esh-buf (first-matching-buffer esh-buf-name)))
+
+        (unless is-esh
+          (if esh-buf
+              (switch-to-buffer-other-window esh-buf)
+            (progn
+              (eshell-pop "new")
+              (rename-buffer esh-buf-name))))
 
         (insert (concat "ls"))
         (eshell-send-input)))
@@ -149,8 +161,7 @@
 
     (add-hook 'eshell-mode-hook 'eshell-setup t)
 
-    (global-set-key (kbd "C-x /") 'eshell-here)
-    )
+    (global-set-key (kbd "C-x /") 'eshell-here))
 
   (use-package em-smart
     :config
