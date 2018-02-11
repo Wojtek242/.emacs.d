@@ -108,7 +108,7 @@
                   programming
                   terminal
                   version-control
-                  ;; workflow
+                  workflow
                   ))
 
 
