@@ -31,8 +31,8 @@
   ;; --------------------------------------------------------------------------
 
   (use-package workgroups2
-    :init
-    (workgroups-mode 1)
-    (wg-switch-to-workgroup "First workgroup"))
+    :defer t
+    :bind
+    (("C-c z z" . (lambda () (interactive) (workgroups-mode 1)))))
 
   )
