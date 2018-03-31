@@ -214,4 +214,9 @@
   (setq-default max-specpdl-size 20000) ;; ~15x original value
   (setq-default max-lisp-eval-depth 24000) ;; 30x orignal value
 
+  ;; --------------------------------------------------------------------------
+  ;; This slows down cursor scrolling.
+  ;; --------------------------------------------------------------------------
+  (setq-default auto-window-vscroll nil)
+
   )
