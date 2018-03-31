@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ket-one
+# key: ket1
+# --
+|1\rangle$0

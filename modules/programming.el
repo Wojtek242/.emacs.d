@@ -38,6 +38,7 @@
         vala-mode
         yaml-mode
         yasnippet
+        yasnippet-snippets
 
         s
         f)

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: bra-zero
+# key: bra0
+# --
+\langle 0 |$0
