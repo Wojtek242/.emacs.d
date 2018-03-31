@@ -17,6 +17,7 @@
      - [[https://github.com/Malabarba/smart-mode-line][smart-mode-line]]
      - [[https://github.com/dbordak/telephone-line][telephone-line]]
      - [[https://github.com/TheBB/spaceline][spaceline]]
+     - [[https://github.com/milkypostman/powerline][powerline]]
 
    - [ ] Incremental search counter
 
