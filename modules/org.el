@@ -25,27 +25,40 @@
 
 (defun emodule/org-init ()
 
-  ;; --------------------------------------------------------------------------
-  ;; Hide special characters for itlaics/bold/underline.
-  ;; --------------------------------------------------------------------------
+  (use-package org
+    :config
+    ;; ------------------------------------------------------------------------
+    ;; Hide special characters for itlaics/bold/underline.
+    ;; ------------------------------------------------------------------------
 
-  (setq org-hide-emphasis-markers t)
+    (setq org-hide-emphasis-markers t)
 
-  ;; --------------------------------------------------------------------------
-  ;; Better bullet points.
-  ;; --------------------------------------------------------------------------
+    ;; ------------------------------------------------------------------------
+    ;; Better bullet points.
+    ;; ------------------------------------------------------------------------
 
-  (font-lock-add-keywords 'org-mode
-                          '(("^ +\\(*\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+    (font-lock-add-keywords 'org-mode
+                            '(("^ +\\(*\\) "
+                               (0 (prog1 ()
+                                    (compose-region (match-beginning 1)
+                                                    (match-end 1)
+                                                    "•"))))))
 
-  ;; --------------------------------------------------------------------------
-  ;; Better header bullets
-  ;; --------------------------------------------------------------------------
+    ;; ------------------------------------------------------------------------
+    ;; Better header bullets
+    ;; ------------------------------------------------------------------------
 
-  (use-package org-bullets
-    :defer t
-    :init
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    (use-package org-bullets
+      :defer t
+      :init
+      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+    ;; ------------------------------------------------------------------------
+    ;; LaTeX font size.
+    ;; ------------------------------------------------------------------------
+
+    (plist-put org-format-latex-options :scale 2.0)
+
+    )
 
   )
