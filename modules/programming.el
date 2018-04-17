@@ -157,6 +157,33 @@
   ;; Configure Rust environment.
   ;; --------------------------------------------------------------------------
 
+  (defun rust-new-project (project-name project-type)
+    (let ((rust-cargo-bin "cargo"))
+      (unless (executable-find rust-cargo-bin)
+        (error "Could not locate executable \"%s\"" rust-cargo-bin))
+
+      (let* ((tmpf (make-temp-file "*cargo-new*"))
+             (err-msg "")
+             (ret (call-process
+                   rust-cargo-bin
+                   nil tmpf t
+                   "new" project-name (concat "--" project-type))))
+
+        (with-current-buffer (get-buffer-create tmpf)
+          (setq err-msg (buffer-string))
+          (kill-current-buffer))
+
+        (unless (= ret 0)
+          (error err-msg)))))
+
+  (defun rust-new-project-bin (project-name)
+    (interactive "sBinary project name: ")
+    (rust-new-project project-name "bin"))
+
+  (defun rust-new-project-lib (project-name)
+    (interactive "sLibrary project name: ")
+    (rust-new-project project-name "lib"))
+
   (use-package rust-mode
     :defer t)
 
@@ -378,9 +405,9 @@
 
   (setq-default linum-format 'linum-format-func)
   (add-hook 'prog-mode-hook (lambda ()
-                               (unless (> (count-lines (point-min) (point-max))
-                                          9999)
-                                 (linum-mode))))
+                              (unless (> (count-lines (point-min) (point-max))
+                                         9999)
+                                (linum-mode))))
 
   ;; --------------------------------------------------------------------------
   ;; Formatting settings.
