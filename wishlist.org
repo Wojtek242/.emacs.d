@@ -24,3 +24,26 @@
 
   - [ ] Comments are too dark (problematic with big block comments)
   - [ ] In C/C++ type is same colour as variable name
+
+* Workflow
+
+  - [ ] Workspaces - see reddit thread on r/emacs
+  - [ ] Line and line number highlighting
+  - [ ] Port comment block functions
+
+* Version
+
+  - [ ] Get everything on 26.1
+  - [ ] Fix Magit key-bindings
+  - [ ] Fix comment block function
+
+* Metaswitch
+
+  - [ ] IPS trace
+    - [ ] Follow to start/end of IPS
+    - [ ] Oscilloscope
+    - [ ] colour highlights in IPS trace mode
+    - [ ] Open dmp in new buffer
+    - [ ] Diff IPSs
+
+  - [ ] Snippets
