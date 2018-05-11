@@ -24,6 +24,7 @@
 
   - [ ] Comments are too dark (problematic with big block comments)
   - [ ] In C/C++ type is same colour as variable name
+  - [ ] Prettier underlines (straight lines)
 
 * Workflow
 
@@ -33,8 +34,9 @@
 
 * Version
 
-  - [ ] Get everything on 26.1
-  - [ ] Fix Magit key-bindings
+  - [ ] Get home PC on 26.1
+  - [X] Get work PC on 26.1
+  - [X] Fix Magit key-bindings
   - [ ] Fix comment block function
 
 * Metaswitch
