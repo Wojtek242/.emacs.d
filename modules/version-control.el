@@ -43,7 +43,10 @@
     ("C-x g r" . magit-reflog)
     ("C-x g t" . magit-tag)
     :config
-    (add-hook 'magit-mode-hook 'magit-load-config-extensions))
+    (add-hook 'magit-mode-hook 'magit-load-config-extensions)
+
+    ;; unbind C-x g
+    (unbind-key "C-x g" magit-file-mode-map))
 
   ;; --------------------------------------------------------------------------
   ;; Ediff.
