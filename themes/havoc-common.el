@@ -428,6 +428,11 @@
      `(org-checkbox ((t (:foreground, *keywords* :background, *bg-1* :bold t))))
      `(org-clock-overlay ((t (:foreground, *mode-line-bg* :background, *string*))))
 
+     ;; flycheck
+     `(flycheck-error ((t (:underline (:style line :color "Red1")))))
+     `(flycheck-warning ((t (:underline (:style line :color "DarkOrange")))))
+     `(flycheck-info ((t (:underline (:style line :color "ForestGreen")))))
+
      )
 
     ;; Define values for colours that don't use faces.
