@@ -17,13 +17,14 @@
 
 (setq emodule/emacs-packages
 
-      '(info+
-        discover-my-major
+      '(discover-my-major
         help+
         help-fns+
         help-mode+
         ibuffer-vc
+        info+
         rainbow-mode
+        sr-speedbar
         which-key
         use-package)
 
@@ -81,6 +82,30 @@
                   (vc-status 16 16 :left)
                   " "
                   filename-and-process))))
+
+  ;; --------------------------------------------------------------------------
+  ;; Speedbar.
+  ;; --------------------------------------------------------------------------
+
+  (use-package sr-speedbar
+    :defer t
+    :bind
+    (("C-c s" . sr-speedbar-toggle))
+    :config
+    (setq-default
+     sr-speedbar-skip-other-window-p t
+     sr-speedbar-right-side nil
+     speedbar-show-unknown-files t
+     sr-speedbar-delete-windows t)
+
+    (defun goto-speedbar ()
+      "Set the speedbar window as the active window."
+      (interactive)
+      (if (window-live-p sr-speedbar-window)
+          (set-frame-selected-window (window-frame) sr-speedbar-window)
+        (user-error "Speedbar window is not live")))
+
+    (global-set-key (kbd "M-m") #'goto-speedbar))
 
   ;; --------------------------------------------------------------------------
   ;; Rainbow mode.

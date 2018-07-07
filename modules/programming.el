@@ -31,7 +31,6 @@
         highlight-symbol
         plantuml-mode
         rust-mode
-        sr-speedbar
         stickyfunc-enhance
         swiper
         toml-mode
@@ -212,30 +211,6 @@
   (use-package toml-mode
     :defer t
     :mode "\\.lock\\'")
-
-  ;; --------------------------------------------------------------------------
-  ;; Speedbar.
-  ;; --------------------------------------------------------------------------
-
-  (use-package sr-speedbar
-    :defer t
-    :bind
-    (("C-c s" . sr-speedbar-toggle))
-    :config
-    (setq-default
-     sr-speedbar-skip-other-window-p t
-     sr-speedbar-right-side nil
-     speedbar-show-unknown-files t
-     sr-speedbar-delete-windows t)
-
-    (defun goto-speedbar ()
-      "Set the speedbar window as the active window."
-      (interactive)
-      (if (window-live-p sr-speedbar-window)
-          (set-frame-selected-window (window-frame) sr-speedbar-window)
-        (user-error "Speedbar window is not live")))
-
-    (global-set-key (kbd "M-m") #'goto-speedbar))
 
   ;; --------------------------------------------------------------------------
   ;; Configure `swiper'.
