@@ -75,7 +75,7 @@
         (*type*               (if (eq variant 'dark) "#5BA0EB"        "#228B22"))
         (*variable*           (if (eq variant 'dark) "#8AC6F2"        "#B8860B"))
         (*vertical-border*    (if (eq variant 'dark) "#0A1721"        "#C2C2C2"))
-        (*visual-selection*   (if (eq variant 'dark) "#262D51"        "#8AC6F2"))
+        (*visual-selection*   (if (eq variant 'dark) "#2D3745"        "#8AC6F2"))
         (*warning*            (if (eq variant 'dark) "#C62626"        "#C62626"))
         (*whitespace-bg*      (if (eq variant 'dark) "#2AA1AE"        "#A020F0"))
         (*whitespace-fg*      (if (eq variant 'dark) "#4E6F91"        "#D3D3D3"))
