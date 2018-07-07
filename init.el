@@ -60,17 +60,6 @@
   ;; Load the dark theme by default.
   (load-theme 'havoc-dark t) ;; Load personal theme
 
-  ;; Modeline -----------------------------------------------------------------
-
-  (size-indication-mode 1)
-  (column-number-mode 1)
-
-  ;; TODO figure out how to deal with powerline not being installed by default
-  (use-package powerline
-    :ensure t
-    :init
-    (powerline-default-theme))
-
   ;; --------------------------------------------------------------------------
   ;; Change file in which custom variable changes are saved.
   ;; --------------------------------------------------------------------------
