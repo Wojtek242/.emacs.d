@@ -19,8 +19,7 @@
 
 (defvar emodule/em-modeline-packages
 
-  '(all-the-icons
-    doom-modeline)
+  '(doom-modeline)
 
   )
 

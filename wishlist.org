@@ -12,7 +12,7 @@
 
 * Modules
 
-   - [ ] Nicer status bar
+   - [X] Nicer status bar
      Good sources for inspiration are:
      - [[https://github.com/Malabarba/smart-mode-line][smart-mode-line]]
      - [[https://github.com/dbordak/telephone-line][telephone-line]]

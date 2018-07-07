@@ -78,30 +78,32 @@
   ;; Dired.
   ;; --------------------------------------------------------------------------
 
-  (setq
-   ;; If another Dired buffer is visible, use it as target for Rename/Copy.
-   dired-dwim-target t
-   ;; "always" means no asking.
-   dired-recursive-copies 'always
-   ;; "top" means ask once for top level directory.
-   dired-recursive-deletes 'top
-   ;; Human-readable listing
-   dired-listing-switches "-lha --group-directories-first"
-   )
-
-  ;; Automatically refresh dired buffer on changes.
-  (add-hook 'dired-mode-hook 'auto-revert-mode)
-
-  (use-package dired-x
-    :init
-    (add-hook 'dired-mode-hook 'dired-omit-mode)
+  (use-package dired
     :config
-    (setq-default dired-omit-files "^\\.\\|^\\#"))
+    (setq
+     ;; If another Dired buffer is visible, use it as target for Rename/Copy.
+     dired-dwim-target t
+     ;; "always" means no asking.
+     dired-recursive-copies 'always
+     ;; "top" means ask once for top level directory.
+     dired-recursive-deletes 'top
+     ;; Human-readable listing
+     dired-listing-switches "-lha --group-directories-first"
+     )
 
-  (use-package wdired
-    :config
-    (setq-default wdired-allow-to-change-permissions t
-                  wdired-allow-to-redirect-links t))
+    ;; Automatically refresh dired buffer on changes.
+    (add-hook 'dired-mode-hook 'auto-revert-mode)
+
+    (use-package dired-x
+      :init
+      (add-hook 'dired-mode-hook 'dired-omit-mode)
+      :config
+      (setq-default dired-omit-files "^\\.\\|^\\#"))
+
+    (use-package wdired
+      :config
+      (setq-default wdired-allow-to-change-permissions t
+                    wdired-allow-to-redirect-links t)))
 
   ;; --------------------------------------------------------------------------
   ;; Recentf.
