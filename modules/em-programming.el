@@ -131,10 +131,10 @@
     (after-init . global-flycheck-mode))
 
   (use-package flycheck-pos-tip
-    :hook
-    (flycheck-mode . flycheck-rust-setup)
+    :after flycheck
     :config
-    (flycheck-pos-tip-mode))
+    (flycheck-pos-tip-mode)
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
   ;; --------------------------------------------------------------------------
   ;; Highlights.
