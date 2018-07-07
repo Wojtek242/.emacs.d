@@ -35,7 +35,6 @@
   ;; --------------------------------------------------------------------------
 
   (use-package magit
-    :defer t
     :bind
     ("C-x g l" . magit-log-head)
     ("C-x g f" . magit-log-buffer-file)
@@ -68,10 +67,11 @@
   ;; --------------------------------------------------------------------------
 
   (use-package diff-hl
-    :init
-    (global-diff-hl-mode)
-    (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+    :hook
+    ((dired-mode . diff-hl-dired-mode)
+     (magit-post-refresh . diff-hl-magit-post-refresh))
+    :config
+    (global-diff-hl-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Diff mode settings.

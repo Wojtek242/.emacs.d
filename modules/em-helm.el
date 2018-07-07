@@ -32,8 +32,6 @@
   "Initialise the `em-helm' module."
 
   (use-package helm
-    :init
-    (helm-mode 1)
     :bind
     (("C-x C-f" . helm-find-files)
      ("M-x" . helm-M-x)
@@ -108,31 +106,33 @@
     ;; Change some Helm default key-bindings.  Due to the `helm-config' require
     ;; these have to overridden here rather than with other keys in `:bind'.
     (global-set-key (kbd "C-c h x") 'helm-register)
-    (global-set-key (kbd "C-c h M-o") 'helm-occur)
+    (global-set-key (kbd "C-c h M-o") 'helm-occur))
 
-    ;; ------------------------------------------------------------------------
-    ;; Activate helm-descbinds.
-    ;; ------------------------------------------------------------------------
+  ;; ------------------------------------------------------------------------
+  ;; Activate helm-descbinds.
+  ;; ------------------------------------------------------------------------
 
-    (use-package helm-descbinds
-      :init
-      (helm-descbinds-mode))
+  (use-package helm-descbinds
+    :config
+    (helm-descbinds-mode))
 
-    ;; ------------------------------------------------------------------------
-    ;; Configure projectile.
-    ;; ------------------------------------------------------------------------
+  ;; ------------------------------------------------------------------------
+  ;; Configure projectile.
+  ;; ------------------------------------------------------------------------
 
-    (use-package helm-projectile
-      :init
-      (projectile-mode)
-      :config
-      (setq-default projectile-completion-system 'helm)
-      (helm-projectile-on))
+  (use-package helm-projectile
+    :config
+    (projectile-mode)
+    (setq-default projectile-completion-system 'helm)
+    (helm-projectile-on))
 
-    (use-package swiper-helm
-      :defer t
-      :bind
-      (("C-c h C-s" . swiper-helm))))
+  ;; ------------------------------------------------------------------------
+  ;; Configure swiper.
+  ;; ------------------------------------------------------------------------
+
+  (use-package swiper-helm
+    :bind
+    (("C-c h C-s" . swiper-helm)))
 
   )
 

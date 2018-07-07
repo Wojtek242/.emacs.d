@@ -32,7 +32,7 @@
   (use-package org
     :config
     ;; ------------------------------------------------------------------------
-    ;; Hide special characters for itlaics/bold/underline.
+    ;; Hide special characters for italics/bold/underline.
     ;; ------------------------------------------------------------------------
 
     (setq org-hide-emphasis-markers t)
@@ -49,21 +49,19 @@
                                                     "•"))))))
 
     ;; ------------------------------------------------------------------------
-    ;; Better header bullets
-    ;; ------------------------------------------------------------------------
-
-    (use-package org-bullets
-      :defer t
-      :init
-      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
-    ;; ------------------------------------------------------------------------
     ;; LaTeX font size.
     ;; ------------------------------------------------------------------------
 
-    (plist-put org-format-latex-options :scale 2.0)
+    (plist-put org-format-latex-options :scale 2.0))
 
-    )
+  ;; ------------------------------------------------------------------------
+  ;; Better header bullets
+  ;; ------------------------------------------------------------------------
+
+  (use-package org-bullets
+    :defer t
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
   )
 

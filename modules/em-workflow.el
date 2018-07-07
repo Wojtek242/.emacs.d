@@ -34,7 +34,6 @@
   ;; --------------------------------------------------------------------------
 
   (use-package workgroups2
-    :defer t
     :bind
     (("C-c z z" . (lambda () (interactive) (workgroups-mode)))))
 

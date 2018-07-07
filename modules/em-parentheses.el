@@ -38,28 +38,26 @@
   ;; --------------------------------------------------------------------------
 
   (use-package highlight-parentheses
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook 'highlight-parentheses-mode))
+    :hook
+    (prog-mode . highlight-parentheses-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Rainbow delimiters - colours are set by theme.
   ;; --------------------------------------------------------------------------
 
   (use-package rainbow-delimiters
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+    :hook
+    (prog-mode . rainbow-delimiters-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Smartparens highlighting.
   ;; --------------------------------------------------------------------------
 
   (use-package smartparens
-    :init
+    :config
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
-    :config
+
     (require 'smartparens-config)
     (declare-function sp-local-pair "smartparens")
     (declare-function sp-beginning-of-sexp "smartparens")

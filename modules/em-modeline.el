@@ -32,11 +32,10 @@
   ;; user to manually install the fonts with the command `M-x
   ;; all-the-icons-install-fonts'.
   (use-package doom-modeline
-    :defer t
-    :config
-    (setq-default doom-modeline-height 23)
     :hook
-    (after-init . doom-modeline-init))
+    (after-init . doom-modeline-init)
+    :config
+    (setq-default doom-modeline-height 23))
 
   )
 

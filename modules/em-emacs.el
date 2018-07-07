@@ -67,6 +67,7 @@
   ;; --------------------------------------------------------------------------
 
   (use-package ibuffer-vc
+    :defer t
     :init
     (add-hook 'ibuffer-hook
               (lambda ()
@@ -231,7 +232,15 @@
     ;; This rule is an exception to the above so that local sudo does not proxy
     ;; via ssh.  This has to be added last so that it is the first element of
     ;; the list.
-    (add-to-list 'tramp-default-proxies-alist '("localhost" "\\`root\\'" nil)))
+    (add-to-list 'tramp-default-proxies-alist '("localhost" "\\`root\\'" nil))
+
+    (defun sudo ()
+      "Use TRAMP to `sudo' the current buffer"
+      (interactive)
+      (when buffer-file-name
+        (find-alternate-file
+         (concat "/sudo:root@localhost:"
+                 buffer-file-name)))))
 
   ;; --------------------------------------------------------------------------
   ;; Configure garbage collection.

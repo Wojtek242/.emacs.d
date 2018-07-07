@@ -56,8 +56,8 @@
   ;; --------------------------------------------------------------------------
 
   (use-package company
-    :init
-    (add-hook 'after-init-hook 'global-company-mode)
+    :hook
+    (after-init . global-company-mode)
     :config
     ;; For this to correctly complete headers, need to add all include paths to
     ;; `company-c-headers-path-system'.
@@ -67,10 +67,10 @@
   ;; Functions args -----------------------------------------------------------
 
   (use-package function-args
-    :init
+    :config
     (use-package ivy)
     (fa-config-default)
-    :config
+
     (defun set-other-window-key ()
       ;; function-args overrides the custom "M-o" binding, this undoes it
       (define-key function-args-mode-map (kbd "M-o") nil)
@@ -119,43 +119,39 @@
   ;; FIC mode.
   ;; --------------------------------------------------------------------------
   (use-package fic-mode
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook #'fic-mode))
+    :hook
+    (prog-mode . fic-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Flycheck mode.
   ;; --------------------------------------------------------------------------
 
   (use-package flycheck
-    :defer t
-    :init
-    (add-hook 'after-init-hook #'global-flycheck-mode)
+    :hook
+    (after-init . global-flycheck-mode))
+
+  (use-package flycheck-pos-tip
+    :hook
+    (flycheck-mode . flycheck-rust-setup)
     :config
-    (use-package flycheck-pos-tip
-      :init
-      (flycheck-pos-tip-mode))
-    (use-package flycheck-pos-tip
-      :init
-      (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
+    (flycheck-pos-tip-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Highlights.
   ;; --------------------------------------------------------------------------
 
   (use-package highlight-numbers
-    :init
-    (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+    :hook
+    (prog-mode . highlight-numbers-mode))
 
   (use-package highlight-symbol
-    :init
-    (highlight-symbol-nav-mode)
-    (add-hook 'prog-mode-hook (lambda () (highlight-symbol-mode)))
-    (add-hook 'org-mode-hook (lambda () (highlight-symbol-mode)))
+    :hook
+    ((prog-mode org-mode) . highlight-symbol-mode)
     :bind
     (("M-n" . highlight-symbol-next)
      ("M-p" . highlight-symbol-prev))
     :config
+    (highlight-symbol-nav-mode)
     (setq highlight-symbol-idle-delay 0.2
           highlight-symbol-on-navigation-p t))
 
@@ -220,7 +216,6 @@
     (setq-default company-tooltip-align-annotations t))
 
   (use-package toml-mode
-    :defer t
     :mode "\\.lock\\'")
 
   ;; --------------------------------------------------------------------------
@@ -228,7 +223,6 @@
   ;; --------------------------------------------------------------------------
 
   (use-package swiper
-    :defer t
     :bind
     (("M-s M-s" . swiper)))
 
@@ -237,9 +231,8 @@
   ;; --------------------------------------------------------------------------
 
   (use-package plantuml-mode
-    :defer t
+    :mode "\\.pu\\'"
     :init
-    (add-to-list 'auto-mode-alist '("\\.pu\\'" . plantuml-mode))
     (setq-default plantuml-jar-path "~/.emacs.d/plantuml.jar")
     :config
     (require 'flycheck-plantuml))
@@ -259,7 +252,6 @@
   ;; --------------------------------------------------------------------------
 
   (use-package vhdl-mode
-    :defer t
     :mode "\\.hdl\\'")
 
   ;; --------------------------------------------------------------------------
@@ -267,7 +259,6 @@
   ;; --------------------------------------------------------------------------
 
   (use-package yaml-mode
-    :defer t
     :config
     (add-hook 'yaml-mode-hook #'linum-mode))
 
@@ -276,7 +267,7 @@
   ;; --------------------------------------------------------------------------
 
   (use-package yasnippet
-    :init
+    :config
     (yas-global-mode 1)
 
     (define-key yas-minor-mode-map [(tab)]        nil)
@@ -295,17 +286,17 @@
   ;; `semantic-add-system-include'.  This includes any local system includes,
   ;; such as those in `/usr/local/include'.
   (use-package semantic
-    :init
+    :config
     (declare-function global-semanticdb-minor-mode "semantic/db-mode")
     (declare-function global-semantic-idle-scheduler-mode "semantic/idle")
     (declare-function semantic-mode "semantic")
+
     (global-semanticdb-minor-mode 1)
     (global-semantic-idle-scheduler-mode 1)
     (semantic-mode 1)
-    :config
+
     (use-package stickyfunc-enhance)
-    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-    )
+    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode))
 
   ;; For this to work, need to specify project roots in the variable
   ;; `ede-cpp-root-project', e.g.
@@ -317,7 +308,7 @@
   ;;                       :system-include-path '("~/linux"))
   ;; May need to run `semantic-force-refresh' afterwards.
   (use-package ede
-    :init
+    :config
     (global-ede-mode))
 
   (add-hook 'c-mode-common-hook 'hs-minor-mode)

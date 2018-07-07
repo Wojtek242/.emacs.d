@@ -92,18 +92,20 @@
      )
 
     ;; Automatically refresh dired buffer on changes.
-    (add-hook 'dired-mode-hook 'auto-revert-mode)
+    (add-hook 'dired-mode-hook 'auto-revert-mode))
 
-    (use-package dired-x
-      :init
-      (add-hook 'dired-mode-hook 'dired-omit-mode)
-      :config
-      (setq-default dired-omit-files "^\\.\\|^\\#"))
+  (use-package dired-x
+    :after dired
+    :init
+    (add-hook 'dired-mode-hook 'dired-omit-mode)
+    :config
+    (setq-default dired-omit-files "^\\.\\|^\\#"))
 
-    (use-package wdired
-      :config
-      (setq-default wdired-allow-to-change-permissions t
-                    wdired-allow-to-redirect-links t)))
+  (use-package wdired
+    :after dired
+    :config
+    (setq-default wdired-allow-to-change-permissions t
+                  wdired-allow-to-redirect-links t))
 
   ;; --------------------------------------------------------------------------
   ;; Recentf.
