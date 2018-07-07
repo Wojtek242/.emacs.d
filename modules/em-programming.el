@@ -1,4 +1,4 @@
-;;; programming.el --- Module file for programming configuration.
+;;; em-programming.el --- Module file for programming configuration.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -16,37 +16,40 @@
 
 ;;; Required packages:
 
-(setq emodule/programming-packages
+;;; Code:
 
-      '(company
-        company-c-headers
-        dockerfile-mode
-        fic-mode
-        function-args
-        flycheck
-        flycheck-plantuml
-        flycheck-pos-tip
-        flycheck-rust
-        highlight-numbers
-        highlight-symbol
-        plantuml-mode
-        rust-mode
-        stickyfunc-enhance
-        swiper
-        toml-mode
-        vala-mode
-        yaml-mode
-        yasnippet
-        yasnippet-snippets
+(defvar emodule/em-programming-packages
 
-        s
-        f)
+  '(company
+    company-c-headers
+    dockerfile-mode
+    fic-mode
+    function-args
+    flycheck
+    flycheck-plantuml
+    flycheck-pos-tip
+    flycheck-rust
+    highlight-numbers
+    highlight-symbol
+    plantuml-mode
+    rust-mode
+    stickyfunc-enhance
+    swiper
+    toml-mode
+    vala-mode
+    yaml-mode
+    yasnippet
+    yasnippet-snippets
 
-      )
+    s
+    f)
+
+  )
 
 ;; Configuration:
 
-(defun emodule/programming-init ()
+(defun emodule/em-programming-init ()
+  "Initialise the `em-programming' module."
 
   ;; --------------------------------------------------------------------------
   ;; Company - complete anything.
@@ -72,11 +75,13 @@
       ;; function-args overrides the custom "M-o" binding, this undoes it
       (define-key function-args-mode-map (kbd "M-o") nil)
       (define-key function-args-mode-map (kbd "M-O") 'moo-complete))
+    (declare-function set-other-window-key "programming")
 
     (defun set-moo-jump-directory-key ()
       ;; function-args overrides the default "C-M-k" binding, this undoes it
       (define-key function-args-mode-map (kbd "C-M-k") nil)
       (define-key function-args-mode-map (kbd "C-M-;") 'moo-jump-directory))
+    (declare-function set-moo-jump-directory-key "programming")
 
     (defun set-fa-idx-cycle-keys ()
       ;; function-args overrides the default "M-h" and "M-p" bindings, this
@@ -85,11 +90,13 @@
       (define-key function-args-mode-map (kbd "M-[") 'fa-idx-cycle-up)
       (define-key function-args-mode-map (kbd "M-n") nil)
       (define-key function-args-mode-map (kbd "M-]") 'fa-idx-cycle-down))
+    (declare-function set-fa-idx-cycle-keys "programming")
 
     (defun set-fa-abort-key ()
       ;; function-args overrides the default "C-M-k" binding, this undoes it
       (define-key function-args-mode-map (kbd "M-u") nil)
       (define-key function-args-mode-map (kbd "M-k") 'fa-abort))
+    (declare-function set-fa-abort-key "programming")
 
     (defun set-function-args-keys ()
       ;; Collects all the function-args key overrides
@@ -97,6 +104,7 @@
       (set-moo-jump-directory-key)
       (set-fa-idx-cycle-keys)
       (set-fa-abort-key))
+    (declare-function set-function-args-keys "programming")
 
     (add-hook 'function-args-mode-hook #'set-function-args-keys))
 
@@ -174,6 +182,7 @@
 
         (unless (= ret 0)
           (error err-msg)))))
+  (declare-function rust-new-project "programming")
 
   (defun rust-new-project-bin (project-name)
     (interactive "sBinary project name: ")
@@ -194,9 +203,11 @@
   (add-to-list 'load-path "~/.emacs.d/emacs-racer")
   (use-package racer
     :init
+    (declare-function racer-mode "racer")
     (add-hook 'rust-mode-hook #'racer-mode)
     (add-hook 'racer-mode-hook #'eldoc-mode)
     :config
+    (declare-function company-indent-or-complete-common "company")
     ;; For racer to work, it needs to know where to find the standard library
     ;; sources.  The easiest way to do it without having a machine dependent
     ;; setup is to set the environment variable RUST_SRC_PATH.  If that's
@@ -285,6 +296,9 @@
   ;; such as those in `/usr/local/include'.
   (use-package semantic
     :init
+    (declare-function global-semanticdb-minor-mode "semantic/db-mode")
+    (declare-function global-semantic-idle-scheduler-mode "semantic/idle")
+    (declare-function semantic-mode "semantic")
     (global-semanticdb-minor-mode 1)
     (global-semantic-idle-scheduler-mode 1)
     (semantic-mode 1)
@@ -343,6 +357,7 @@
     ;; ansi-colors
     (ignore-errors
       (require 'ansi-color)
+      (declare-function ansi-color-apply-on-region "ansi-color")
       (defun my-colorize-compilation-buffer ()
         (when (eq major-mode 'compilation-mode)
           (ansi-color-apply-on-region compilation-filter-start (point-max))))
@@ -446,3 +461,6 @@
         (yank-advised-indent-function (region-beginning) (region-end)))))
 
   )
+
+(provide 'em-programming)
+;;; em-programming.el ends here

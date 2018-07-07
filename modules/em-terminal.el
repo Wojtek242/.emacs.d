@@ -1,4 +1,4 @@
-;;; terminal.el --- Module file for terminal configuration.
+;;; em-terminal.el --- Module file for terminal configuration.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -16,15 +16,18 @@
 
 ;;; Required packages:
 
-(setq emodule/terminal-packages
+;;; Code:
 
-      '()
+(defvar emodule/em-terminal-packages
 
-      )
+  '()
+
+  )
 
 ;; Configuration:
 
-(defun emodule/terminal-init ()
+(defun emodule/em-terminal-init ()
+  "Initialise the `em-terminal' module."
 
   ;; --------------------------------------------------------------------------
   ;; Configure term.
@@ -32,6 +35,9 @@
 
   (use-package term
     :config
+    (declare-function term-send-raw-string "term")
+    (declare-function term-check-proc "term")
+
     (defun x-term-setup ()
       (interactive)
       (define-key term-raw-map (kbd "C-y") 'term-send-raw)
@@ -63,17 +69,21 @@
         (setq ansi-buf (ansi-term term-cmd))
         (switch-to-buffer cur-buf)
         (switch-to-buffer-other-window ansi-buf)))
+    (declare-function ansi-term-pop "terminal")
 
     (defun ansi-term-recycle (term-cmd)
       "Kill current buffer and start an *ansi-term* in it."
       (kill-buffer (current-buffer))
       (ansi-term term-cmd))
+    (declare-function ansi-term-recycle "terminal")
 
     (defun first-matching-buffer (regex)
       "Find first buffer whose name matches REGEXP."
+      (declare-function remove-if-not "cl-seq")
       (car (remove-if-not
             (apply-partially #'string-match-p regex)
             (mapcar 'buffer-name (buffer-list)))))
+    (declare-function first-matching-buffer "terminal")
 
     (defun visit-ansi-term ()
       "Open or switch to active ansi-term.
@@ -112,6 +122,9 @@
 
   (use-package eshell
     :config
+    (declare-function eshell "eshell")
+    (declare-function eshell-send-input "esh-mode")
+
     (defun eshell-pop (name)
       "Launch terminal in (preferably) other window."
       (let ((esh-buf nil)
@@ -119,6 +132,7 @@
         (setq esh-buf (eshell name))
         (switch-to-buffer cur-buf)
         (switch-to-buffer-other-window esh-buf)))
+    (declare-function eshell-pop "terminal")
 
     (defun eshell-here ()
       (interactive)
@@ -151,6 +165,7 @@
         (if (one-window-p t)
             (delete-frame)
           (delete-window (selected-window)))))
+    (declare-function delete-single-window "terminal")
 
     (defun eshell/x (&rest args)
       (delete-single-window))
@@ -175,3 +190,6 @@
                                                                  "tmux"))))
 
   )
+
+(provide 'em-terminal)
+;;; em-terminal.el ends here

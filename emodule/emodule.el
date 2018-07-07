@@ -24,7 +24,8 @@
 ;;; Code:
 
 (require 'package)
-(require 'cl)
+(with-no-warnings
+  (require 'cl))
 
 (defgroup emodule nil
   "Further automate working with `package'"
@@ -63,15 +64,13 @@ after attempting to install all other packages first."
 ;;; Print functions
 
 (defun emodule/set-logs-read-only ()
-  "Set log buffer to log-view-mode."
+  "Set log buffer to `log-view-mode'."
   (when emodule/print-logs
 
-    (save-excursion
-      (set-buffer (get-buffer-create emodule/log))
+    (with-current-buffer (get-buffer-create emodule/log)
       (log-view-mode))
 
-    (save-excursion
-      (set-buffer (get-buffer-create emodule/error-log))
+    (with-current-buffer (get-buffer-create emodule/error-log)
       (log-view-mode))))
 
 (defun emodule/erase-logs ()
@@ -79,15 +78,13 @@ after attempting to install all other packages first."
   (when emodule/print-logs
 
     ;; Erase `emodule/log'.
-    (save-excursion
-      (set-buffer (get-buffer-create emodule/log))
+    (with-current-buffer (get-buffer-create emodule/log)
       (read-only-mode 0)
       (erase-buffer)
       (goto-char (point-min)))
 
     ;; Erase `emodule/error-log'.
-    (save-excursion
-      (set-buffer (get-buffer-create emodule/error-log))
+    (with-current-buffer (get-buffer-create emodule/error-log)
       (read-only-mode 0)
       (erase-buffer)
       (goto-char (point-min)))))
@@ -95,15 +92,14 @@ after attempting to install all other packages first."
 (defun emodule/print (string buffer)
   "Print STRING to BUFFER."
   (when emodule/print-logs
-    (save-excursion
-      (set-buffer (get-buffer-create buffer))
+    (with-current-buffer (get-buffer-create buffer)
       (goto-char (point-max))
       (if (not (= (point) 1))
           (newline))
       (insert string))))
 
 (defun emodule/print-format (fmt pkg buffer)
-  "Print string of FMT about PKG to BUFFER"
+  "Print string of FMT about PKG to BUFFER."
   (or (stringp pkg)
       (setq pkg (symbol-name pkg)))
   (emodule/print (format fmt pkg) buffer))
@@ -117,7 +113,7 @@ after attempting to install all other packages first."
   (emodule/print-format "Deleting: %s" pkg emodule/log))
 
 (defun emodule/print-failed (logstrbase pkg)
-  "Print a log message about failed operation of PKG."
+  "Print a log message LOGSTRBASE about failed operation of PKG."
   (let* ((logstr (concat logstrbase
                          (format " (see %s for details)"
                                  emodule/error-log)))
@@ -205,7 +201,8 @@ DESIRED-PKGS unless NO-SET-SELECTED is non-nil"
 
   ;; Install packages.  If any packages fail to install, re-attempt up to
   ;; `emodule/install-attempts' total attempts.
-  (let ((attempt 0))
+  (let ((attempt 0)
+        (install-pkgs nil))
     (while (and (< attempt emodule/install-attempts)
                 (setq install-pkgs
                       (remove-if #'package-installed-p desired-pkgs)))

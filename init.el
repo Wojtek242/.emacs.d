@@ -9,6 +9,10 @@
 ;;
 ;;; License: GPLv3
 
+;;; Commentary:
+
+;;; Code:
+
 ;; ----------------------------------------------------------------------------
 ;; Run init without garbage collection.
 ;; ----------------------------------------------------------------------------
@@ -87,24 +91,25 @@
 
   (add-to-list 'load-path "~/.emacs.d/emodule")
   (require 'emodule)
+  (declare-function emodule/init "emodule")
 
   ;; --------------------------------------------------------------------------
   ;; Load modules.
   ;; --------------------------------------------------------------------------
 
   (emodule/init '(
-                  editing
-                  emacs
-                  files
-                  helm
-                  helm-gtags
-                  modeline
-                  org
-                  parentheses
-                  programming
-                  terminal
-                  version-control
-                  workflow
+                  em-editing
+                  em-emacs
+                  em-files
+                  em-helm
+                  em-helm-gtags
+                  em-modeline
+                  em-org
+                  em-parentheses
+                  em-programming
+                  em-terminal
+                  em-version-control
+                  em-workflow
                   ))
 
 
@@ -129,3 +134,6 @@
   (load custom-file 'noerror)
 
   ) ;; Reset garbage collection settings.
+
+(provide 'init)
+;;; init.el ends here

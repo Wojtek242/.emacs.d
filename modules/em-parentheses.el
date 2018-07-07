@@ -1,4 +1,4 @@
-;;; parentheses.el --- Module file for managing parentheses packages.
+;;; em-parentheses.el --- Module file for managing parentheses packages.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -16,17 +16,20 @@
 
 ;;; Required packages:
 
-(setq emodule/parentheses-packages
+;;; Code:
 
-      '(highlight-parentheses
-        rainbow-delimiters
-        smartparens)
+(defvar emodule/em-parentheses-packages
 
-      )
+  '(highlight-parentheses
+    rainbow-delimiters
+    smartparens)
+
+  )
 
 ;; Configuration:
 
-(defun emodule/parentheses-init ()
+(defun emodule/em-parentheses-init ()
+  "Initialise the `em-parentheses' module."
 
   ;; --------------------------------------------------------------------------
   ;; Highlight parentheses - this package does not use faces for colours,
@@ -58,6 +61,8 @@
     (show-smartparens-global-mode t)
     :config
     (require 'smartparens-config)
+    (declare-function sp-local-pair "smartparens")
+    (declare-function sp-beginning-of-sexp "smartparens")
 
     ;; Key-bindings -----------------------------------------------------------
 
@@ -117,3 +122,6 @@
      sp-highlight-pair-overlay nil))
 
   )
+
+(provide 'em-parentheses)
+;;; em-parentheses.el ends here

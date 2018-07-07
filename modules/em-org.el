@@ -1,4 +1,4 @@
-;;; org.el --- Module file for org-mode configuration.
+;;; em-org.el --- Module file for org-mode configuration.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -15,15 +15,19 @@
 
 ;;; Required packages:
 
-(setq emodule/org-packages
+;;; Code:
 
-      '(org-bullets)
 
-      )
+(defvar emodule/em-org-packages
+
+  '(org-bullets)
+
+  )
 
 ;; Configuration:
 
-(defun emodule/org-init ()
+(defun emodule/em-org-init ()
+  "Initialise the `em-org' module."
 
   (use-package org
     :config
@@ -62,3 +66,6 @@
     )
 
   )
+
+(provide 'em-org)
+;;; em-org.el ends here

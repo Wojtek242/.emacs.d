@@ -1,4 +1,4 @@
-;;; files.el --- Module file for configuring file management.
+;;; em-files.el --- Module file for configuring file management.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -15,16 +15,19 @@
 
 ;;; Required packages:
 
-(setq emodule/files-packages
+;;; Code:
 
-      '(recentf-ext
-        vlf)
+(defvar emodule/em-files-packages
 
-      )
+  '(recentf-ext
+    vlf)
+
+  )
 
 ;;; Configuration:
 
-(defun emodule/files-init ()
+(defun emodule/em-files-init ()
+  "Initialise the `em-files' module."
 
   ;; --------------------------------------------------------------------------
   ;; View large files.
@@ -116,3 +119,6 @@
     (save-place-mode 1))
 
   )
+
+(provide 'em-files)
+;;; em-files.el ends here

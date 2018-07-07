@@ -1,4 +1,4 @@
-;;; emacs.el --- Module file for configuring Emacs itself.
+;;; em-emacs.el --- Module file for configuring Emacs itself.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -15,24 +15,27 @@
 
 ;;; Required packages:
 
-(setq emodule/emacs-packages
+;;; Code:
 
-      '(discover-my-major
-        help+
-        help-fns+
-        help-mode+
-        ibuffer-vc
-        info+
-        rainbow-mode
-        sr-speedbar
-        which-key
-        use-package)
+(defvar emodule/em-emacs-packages
 
-      )
+  '(discover-my-major
+    help+
+    help-fns+
+    help-mode+
+    ibuffer-vc
+    info+
+    rainbow-mode
+    sr-speedbar
+    which-key
+    use-package)
+
+  )
 
 ;;; Configuration:
 
-(defun emodule/emacs-init ()
+(defun emodule/em-emacs-init ()
+  "Initialise the `em-emacs' module."
 
   ;; --------------------------------------------------------------------------
   ;; Help extensions.
@@ -67,9 +70,10 @@
     :init
     (add-hook 'ibuffer-hook
               (lambda ()
+                (declare-function ibuffer-do-sort-by-alphabetic "ibuf-ext")
                 (ibuffer-vc-set-filter-groups-by-vc-root)
                 (unless (eq ibuffer-sorting-mode 'alphabetic)
-                  ((insert )buffer-do-sort-by-alphabetic))))
+                  (ibuffer-do-sort-by-alphabetic))))
     :config
     (setq ibuffer-formats
           '((mark modified read-only vc-status-mini " "
@@ -104,6 +108,7 @@
       (if (window-live-p sr-speedbar-window)
           (set-frame-selected-window (window-frame) sr-speedbar-window)
         (user-error "Speedbar window is not live")))
+    (declare-function goto-speedbar "emacs")
 
     (global-set-key (kbd "M-m") #'goto-speedbar))
 
@@ -139,6 +144,8 @@
     This has to be called whenever the active theme changes to
     refresh these colours."
 
+    (defvar highlight-parentheses-mode)
+
     (when (and (fboundp 'fci-mode)
                (member 'fci-mode minor-mode-list))
       (fci-mode 1))
@@ -146,6 +153,7 @@
     (when (and (fboundp 'highlight-parentheses-mode)
                highlight-parentheses-mode)
       (highlight-parentheses-mode 1)))
+  (declare-function refresh-non-face-colours "emacs")
 
   ;; Key-bindings -------------------------------------------------------------
 
@@ -234,9 +242,11 @@
 
   (defun minibuffer-gc-setup-hook ()
     (setq gc-cons-threshold most-positive-fixnum))
+  (declare-function minibuffer-gc-setup-hook "emacs")
 
   (defun minibuffer-gc-exit-hook ()
     (setq gc-cons-threshold 800000))
+  (declare-function minibuffer-gc-exit-hook "emacs")
 
   (add-hook 'minibuffer-setup-hook #'minibuffer-gc-setup-hook)
   (add-hook 'minibuffer-exit-hook #'minibuffer-gc-exit-hook)
@@ -253,3 +263,6 @@
   (setq-default auto-window-vscroll nil)
 
   )
+
+(provide 'em-emacs)
+;;; em-emacs.el ends here

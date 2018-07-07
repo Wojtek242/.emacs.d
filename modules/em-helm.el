@@ -1,4 +1,4 @@
-;;; helm.el --- Module file for Helm configuration.
+;;; em-helm.el --- Module file for Helm configuration.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -15,18 +15,21 @@
 
 ;;; Required packages:
 
-(setq emodule/helm-packages
+;;; Code:
 
-      '(helm
-        helm-descbinds
-        helm-projectile
-        swiper-helm)
+(defvar emodule/em-helm-packages
 
-      )
+  '(helm
+    helm-descbinds
+    helm-projectile
+    swiper-helm)
+
+  )
 
 ;;; Configuration:
 
-(defun emodule/helm-init ()
+(defun emodule/em-helm-init ()
+  "Initialise the `em-helm' module."
 
   (use-package helm
     :init
@@ -40,6 +43,8 @@
      ("C-h SPC" . helm-all-mark-rings))
     :config
     (require 'helm-config)
+    (declare-function helm-autoresize-mode "helm")
+    (declare-function helm-buffer-get "helm-lib")
 
     ;; Helm prefix ------------------------------------------------------------
 
@@ -119,7 +124,7 @@
 
     (use-package helm-projectile
       :init
-      (projectile-global-mode)
+      (projectile-mode)
       :config
       (setq-default projectile-completion-system 'helm)
       (helm-projectile-on))
@@ -130,3 +135,6 @@
       (("C-c h C-s" . swiper-helm))))
 
   )
+
+(provide 'em-helm)
+;;; em-helm.el ends here

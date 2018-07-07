@@ -1,4 +1,4 @@
-;;; modeline.el --- Module file for configuring the modeline.
+;;; em-modeline.el --- Module file for configuring the modeline.
 ;;
 ;; Copyright (C) 2018 Wojciech Kozlowski
 ;;
@@ -15,18 +15,19 @@
 
 ;;; Required packages:
 
-(setq emodule/modeline-packages
+;;; Code:
 
-      '(
-        all-the-icons
-        doom-modeline
-        )
+(defvar emodule/em-modeline-packages
 
-      )
+  '(all-the-icons
+    doom-modeline)
+
+  )
 
 ;;; Configuration:
 
-(defun emodule/modeline-init ()
+(defun emodule/em-modeline-init ()
+  "Initialise the `em-modeline' module."
 
   ;; Note that doom-modeline requires all-the-icons which in turn require the
   ;; user to manually install the fonts with the command `M-x
@@ -39,3 +40,6 @@
     (after-init . doom-modeline-init))
 
   )
+
+(provide 'em-modeline)
+;;; em-modeline.el ends here

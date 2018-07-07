@@ -1,4 +1,4 @@
-;;; workflow.el --- Module file for setting up workflows.
+;;; em-workflow.el --- Module file for setting up workflows.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -16,7 +16,9 @@
 
 ;;; Required packages:
 
-(setq emodule/workflow-packages
+;;; Code:
+
+(defvar emodule/em-workflow-packages
 
       '(workgroups2)
 
@@ -24,7 +26,8 @@
 
 ;;; Configuration:
 
-(defun emodule/workflow-init ()
+(defun emodule/em-workflow-init ()
+  "Initialise the `em-workflow' module."
 
   ;; --------------------------------------------------------------------------
   ;; Enable `workgroups'.
@@ -36,3 +39,6 @@
     (("C-c z z" . (lambda () (interactive) (workgroups-mode)))))
 
   )
+
+(provide 'em-workflow)
+;;; em-workflow.el ends here

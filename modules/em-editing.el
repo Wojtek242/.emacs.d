@@ -1,4 +1,4 @@
-;;; editing.el --- Module file for editing configuration.
+;;; em-editing.el --- Module file for editing configuration.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -15,21 +15,24 @@
 
 ;;; Required packages:
 
-(setq emodule/editing-packages
+;;; Code:
 
-      '(duplicate-thing
-        expand-region
-        fill-column-indicator
-        undo-tree
-        volatile-highlights
-        whole-line-or-region
-        ws-butler)
+(defvar emodule/em-editing-packages
 
-      )
+  '(duplicate-thing
+    expand-region
+    fill-column-indicator
+    undo-tree
+    volatile-highlights
+    whole-line-or-region
+    ws-butler)
+
+  )
 
 ;; Configuration:
 
-(defun emodule/editing-init ()
+(defun emodule/em-editing-init ()
+  "Initialise the `em-editing' module."
 
   ;; --------------------------------------------------------------------------
   ;; Duplicate things.
@@ -214,15 +217,20 @@
     "Indent the currently visited buffer."
     (interactive)
     (indent-region (point-min) (point-max)))
+  (declare-function indent-buffer "editing")
 
   (defcustom indent-sensitive-modes
     '(coffee-mode python-mode slim-mode haml-mode yaml-mode)
     "Modes for which auto-indenting is suppressed."
-    :type 'list)
+    :type 'list
+    :group 'wk/editing)
 
   (defun indent-region-or-buffer ()
     "Indent a region if selected, otherwise the whole buffer."
     (interactive)
+
+    (defvar indent-sensitive-modes)
+
     (unless (member major-mode indent-sensitive-modes)
       (save-excursion
         (if (region-active-p)
@@ -252,3 +260,6 @@
   (global-set-key (kbd "M-s M-o") 'occur)
 
   )
+
+(provide 'em-editing)
+;;; em-editing.el ends here

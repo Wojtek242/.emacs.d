@@ -1,4 +1,4 @@
-;;; helm-gtags.el --- Module file for GTAGS with Helm configuration.
+;;; em-helm-gtags.el --- Module file for GTAGS with Helm configuration.
 ;;
 ;; Copyright (C) 2017 Wojciech Kozlowski
 ;;
@@ -27,15 +27,18 @@
 
 ;;; Required packages:
 
-(setq emodule/helm-gtags-packages
+;;; Code:
 
-      '(helm-gtags)
+(defvar emodule/em-helm-gtags-packages
 
-      )
+  '(helm-gtags)
+
+  )
 
 ;;; Configuration:
 
-(defun emodule/helm-gtags-init ()
+(defun emodule/em-helm-gtags-init ()
+  "Initialise the `em-helm-gtags' module."
 
   (use-package helm-gtags
     :defer t
@@ -63,3 +66,6 @@
     (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
     (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history))
   )
+
+(provide 'em-helm-gtags)
+;;; em-helm-gtags.el ends here
