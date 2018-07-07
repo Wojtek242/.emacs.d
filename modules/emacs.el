@@ -24,6 +24,7 @@
         help-mode+
         ibuffer-vc
         rainbow-mode
+        which-key
         use-package)
 
       )
@@ -49,6 +50,13 @@
   (use-package help-fns+)
 
   (use-package help-mode+)
+
+  (use-package which-key
+    :init
+    (setq which-key-separator " ")
+    (setq which-key-prefix-prefix "+")
+    :config
+    (which-key-mode 1))
 
   ;; --------------------------------------------------------------------------
   ;; Configure `ibuffer'.
