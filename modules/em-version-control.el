@@ -66,12 +66,15 @@
   ;; Diff highlight mode.
   ;; --------------------------------------------------------------------------
 
+  ;; The `magit-post-refresh-hook' doesn't work very well if it's not the
+  ;; first in the list of hooks.  Therefore, we guarantee that in a hacky way
+  ;; by loading it after 0 seconds of idle time.
   (use-package diff-hl
-    :hook
-    ((dired-mode . diff-hl-dired-mode)
-     (magit-post-refresh . diff-hl-magit-post-refresh))
+    :defer 0
     :config
-    (global-diff-hl-mode))
+    (global-diff-hl-mode)
+    (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
   ;; --------------------------------------------------------------------------
   ;; Diff mode settings.
@@ -132,7 +135,7 @@
     (define-key diff-mode-map (kbd "M-o") nil)
 
     ;; This copies behaviour from other modes where C-o displays the relevant
-    ;; (setq )ource in another window.
+    ;; source in another window.
     (define-key diff-mode-map (kbd "C-o") 'x-diff-display-source))
 
   )
