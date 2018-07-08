@@ -35,6 +35,9 @@
     :hook
     (after-init . doom-modeline-init)
     :config
+    (declare-function persp-mode-line "perspective")
+    (declare-function perspectives-hash "perspective")
+
     (setq-default doom-modeline-height 23)
 
     ;; Add perspective to modeline
@@ -44,6 +47,7 @@
                (< 1 (hash-table-count (perspectives-hash))))
           (persp-mode-line)
         ""))
+    (declare-function doom-modeline-segment--perspectives "em-modeline")
 
     ;; Set the modeline
     (doom-modeline-def-modeline main
