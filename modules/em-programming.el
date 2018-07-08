@@ -224,7 +224,9 @@
 
   (use-package swiper
     :bind
-    (("M-s M-s" . swiper)))
+    (("M-s M-s" . swiper))
+    :config
+    (setq ivy-count-format "%d/%d "))
 
   ;; --------------------------------------------------------------------------
   ;; plantuml-mode
