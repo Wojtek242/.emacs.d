@@ -36,6 +36,7 @@
     (helm-mode 1)
     :bind
     (("C-x C-f" . helm-find-files)
+     ("C-x C-r" . helm-resume)
      ("M-x" . helm-M-x)
      ("M-y" . helm-show-kill-ring)
      ("C-x b" . helm-mini)
