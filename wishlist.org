@@ -10,35 +10,15 @@
    - [ ] Updates packages
    - [ ] Backup/rollback
 
-* Modules
-
-   - [X] Nicer status bar
-     Good sources for inspiration are:
-     - [[https://github.com/Malabarba/smart-mode-line][smart-mode-line]]
-     - [[https://github.com/dbordak/telephone-line][telephone-line]]
-     - [[https://github.com/TheBB/spaceline][spaceline]]
-     - [[https://github.com/milkypostman/powerline][powerline]]
-
-   - [ ] Incremental search counter
-
 * Theme
 
   - [ ] Comments are too dark (problematic with big block comments)
-  - [ ] In C/C++ type is same colour as variable name
-  - [ ] Prettier underlines (straight lines)
+  - [ ] Clean up theme file
 
 * Workflow
 
   - [ ] Workspaces - see reddit thread on r/emacs
-  - [ ] Line and line number highlighting
   - [ ] Port comment block functions
-
-* Version
-
-  - [ ] Get home PC on 26.1
-  - [X] Get work PC on 26.1
-  - [X] Fix Magit key-bindings
-  - [ ] Fix comment block function
 
 * Metaswitch
 
@@ -49,4 +29,4 @@
     - [ ] Open dmp in new buffer
     - [ ] Diff IPSs
 
-  - [ ] Snippets
+  - [ ] Fix comment block function
