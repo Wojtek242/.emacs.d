@@ -20,9 +20,9 @@
 
 (defvar emodule/em-workflow-packages
 
-      '(workgroups2)
+  '(perspective)
 
-      )
+  )
 
 ;;; Configuration:
 
@@ -30,12 +30,12 @@
   "Initialise the `em-workflow' module."
 
   ;; --------------------------------------------------------------------------
-  ;; Enable `workgroups'.
+  ;; Enable `perspective'.
   ;; --------------------------------------------------------------------------
 
-  (use-package workgroups2
-    :bind
-    (("C-c z z" . (lambda () (interactive) (workgroups-mode)))))
+  (use-package perspective
+    :config
+    (persp-mode))
 
   )
 

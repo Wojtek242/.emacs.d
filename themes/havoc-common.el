@@ -433,6 +433,9 @@
      `(flycheck-warning ((t (:underline (:style line :color "DarkOrange")))))
      `(flycheck-info ((t (:underline (:style line :color "ForestGreen")))))
 
+     ;; perspective
+     `(persp-selected-face ((t (:weight bold :foreground ,*head1*))))
+
      )
 
     ;; Define values for colours that don't use faces.

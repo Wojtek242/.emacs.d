@@ -35,8 +35,33 @@
     :hook
     (after-init . doom-modeline-init)
     :config
-    (setq-default doom-modeline-height 23))
+    (setq-default doom-modeline-height 23)
 
+    ;; Add perspective to modeline
+    (doom-modeline-def-segment perspectives
+      "Perspectives list and selection. Requires `persp-mode' to be enabled."
+      (if (and (bound-and-true-p persp-mode)
+               (< 1 (hash-table-count (perspectives-hash))))
+          (persp-mode-line)
+        ""))
+
+    ;; Set the modeline
+    (doom-modeline-def-modeline main
+
+                                (perspectives
+                                 workspace-number
+                                 bar
+                                 matches
+                                 " "
+                                 buffer-info
+                                 "  %l:%c %p  "
+                                 selection-info)
+
+                                (buffer-encoding
+                                 major-mode
+                                 vcs
+                                 flycheck))
+    )
   )
 
 (provide 'em-modeline)
