@@ -27,27 +27,27 @@
 
 (defvar em-workflow/perspectives nil)
 
-(defun get-persp-parameters (persp)
+(defun em-workflow/get-persp-parameters (persp)
   "Return alist of parameters for perspective PERSP.
 If the alist did not exist, create one and initialise the values
 to nil."
   (assoc persp em-workflow/perspectives))
 
-(defun persp-parameter-cons (param-name persp)
+(defun em-workflow/persp-parameter-cons (param-name persp)
   "Return value of PARAM-NAME for perspective PERSP.
 If none was set, returns nil."
-  (assoc param-name (get-persp-parameters persp)))
+  (assoc param-name (em-workflow/get-persp-parameters persp)))
 
-(defun persp-parameter (param-name persp)
+(defun em-workflow/persp-parameter (param-name persp)
   "Return value of PARAM-NAME for perspective PERSP.
 If none was set, returns nil."
-  (cdr (persp-parameter-cons param-name persp)))
+  (cdr (em-workflow/persp-parameter-cons param-name persp)))
 
-(defun set-persp-parameter (param-name value persp)
+(defun em-workflow/set-persp-parameter (param-name value persp)
   "Set PARAM-NAME to VALUE for perspective PERSP."
-  (let ((param (persp-parameter-cons param-name persp)))
+  (let ((param (em-workflow/persp-parameter-cons param-name persp)))
     (when (not param)
-      (let ((persp-params (get-persp-parameters persp)))
+      (let ((persp-params (em-workflow/get-persp-parameters persp)))
         (when (not persp-params)
           (setq em-workflow/perspectives
                 (cons `(,persp . nil) em-workflow/perspectives))
@@ -57,7 +57,7 @@ If none was set, returns nil."
         (setq param (cadr persp-params))))
     (setcdr param value)))
 
-(defun workspaces/get-persp-workspace (&optional persp frame)
+(defun em-workflow/get-persp-workspace (&optional persp frame)
   "Get the correct workspace parameters for perspective.
 PERSP is the perspective, and defaults to the current
 perspective.  FRAME is the frame where the parameters are
@@ -70,9 +70,9 @@ expected to be used, and defaults to the current frame."
                        '(term-eyebrowse-window-configs
                          term-eyebrowse-current-slot
                          term-eyebrowse-last-slot))))
-    (--map (persp-parameter it persp) param-names)))
+    (--map (em-workflow/persp-parameter it persp) param-names)))
 
-(defun workspaces/set-persp-workspace (workspace-params &optional persp frame)
+(defun em-workflow/set-persp-workspace (workspace-params &optional persp frame)
   "Set workspace parameters for perspective.
 WORKSPACE-PARAMS should be a list containing 3 elements in
 this order:
@@ -92,15 +92,15 @@ set for terminal frames."
                        '(term-eyebrowse-window-configs
                          term-eyebrowse-current-slot
                          term-eyebrowse-last-slot))))
-    (--zip-with (set-persp-parameter it other persp)
+    (--zip-with (em-workflow/set-persp-parameter it other persp)
                 param-names workspace-params)))
 
-(defun workspaces/load-eyebrowse-for-perspective (&optional frame)
+(defun em-workflow/load-eyebrowse-for-perspective (&optional frame)
   "Load an eyebrowse workspace according to a perspective's parameters.
 FRAME's perspective is the perspective that is considered,
 defaulting to the current frame's perspective.  If the
 perspective doesn't have a workspace, create one."
-  (let* ((workspace-params (workspaces/get-persp-workspace (persp-curr frame) frame))
+  (let* ((workspace-params (em-workflow/get-persp-workspace (persp-curr frame) frame))
          (window-configs (nth 0 workspace-params))
          (current-slot (nth 1 workspace-params))
          (last-slot (nth 2 workspace-params)))
@@ -112,20 +112,20 @@ perspective doesn't have a workspace, create one."
           (eyebrowse--load-window-config current-slot))
       (eyebrowse--set 'window-configs nil frame)
       (eyebrowse-init frame)
-      (workspaces/save-eyebrowse-for-perspective frame))))
+      (em-workflow/save-eyebrowse-for-perspective frame))))
 
-(defun workspaces/update-eyebrowse-for-perspective (&rest _args)
+(defun em-workflow/update-eyebrowse-for-perspective (&rest _args)
   "Update and save current frame's eyebrowse workspace to its perspective."
   (let* ((current-slot (eyebrowse--get 'current-slot))
          (current-tag (nth 2 (assoc current-slot (eyebrowse--get 'window-configs)))))
     (eyebrowse--update-window-config-element
      (eyebrowse--current-window-config current-slot current-tag)))
-  (workspaces/save-eyebrowse-for-perspective))
+  (em-workflow/save-eyebrowse-for-perspective))
 
-(defun workspaces/save-eyebrowse-for-perspective (&optional frame)
+(defun em-workflow/save-eyebrowse-for-perspective (&optional frame)
   "Save FRAME's eyebrowse workspace to FRAME's perspective.
 FRAME defaults to the current frame."
-  (workspaces/set-persp-workspace (list (eyebrowse--get 'window-configs frame)
+  (em-workflow/set-persp-workspace (list (eyebrowse--get 'window-configs frame)
                                         (eyebrowse--get 'current-slot frame)
                                         (eyebrowse--get 'last-slot frame))
                                   (persp-curr frame)
@@ -150,11 +150,11 @@ FRAME defaults to the current frame."
     (eyebrowse-mode)
 
     (add-hook 'persp-before-switch-hook
-              #'workspaces/update-eyebrowse-for-perspective)
+              #'em-workflow/update-eyebrowse-for-perspective)
     (add-hook 'eyebrowse-post-window-switch-hook
-              #'workspaces/save-eyebrowse-for-perspective)
+              #'em-workflow/save-eyebrowse-for-perspective)
     (add-hook 'persp-activated-hook
-              #'workspaces/load-eyebrowse-for-perspective)
+              #'em-workflow/load-eyebrowse-for-perspective)
 
     )
 
