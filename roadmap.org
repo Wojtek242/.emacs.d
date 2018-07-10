@@ -16,6 +16,11 @@
    - [ ] Updates packages
    - [ ] Backup/rollback
 
+** Publishing requirements
+
+   - [ ] Remove company branch from public repo
+   - [ ] Change author of all commits to current e-mail address
+
 * Extras
 
 ** .emacs.d
