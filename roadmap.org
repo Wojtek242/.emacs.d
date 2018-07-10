@@ -4,6 +4,7 @@
 
 ** .emacs.d
 
+   - [ ] Fix rgrep keybinding
    - [ ] Port comment block functions
    - [ ] Clean up theme file
    - [ ] Comments are too dark (problematic with big block comments)
