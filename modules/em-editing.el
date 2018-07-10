@@ -54,17 +54,7 @@
 
   (use-package fill-column-indicator
     :bind
-    (("C-x t f" . fci-mode))
-    :init
-    ;; (defun fci-mode-unless-large-file ()
-    ;;   "Enable fci-mode unless the file is too large."
-    ;;   (interactive)
-    ;;   (unless (> (count-lines (point-min) (point-max)) 9999)
-    ;;     (fci-mode)))
-
-    ;; (add-hook 'prog-mode-hook 'fci-mode-unless-large-file)
-    ;; (add-hook 'text-mode-hook 'fci-mode-unless-large-file)
-    )
+    (("C-x t f" . fci-mode)))
 
   ;; --------------------------------------------------------------------------
   ;; Undo tree.  To undo "C-\", to redo "C-_", undo tree "C-x u".
@@ -213,7 +203,6 @@
     "Indent the currently visited buffer."
     (interactive)
     (indent-region (point-min) (point-max)))
-  (declare-function indent-buffer "editing")
 
   (defcustom indent-sensitive-modes
     '(coffee-mode python-mode slim-mode haml-mode yaml-mode)
@@ -224,8 +213,6 @@
   (defun indent-region-or-buffer ()
     "Indent a region if selected, otherwise the whole buffer."
     (interactive)
-
-    (defvar indent-sensitive-modes)
 
     (unless (member major-mode indent-sensitive-modes)
       (save-excursion

@@ -71,7 +71,6 @@
     :init
     (add-hook 'ibuffer-hook
               (lambda ()
-                (declare-function ibuffer-do-sort-by-alphabetic "ibuf-ext")
                 (ibuffer-vc-set-filter-groups-by-vc-root)
                 (unless (eq ibuffer-sorting-mode 'alphabetic)
                   (ibuffer-do-sort-by-alphabetic))))
@@ -116,7 +115,6 @@
       (if (window-live-p sr-speedbar-window)
           (set-frame-selected-window (window-frame) sr-speedbar-window)
         (user-error "Speedbar window is not live")))
-    (declare-function goto-speedbar "emacs")
 
     (global-set-key (kbd "M-m") #'goto-speedbar))
 
@@ -145,8 +143,6 @@
     This has to be called whenever the active theme changes to
     refresh these colours."
 
-    (defvar highlight-parentheses-mode)
-
     (when (and (fboundp 'fci-mode)
                (member 'fci-mode minor-mode-list))
       (fci-mode 1))
@@ -154,7 +150,6 @@
     (when (and (fboundp 'highlight-parentheses-mode)
                highlight-parentheses-mode)
       (highlight-parentheses-mode 1)))
-  (declare-function refresh-non-face-colours "emacs")
 
   ;; Key-bindings -------------------------------------------------------------
 
@@ -251,11 +246,9 @@
 
   (defun minibuffer-gc-setup-hook ()
     (setq gc-cons-threshold most-positive-fixnum))
-  (declare-function minibuffer-gc-setup-hook "emacs")
 
   (defun minibuffer-gc-exit-hook ()
     (setq gc-cons-threshold 800000))
-  (declare-function minibuffer-gc-exit-hook "emacs")
 
   (add-hook 'minibuffer-setup-hook #'minibuffer-gc-setup-hook)
   (add-hook 'minibuffer-exit-hook #'minibuffer-gc-exit-hook)

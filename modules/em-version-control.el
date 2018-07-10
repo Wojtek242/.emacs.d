@@ -54,9 +54,6 @@
   ;; Ediff.
   ;; --------------------------------------------------------------------------
 
-  (defvar ediff-diff-options)
-  (defvar ediff-split-window-function)
-  (defvar ediff-window-setup-function)
   (setq ediff-diff-options "-w"
         ediff-split-window-function 'split-window-horizontally
         ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -84,7 +81,6 @@
     :init
 
     ;; Diff mode hook - whitespace mode settings and set read-only mode.
-    (defvar whitespace-style)
     (add-hook 'diff-mode-hook (lambda ()
                                 (setq-local whitespace-style
                                             '(face
@@ -100,8 +96,6 @@
                                 (read-only-mode 1)))
 
     :config
-    (declare-function diff-find-source-location "diff-mode")
-    (declare-function diff-hunk-status-msg "diff-mode")
 
     ;; Extra functions ----------------------------------------------------------
 

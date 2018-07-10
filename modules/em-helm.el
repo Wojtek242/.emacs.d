@@ -44,8 +44,6 @@
      ("C-h SPC" . helm-all-mark-rings))
     :config
     (require 'helm-config)
-    (declare-function helm-autoresize-mode "helm")
-    (declare-function helm-buffer-get "helm-lib")
 
     ;; Helm prefix ------------------------------------------------------------
 

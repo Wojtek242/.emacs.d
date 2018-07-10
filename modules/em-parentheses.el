@@ -59,8 +59,6 @@
     (show-smartparens-global-mode t)
 
     (require 'smartparens-config)
-    (declare-function sp-local-pair "smartparens")
-    (declare-function sp-beginning-of-sexp "smartparens")
 
     ;; Key-bindings -----------------------------------------------------------
 

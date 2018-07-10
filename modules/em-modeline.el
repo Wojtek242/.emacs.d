@@ -35,9 +35,6 @@
     :hook
     (after-init . doom-modeline-init)
     :config
-    (declare-function persp-mode-line "perspective")
-    (declare-function perspectives-hash "perspective")
-
     (setq-default doom-modeline-height 23)
 
     ;; Add perspective to modeline
@@ -46,7 +43,6 @@
       (if (bound-and-true-p persp-mode)
           (persp-format-name (persp-name (persp-curr)))
         ""))
-    (declare-function doom-modeline-segment--perspective-name "em-modeline")
 
     (doom-modeline-def-segment workspace-number
       "The current workspace name or number. Requires `eyebrowse-mode' to be
