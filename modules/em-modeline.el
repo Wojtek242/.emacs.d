@@ -41,19 +41,32 @@
     (setq-default doom-modeline-height 23)
 
     ;; Add perspective to modeline
-    (doom-modeline-def-segment perspectives
+    (doom-modeline-def-segment perspective-name
       "Perspectives list and selection. Requires `persp-mode' to be enabled."
-      (if (and (bound-and-true-p persp-mode)
-               (< 1 (hash-table-count (perspectives-hash))))
-          (persp-mode-line)
+      (if (bound-and-true-p persp-mode)
+          (persp-format-name (persp-name (persp-curr)))
         ""))
-    (declare-function doom-modeline-segment--perspectives "em-modeline")
+    (declare-function doom-modeline-segment--perspective-name "em-modeline")
+
+    (doom-modeline-def-segment workspace-number
+      "The current workspace name or number. Requires `eyebrowse-mode' to be
+enabled."
+      (if (bound-and-true-p eyebrowse-mode)
+          (let* ((num (eyebrowse--get 'current-slot))
+                 (tag (when num (nth 2 (assoc num (eyebrowse--get 'window-configs)))))
+                 (str (if (and tag (< 0 (length tag)))
+                          tag
+                        (when num (int-to-string num)))))
+            (format ":%s" (propertize str 'face 'doom-modeline-eyebrowse)))
+        ""))
 
     ;; Set the modeline
     (doom-modeline-def-modeline main
 
-                                (perspectives
+                                ("["
+                                 perspective-name
                                  workspace-number
+                                 "]"
                                  bar
                                  matches
                                  " "

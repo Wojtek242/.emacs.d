@@ -436,6 +436,9 @@
      ;; perspective
      `(persp-selected-face ((t (:weight bold :foreground ,*head1*))))
 
+     ;; doom modeline
+     `(doom-modeline-eyebrowse ((t (:weight bold :foreground ,*string*))))
+
      )
 
     ;; Define values for colours that don't use faces.
