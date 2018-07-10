@@ -147,7 +147,7 @@ FRAME defaults to the current frame."
   (use-package eyebrowse
     :after perspective
     :config
-    (eyebrowse-mode)
+    (setq eyebrowse-default-workspace-slot 0)
 
     (add-hook 'persp-before-switch-hook
               #'em-workflow/update-eyebrowse-for-perspective)
@@ -156,7 +156,7 @@ FRAME defaults to the current frame."
     (add-hook 'persp-activated-hook
               #'em-workflow/load-eyebrowse-for-perspective)
 
-    )
+    (eyebrowse-mode))
 
   )
 
