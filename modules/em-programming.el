@@ -440,6 +440,65 @@
       (let ((transient-mark-mode nil))
         (yank-advised-indent-function (region-beginning) (region-end)))))
 
+  ;; --------------------------------------------------------------------------
+  ;; Box comments.
+  ;; --------------------------------------------------------------------------
+
+  (defvar box-comment-char/emacs-lisp-mode ";; ")
+  (defvar box-comment-char/lisp-interaction-mode ";; ")
+  (defvar box-comment-char/scheme-mode ";; ")
+
+  (defun box-comment-char ()
+    "Return the comment character for the current mode."
+    (let ((box-comment-var
+           (intern (format "box-comment-char/%s" major-mode))))
+    (if (boundp box-comment-var)
+        (eval box-comment-var)
+      comment-start)))
+
+  (defun make-box-comment ()
+    (interactive)
+    (let ((comm-start (box-comment-char))
+	  beg indent len)
+
+      ;; ----------------------------------------------------------------------
+      ;; Find beginning of comment.
+      ;; ----------------------------------------------------------------------
+      (end-of-line)
+      (unless (search-backward comm-start nil t)
+	(error "Not in comment!"))
+
+      ;; ----------------------------------------------------------------------
+      ;; Reformat into a single line.
+      ;; ----------------------------------------------------------------------
+      (unfill-paragraph)
+      (end-of-line)
+      (search-backward comm-start nil t)
+
+      ;; ----------------------------------------------------------------------
+      ;; Set variables.
+      ;; ----------------------------------------------------------------------
+      (setq beg (point))
+      (setq indent (current-column))
+      (setq len (- (- fill-column (length comm-start)) indent))
+
+      ;; ----------------------------------------------------------------------
+      ;; Reformat comment text in place.
+      ;; ----------------------------------------------------------------------
+      (goto-char beg)
+      (insert comm-start (make-string len ?-))
+      (newline)
+      (indent-to-column indent)
+      (end-of-line)
+      (fill-paragraph)
+      (unless (bolp)
+        (progn
+          (newline)
+          (indent-to-column indent)))
+      (insert comm-start (make-string len ?-))))
+
+  (global-set-key (kbd "M-'") 'make-box-comment)
+
   )
 
 (provide 'em-programming)
