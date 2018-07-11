@@ -19,7 +19,8 @@
 
 (defvar emodule/em-emacs-packages
 
-  '(discover-my-major
+  '(deadgrep
+    discover-my-major
     help+
     help-fns+
     help-mode+
@@ -36,6 +37,14 @@
 
 (defun emodule/em-emacs-init ()
   "Initialise the `em-emacs' module."
+
+  ;; --------------------------------------------------------------------------
+  ;; Use deadgrep.
+  ;; --------------------------------------------------------------------------
+
+  (use-package deadgrep
+    :bind
+    (("C-x C-g" . deadgrep)))
 
   ;; --------------------------------------------------------------------------
   ;; Help extensions.
@@ -177,8 +186,9 @@
                                 (let ((scroll-preserve-screen-position nil))
                                   (scroll-up 1))))
 
-  ;; Recursive grep.
-  (global-set-key (kbd "C-c g") 'rgrep)
+  ;; Recursive grep.  Use only if ripgrep not present.
+  (unless (executable-find "rg")
+    (global-set-key (kbd "C-x C-g") 'rgrep))
 
   ;; Setup key-bindings for switching between themes.
   (global-set-key (kbd "C-x t l") (lambda ()

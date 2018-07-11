@@ -4,12 +4,12 @@
 
 ** .emacs.d
 
-   - [ ] Fix rgrep keybinding
    - [ ] Port comment block functions
    - [ ] Clean up theme file
    - [ ] Comments are too dark (problematic with big block comments)
    - [ ] Nicer splash screen
    - [ ] Frontend for emodule (e.g. for updates, rollbacks, init messages)
+   - [ ] RLS integration - get rid of racer dependency
 
 ** Emodule
 
@@ -22,10 +22,6 @@
    - [ ] Change author of all commits to current e-mail address
 
 * Extras
-
-** .emacs.d
-
-   - [ ] RLS integration - get rid of racer dependency
 
 ** Metaswitch
 
