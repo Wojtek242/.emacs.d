@@ -23,6 +23,7 @@
   '(company
     company-c-headers
     dockerfile-mode
+    elpy
     fic-mode
     function-args
     flycheck
@@ -32,6 +33,7 @@
     highlight-numbers
     highlight-symbol
     plantuml-mode
+    py-autopep8
     rust-mode
     stickyfunc-enhance
     swiper
@@ -109,6 +111,22 @@
 
   (use-package dockerfile-mode
     :defer t)
+
+  ;; --------------------------------------------------------------------------
+  ;; Enable elpy.
+  ;; --------------------------------------------------------------------------
+
+  (use-package elpy
+    :hook (python-mode . elpy-mode)
+    :config
+    (unbind-key "C-c C-f" python-mode-map)
+    (unbind-key "C-c C-f" elpy-mode-map)
+    (setq python-shell-interpreter "ipython"
+          python-shell-interpreter-args "-i --simple-prompt"))
+
+  (use-package py-autopep8
+    ;; Note that this package require autopep8 to be installed.
+    :bind (("C-c C-f" . py-autopep8-buffer)))
 
   ;; --------------------------------------------------------------------------
   ;; FIC mode.
