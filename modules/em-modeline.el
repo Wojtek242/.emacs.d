@@ -57,23 +57,23 @@ enabled."
         ""))
 
     ;; Set the modeline
-    (doom-modeline-def-modeline main
+    (doom-modeline-def-modeline 'main
 
-                                ("["
-                                 perspective-name
-                                 workspace-number
-                                 "]"
-                                 bar
-                                 matches
-                                 " "
-                                 buffer-info
-                                 "  %l:%c %p  "
-                                 selection-info)
+                                '("["
+                                  perspective-name
+                                  workspace-number
+                                  "]"
+                                  bar
+                                  matches
+                                  " "
+                                  buffer-info
+                                  "  %l:%c %p  "
+                                  selection-info)
 
-                                (buffer-encoding
-                                 major-mode
-                                 vcs
-                                 flycheck))
+                                '(buffer-encoding
+                                  major-mode
+                                  vcs
+                                  flycheck))
     )
   )
 
