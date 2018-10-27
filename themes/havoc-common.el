@@ -448,6 +448,11 @@
                             ,*hlp-2*
                             ,*hlp-3*))
 
+    ;; Define any faces not already defined in a package.  This is necessary
+    ;; for Emacs to recognise these faces if they are being set above.
+    (defface doom-modeline-eyebrowse '((t ()))
+      "The face used to highlight the current eyebrowse window in the doom modeline.")
+
     ))
 
 ;;;###autoload
