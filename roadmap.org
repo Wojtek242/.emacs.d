@@ -4,31 +4,22 @@
 
 ** .emacs.d
 
-   - [ ] Clean up theme file
-   - [ ] Comments are too dark (problematic with big block comments)
    - [ ] Nicer splash screen
    - [ ] Frontend for emodule (e.g. for updates, rollbacks, init messages)
-   - [ ] RLS integration - get rid of racer dependency
 
 ** Emodule
 
    - [ ] Updates packages
    - [ ] Backup/rollback
 
-** Publishing requirements
+** Publishing admin
 
    - [ ] Remove company branch from public repo
    - [ ] Change author of all commits to current e-mail address
 
-* Extras
+* Beyond v1.0
 
-** Metaswitch
+** .emacs.d
 
-   - [ ] IPS trace
-     - [ ] Follow to start/end of IPS
-     - [ ] Oscilloscope
-     - [ ] colour highlights in IPS trace mode
-     - [ ] Open dmp in new buffer
-     - [ ] Diff IPSs
-
-   - [ ] Fix comment block function
+   - [ ] Clean up theme file
+   - [ ] RLS integration - get rid of racer dependency
