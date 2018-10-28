@@ -21,11 +21,7 @@
 
   '(deadgrep
     discover-my-major
-    help+
-    help-fns+
-    help-mode+
     ibuffer-vc
-    info+
     rainbow-mode
     sr-speedbar
     which-key

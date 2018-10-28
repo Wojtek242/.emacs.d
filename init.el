@@ -25,8 +25,12 @@
 
   (require 'package)
   (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+               '("melpa" . "https://melpa.org/packages/") t)
   (package-initialize)
+
+  ;; Local copies of packages no longer provided by MELPA.  See
+  ;; https://github.com/melpa/melpa/pull/5008.
+  (add-to-list 'load-path "~/.emacs.d/emacswiki/")
 
   ;; --------------------------------------------------------------------------
   ;; Visual configuration.
