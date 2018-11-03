@@ -14,8 +14,8 @@
 
 ** Publishing admin
 
-   - [ ] Remove company branch from public repo
-   - [ ] Change author of all commits to current e-mail address
+   - [X] Remove company branch from public repo
+   - [X] Change author of all commits to current e-mail address
 
 * Beyond v1.0
 
