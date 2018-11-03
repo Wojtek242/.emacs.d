@@ -10,7 +10,7 @@
 ** Emodule
 
    - [ ] Updates packages
-   - [ ] Backup/rollback
+   - [X] Backup/rollback
 
 ** Publishing admin
 
