@@ -151,21 +151,53 @@ after attempting to install all other packages first."
 
 (defun emodule/backup ()
   "Create a backup of the elpa directory in elpa.tar.xz."
-  (let* ((dir "elpa")
+  (let* ((default-directory "~/.emacs.d")
+         (dir "elpa")
          (archive (format "%s.tar.xz" dir)))
    (emodule/unset-logs-read-only)
-   (emodule/print (format "*** Creating backup of %s ***\n" dir) emodule/log)
-   (let* ((default-directory "~/.emacs.d")
-          (cmd (format "XZ_OPT=-9 tar -cJf %s %s" archive dir))
+   (emodule/print (format "Creating backup of %s into %s\n" dir archive)
+                  emodule/log)
+   (let* ((cmd (format "XZ_OPT=-9 tar -cJf %s %s" archive dir))
           (res (shell-command cmd nil emodule/error-log)))
      (unless (zerop res)
        (progn
-         (emodule/print "*** Failed to create backup ***" emodule/log)
+         (emodule/print "Failed to create backup" emodule/log)
          (delete-file archive)
          (emodule/set-logs-read-only)
          (error (format "Command: '%s' failed with code %d" cmd res)))))
-   (emodule/print (format "*** Backup created in %s ***" archive) emodule/log)
+   (emodule/print (format "Backup created in %s" archive) emodule/log)
    (emodule/set-logs-read-only)))
+
+(defun emodule/clean-move-dir (dir1 dir2)
+  "Move DIR1 to DIR2 after ensuring DIR2 does not exist."
+  (when (file-directory-p dir2)
+    (delete-directory dir2 t))
+  (rename-file dir1 dir2))
+
+(defun emodule/rollback ()
+  "Rollback to elpa directory state from backup."
+  (let* ((default-directory "~/.emacs.d")
+         (dir "elpa")
+         (dir-bkp (format "%s.bkp" dir))
+         (archive (format "%s.tar.xz" dir)))
+    (emodule/unset-logs-read-only)
+    (emodule/print (format "Rolling %s back from %s\n" dir archive)
+                   emodule/log)
+    (when (file-directory-p dir)
+      (emodule/clean-move-dir dir dir-bkp))
+    (let* ((cmd (format "tar -xJf %s" archive))
+           (res (shell-command cmd nil emodule/error-log)))
+      (unless (zerop res)
+        (progn
+          (emodule/print "Failed to rollback" emodule/log)
+          (when (file-directory-p dir-bkp)
+            (emodule/clean-move-dir dir-bkp dir))
+          (emodule/set-logs-read-only)
+          (error (format "Command: '%s' failed with code %d" cmd res)))))
+    (emodule/print (format "Rolled back from %s" archive) emodule/log)
+    (when (file-directory-p dir-bkp)
+      (delete-directory dir-bkp t))
+    (emodule/set-logs-read-only)))
 
 ;;; Package management functions
 
