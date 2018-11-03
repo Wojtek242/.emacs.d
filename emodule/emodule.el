@@ -151,6 +151,7 @@ after attempting to install all other packages first."
 
 (defun emodule/backup ()
   "Create a backup of the elpa directory in elpa.tar.xz."
+  (interactive)
   (let* ((default-directory "~/.emacs.d")
          (dir "elpa")
          (archive (format "%s.tar.xz" dir)))
@@ -176,6 +177,7 @@ after attempting to install all other packages first."
 
 (defun emodule/rollback ()
   "Rollback to elpa directory state from backup."
+  (interactive)
   (let* ((default-directory "~/.emacs.d")
          (dir "elpa")
          (dir-bkp (format "%s.bkp" dir))
