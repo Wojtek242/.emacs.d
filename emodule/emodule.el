@@ -73,6 +73,16 @@ after attempting to install all other packages first."
     (with-current-buffer (get-buffer-create emodule/error-log)
       (log-view-mode))))
 
+(defun emodule/unset-logs-read-only ()
+  "Unset log buffer from `log-view-mode'."
+  (when emodule/print-logs
+
+    (with-current-buffer (get-buffer-create emodule/log)
+      (read-only-mode 0))
+
+    (with-current-buffer (get-buffer-create emodule/error-log)
+      (read-only-mode 0))))
+
 (defun emodule/erase-logs ()
   "Erase both log buffers."
   (when emodule/print-logs
@@ -94,7 +104,7 @@ after attempting to install all other packages first."
   (when emodule/print-logs
     (with-current-buffer (get-buffer-create buffer)
       (goto-char (point-max))
-      (if (not (= (point) 1))
+      (if (not (= (point) (line-beginning-position)))
           (newline))
       (insert string))))
 
@@ -137,7 +147,27 @@ after attempting to install all other packages first."
   "Print STRING to `emodule/error-log'."
   (emodule/print string emodule/error-log))
 
-;;; Helper functions
+;; Backup handling functions
+
+(defun emodule/backup ()
+  "Create a backup of the elpa directory in elpa.tar.xz."
+  (let* ((dir "elpa")
+         (archive (format "%s.tar.xz" dir)))
+   (emodule/unset-logs-read-only)
+   (emodule/print (format "*** Creating backup of %s ***\n" dir) emodule/log)
+   (let* ((default-directory "~/.emacs.d")
+          (cmd (format "XZ_OPT=-9 tar -cJf %s %s" archive dir))
+          (res (shell-command cmd nil emodule/error-log)))
+     (unless (zerop res)
+       (progn
+         (emodule/print "*** Failed to create backup ***" emodule/log)
+         (delete-file archive)
+         (emodule/set-logs-read-only)
+         (error (format "Command: '%s' failed with code %d" cmd res)))))
+   (emodule/print (format "*** Backup created in %s ***" archive) emodule/log)
+   (emodule/set-logs-read-only)))
+
+;;; Package management functions
 
 (defun emodule/install-pkgs (install-pkgs)
   "Install all packages in INSTALL-PKGS.
@@ -176,9 +206,6 @@ dependency of one that is."
     (cl-loop for p in (mapcar #'car package-alist)
              unless (memq p needed)
              collect p)))
-
-;;; Operational functions:
-;; These functions are expected to be called from the init file.
 
 (defun emodule/install-packages (desired-pkgs &optional no-set-selected)
   "Install DESIRED-PKGS and remove redundant packages.
@@ -271,6 +298,9 @@ this macro."
   "Init all modules in MODLIST."
   (dolist (mod modlist nil)
     (emodule/init-module mod)))
+
+;;; Operational functions:
+;; These functions are expected to be called from the init file.
 
 (defun emodule/init (modlist)
   "Initialise all modules in MODLIST."
