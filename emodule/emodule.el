@@ -4,7 +4,7 @@
 ;;
 ;; Author: Wojciech Kozlowski <wk@wojciechkozlowski.eu>
 ;; Created: 23 Aug 2017
-;; Version: 0.0.1
+;; Version: 1.0.0
 ;; Keywords: tools
 ;; Package-Requires:
 ;;
@@ -15,9 +15,7 @@
 ;; This package serves to help further automate package management with
 ;; `package'.  The aim of this package is to expose a simple API which when
 ;; provided with a list of desired packages will (i) install them and remove
-;; any redundant packages, (ii) update them, (iii) rollback updates.
-;;
-;; Currently only (i) is implemented.
+;; any redundant packages, (ii) upgrade them, (iii) restore previous state.
 ;;
 ;;; License: GPLv3
 
@@ -370,7 +368,7 @@ this macro."
     upgrades))
 
 (defun emodule/upgrade ()
-  "Upgrade all packages that have newer version.
+  "Upgrade all packages that have a newer version.
 This is achieved by first deleting the installed version followed
 by installing the newer version"
   (interactive)
@@ -382,9 +380,9 @@ by installing the newer version"
       (let ((upgrades (emodule/upgradable-packages)))
         (emodule/delete-pkgs upgrades)
         (emodule/install-pkgs upgrades)
-        (emodule/print "*** Upgrading complete ***" emodule/log)
+        (emodule/print "*** Upgrade complete ***" emodule/log)
         (emodule/set-logs-read-only))
-    (error (let ((err-str "*** Upgrading failed ***"))
+    (error (let ((err-str "*** Upgrade failed ***"))
              (emodule/print err-str emodule/log)
              (emodule/print err-str emodule/error-log)
              (emodule/print-error-log (error-message-string err))
