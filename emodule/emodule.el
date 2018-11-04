@@ -61,7 +61,7 @@ after attempting to install all other packages first."
   "Directory in which module files are to be found."
   :type 'string)
 
-;;; Print functions
+;;; Print functions:
 
 (defun emodule/set-logs-read-only ()
   "Set log buffer to `log-view-mode'."
@@ -147,61 +147,7 @@ after attempting to install all other packages first."
   "Print STRING to `emodule/error-log'."
   (emodule/print string emodule/error-log))
 
-;; Backup handling functions
-
-(defun emodule/backup ()
-  "Create a backup of the elpa directory in elpa.tar.xz."
-  (interactive)
-  (let* ((default-directory "~/.emacs.d")
-         (dir "elpa")
-         (archive (format "%s.tar.xz" dir)))
-   (emodule/unset-logs-read-only)
-   (emodule/print (format "Creating backup of %s into %s\n" dir archive)
-                  emodule/log)
-   (let* ((cmd (format "XZ_OPT=-9 tar -cJf %s %s" archive dir))
-          (res (shell-command cmd nil emodule/error-log)))
-     (unless (zerop res)
-       (progn
-         (emodule/print "Failed to create backup" emodule/log)
-         (delete-file archive)
-         (emodule/set-logs-read-only)
-         (error (format "Command: '%s' failed with code %d" cmd res)))))
-   (emodule/print (format "Backup created in %s" archive) emodule/log)
-   (emodule/set-logs-read-only)))
-
-(defun emodule/clean-move-dir (dir1 dir2)
-  "Move DIR1 to DIR2 after ensuring DIR2 does not exist."
-  (when (file-directory-p dir2)
-    (delete-directory dir2 t))
-  (rename-file dir1 dir2))
-
-(defun emodule/rollback ()
-  "Rollback to elpa directory state from backup."
-  (interactive)
-  (let* ((default-directory "~/.emacs.d")
-         (dir "elpa")
-         (dir-bkp (format "%s.bkp" dir))
-         (archive (format "%s.tar.xz" dir)))
-    (emodule/unset-logs-read-only)
-    (emodule/print (format "Rolling %s back from %s\n" dir archive)
-                   emodule/log)
-    (when (file-directory-p dir)
-      (emodule/clean-move-dir dir dir-bkp))
-    (let* ((cmd (format "tar -xJf %s" archive))
-           (res (shell-command cmd nil emodule/error-log)))
-      (unless (zerop res)
-        (progn
-          (emodule/print "Failed to rollback" emodule/log)
-          (when (file-directory-p dir-bkp)
-            (emodule/clean-move-dir dir-bkp dir))
-          (emodule/set-logs-read-only)
-          (error (format "Command: '%s' failed with code %d" cmd res)))))
-    (emodule/print (format "Rolled back from %s" archive) emodule/log)
-    (when (file-directory-p dir-bkp)
-      (delete-directory dir-bkp t))
-    (emodule/set-logs-read-only)))
-
-;;; Package management functions
+;;; Package management functions:
 
 (defun emodule/install-pkgs (install-pkgs)
   "Install all packages in INSTALL-PKGS.
@@ -209,10 +155,12 @@ Log errors to `emodule/error-log'."
   (dolist (p install-pkgs nil)
     (emodule/print-installing p)
     (condition-case err
-        (package-install p)
+        (unless (package-installed-p p)
+          (package-install p))
       (error (progn
                (emodule/print-failed-install p)
-               (emodule/print-error-log (error-message-string err)))))))
+               (emodule/print-error-log (error-message-string err))
+               (error-message-string err))))))
 
 (defun emodule/delete-pkgs (delete-pkgs)
   "Delete all packages in DELETE-PKGS.
@@ -227,7 +175,8 @@ DELETE-PKGS are removed."
         (package-delete (cadr (assq p package-alist)) t)
       (error (progn
                (emodule/print-failed-install p)
-               (emodule/print-error-log (error-message-string err)))))))
+               (emodule/print-error-log (error-message-string err))
+               (error-message-string err))))))
 
 (defun emodule/removable-packages (pkgs)
   "Return a list of names of packages no longer needed.
@@ -295,6 +244,8 @@ DESIRED-PKGS unless NO-SET-SELECTED is non-nil"
   (unless no-set-selected
     (customize-save-variable 'package-selected-packages desired-pkgs)))
 
+;;; Init functions:
+
 (defun emodule/load-module (mod)
   "Load all definitions for module MOD.
 This function expects the module to be located in a file called
@@ -333,9 +284,6 @@ this macro."
   (dolist (mod modlist nil)
     (emodule/init-module mod)))
 
-;;; Operational functions:
-;; These functions are expected to be called from the init file.
-
 (defun emodule/init (modlist)
   "Initialise all modules in MODLIST."
   (emodule/load-module-list modlist)
@@ -348,6 +296,101 @@ this macro."
   (emodule/load-module-list modlist)
   (emodule/init-module-list modlist)
   (emodule/set-logs-read-only))
+
+;;; Backup handling functions:
+
+(defun emodule/backup ()
+  "Create a backup of the elpa directory in elpa.tar.xz."
+  (interactive)
+  (message "Backing up elpa...")
+  (let* ((default-directory "~/.emacs.d")
+         (dir "elpa")
+         (archive (format "%s.tar.xz" dir)))
+    (emodule/unset-logs-read-only)
+    (emodule/print (format "*** Backing up %s into %s ***\n" dir archive)
+                   emodule/log)
+    (let* ((cmd (format "XZ_OPT=-9 tar -cJf %s %s" archive dir))
+           (res (shell-command cmd nil emodule/error-log)))
+      (unless (zerop res)
+        (progn
+          (emodule/print "*** Failed to create backup ***" emodule/log)
+          (delete-file archive)
+          (emodule/set-logs-read-only)
+          (error (format "Command: '%s' failed with code %d" cmd res)))))
+    (emodule/print (format "*** Backup created in %s ***" archive) emodule/log)
+    (emodule/set-logs-read-only)))
+
+(defun emodule/clean-move-dir (dir1 dir2)
+  "Move DIR1 to DIR2 after ensuring DIR2 does not exist."
+  (when (file-directory-p dir2)
+    (delete-directory dir2 t))
+  (rename-file dir1 dir2))
+
+(defun emodule/restore ()
+  "Restore elpa directory state from backup."
+  (interactive)
+  (message "Restoring elpa...")
+  (let* ((default-directory "~/.emacs.d")
+         (dir "elpa")
+         (dir-bkp (format "%s.bkp" dir))
+         (archive (format "%s.tar.xz" dir)))
+    (emodule/unset-logs-read-only)
+    (emodule/print (format "*** Restoring %s back from %s ***\n" dir archive)
+                   emodule/log)
+    (when (file-directory-p dir)
+      (emodule/clean-move-dir dir dir-bkp))
+    (let* ((cmd (format "tar -xJf %s" archive))
+           (res (shell-command cmd nil emodule/error-log)))
+      (unless (zerop res)
+        (progn
+          (emodule/print "*** Failed to restore ***" emodule/log)
+          (when (file-directory-p dir-bkp)
+            (emodule/clean-move-dir dir-bkp dir))
+          (emodule/set-logs-read-only)
+          (error (format "Command: '%s' failed with code %d" cmd res)))))
+    (emodule/print (format "*** Restored from %s ***" archive) emodule/log)
+    (when (file-directory-p dir-bkp)
+      (delete-directory dir-bkp t))
+    (emodule/set-logs-read-only)))
+
+;;; Upgrade functions:
+
+(defun emodule/upgradable-packages ()
+  "Return a list of names of packages that have a newer version."
+  (let (upgrades)
+    (dolist (entry package-alist)
+      (let* ((pkg-desc (cadr entry))
+             (pkg-name (package-desc-name pkg-desc))
+             (pkg-version (package-desc-version pkg-desc))
+             (pkg-avail (assq pkg-name package-archive-contents))
+             (pkg-avail-desc (cadr pkg-avail))
+             (pkg-avail-version (package-desc-version pkg-avail-desc)))
+        (when (version-list-< pkg-version pkg-avail-version)
+          (push pkg-name upgrades))))
+    upgrades))
+
+(defun emodule/upgrade ()
+  "Upgrade all packages that have newer version.
+This is achieved by first deleting the installed version followed
+by installing the newer version"
+  (interactive)
+  (emodule/backup)
+  (package-refresh-contents)
+  (emodule/unset-logs-read-only)
+  (emodule/print "*** Upgrading packages ***" emodule/log)
+  (condition-case err
+      (let ((upgrades (emodule/upgradable-packages)))
+        (emodule/delete-pkgs upgrades)
+        (emodule/install-pkgs upgrades)
+        (emodule/print "*** Upgrading complete ***" emodule/log)
+        (emodule/set-logs-read-only))
+    (error (let ((err-str "*** Upgrading failed ***"))
+             (emodule/print err-str emodule/log)
+             (emodule/print err-str emodule/error-log)
+             (emodule/print-error-log (error-message-string err))
+             (emodule/set-logs-read-only)
+             (emodule/restore)
+             err-str))))
 
 (provide 'emodule)
 
