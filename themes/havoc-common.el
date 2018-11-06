@@ -438,6 +438,7 @@
 
      ;; doom modeline
      `(doom-modeline-eyebrowse ((t (:weight bold :foreground ,*string*))))
+     `(doom-modeline-inactive-bar ((t (:inherit mode-line-inactive))))
 
      )
 

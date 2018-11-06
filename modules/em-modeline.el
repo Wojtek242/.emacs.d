@@ -59,11 +59,11 @@ enabled."
     ;; Set the modeline
     (doom-modeline-def-modeline 'main
 
-                                '("["
+                                '(bar
+                                  "["
                                   perspective-name
                                   workspace-number
                                   "]"
-                                  bar
                                   matches
                                   " "
                                   buffer-info
