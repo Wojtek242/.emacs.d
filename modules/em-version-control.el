@@ -46,6 +46,7 @@
     ("C-x g t" . magit-tag)
     :config
     (add-hook 'magit-mode-hook 'magit-load-config-extensions)
+    (setq magit-bury-buffer-function 'magit-mode-quit-window)
 
     ;; unbind C-x g
     (unbind-key "C-x g" magit-file-mode-map))
