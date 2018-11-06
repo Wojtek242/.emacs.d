@@ -33,6 +33,13 @@
   (add-to-list 'load-path "~/.emacs.d/emacswiki/")
 
   ;; --------------------------------------------------------------------------
+  ;; Load `emodule'.
+  ;; --------------------------------------------------------------------------
+
+  (add-to-list 'load-path "~/.emacs.d/emodule")
+  (require 'emodule)
+
+  ;; --------------------------------------------------------------------------
   ;; Visual configuration.
   ;; --------------------------------------------------------------------------
 
@@ -68,6 +75,15 @@
   ;; Load the dark theme by default.
   (load-theme 'havoc-dark t) ;; Load personal theme
 
+  ;; Splash screen ------------------------------------------------------------
+
+  ;; Add path.
+  (add-to-list 'load-path "~/.emacs.d/initial-buffer")
+  (require 'initial-buffer)
+
+  ;; Set the initial buffer.
+  (setq initial-buffer-choice 'initial-buffer/goto-buffer)
+
   ;; --------------------------------------------------------------------------
   ;; Change file in which custom variable changes are saved.
   ;; --------------------------------------------------------------------------
@@ -88,14 +104,6 @@
   ;;                                                                         ;;
   ;; *********************************************************************** ;;
 
-
-  ;; --------------------------------------------------------------------------
-  ;; Load `emodule'.
-  ;; --------------------------------------------------------------------------
-
-  (add-to-list 'load-path "~/.emacs.d/emodule")
-  (require 'emodule)
-  (declare-function emodule/init "emodule")
 
   ;; --------------------------------------------------------------------------
   ;; Load modules.

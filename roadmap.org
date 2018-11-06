@@ -4,8 +4,8 @@
 
 ** .emacs.d
 
-   - [ ] Nicer splash screen
-   - [ ] Frontend for emodule (e.g. for updates, rollbacks, init messages)
+   - [X] Nicer splash screen
+   - [X] Frontend for emodule (e.g. for updates, rollbacks, init messages)
 
 ** Emodule
 
@@ -16,6 +16,7 @@
 
    - [X] Remove company branch from public repo
    - [X] Change author of all commits to current e-mail address
+   - [ ] Write blog post
 
 * Beyond v1.0
 
