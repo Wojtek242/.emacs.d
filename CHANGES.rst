@@ -4,6 +4,8 @@ Changelog
 v1.0
 ----
 
+First stable version tested in a production environment for over a year.
+
 - New splash screen
 
 - Add support for upgrade/restore to emodule
@@ -37,8 +39,4 @@ v1.0
 Alpha
 -----
 
-- Initial version.
-
-- Ready for actual usage.
-
-- Expect it to stall in places.
+Initial version ready for actual usage. Expect it to stall in places.
