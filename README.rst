@@ -40,8 +40,9 @@ and Deferred so when cloning remember to use the ``--recursive`` option
 
    git clone --recursive https://github.com/Wojtek242/.emacs.d ~/.emacs.d
 
-You will also have to install the Rust standard library sources and set the
-environment variable ``RUST_SRC_PATH`` to point at the source directory.
+You will also have to install the ``racer`` (available on crates.io) and the
+Rust standard library sources. Furthermore, you will need to set the
+environment variable ``RUST_SRC_PATH`` to point at this source directory.
 
 Package Management
 ------------------

@@ -30,6 +30,10 @@ v1.0
 
 - Other minor quality of life improvements and fixes
 
+- Absorb `emodule` as part of the `.emacs.d` repository
+
+- Support upgrade/restore in `emodule`
+
 Alpha
 -----
 
