@@ -1,26 +1,25 @@
 #+TITLE: Emacs roadmap
 
-* 1.0 Features
+* Features for 2.0
 
-** .emacs.d
+** Visual
 
-   - [X] Nicer splash screen
-   - [X] Frontend for emodule (e.g. for updates, rollbacks, init messages)
+   - [ ] Clean up the theme file
 
-** Emodule
+** Programming modes
 
-   - [X] Updates packages
-   - [X] Backup/rollback
+   - [ ] Use LSP
+   - [ ] In particular for rust
+   - [ ] Better autocomplete
+   - [ ] Better C/C++
+   - [ ] Better Python
+   - [ ] Set web-dev environment
 
-** Publishing admin
+** Useful keybindings
 
-   - [X] Remove company branch from public repo
-   - [X] Change author of all commits to current e-mail address
-   - [ ] Write blog post
+   - [ ] Swap lines
 
-* Beyond v1.0
+** From reddit
 
-** .emacs.d
-
-   - [ ] Clean up theme file
-   - [ ] RLS integration - get rid of racer dependency
+   - [ ] objed
+   - [ ] Whatever else I have saved
