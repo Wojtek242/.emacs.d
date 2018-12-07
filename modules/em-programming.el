@@ -116,12 +116,17 @@
   ;; Enable elpy.
   ;; --------------------------------------------------------------------------
 
+  (use-package python
+    :init
+    (setq python-shell-interpreter "python3"))
+
   (use-package elpy
     :hook (python-mode . elpy-mode)
     :config
     (unbind-key "C-c C-f" python-mode-map)
     (unbind-key "C-c C-f" elpy-mode-map)
-    (setq python-shell-interpreter "ipython"
+    (setq elpy-rpc-python-command "python3")
+    (setq python-shell-interpreter "ipython3"
           python-shell-interpreter-args "-i --simple-prompt"))
 
   (use-package py-autopep8
@@ -187,7 +192,7 @@
 
         (with-current-buffer (get-buffer-create tmpf)
           (setq err-msg (buffer-string))
-          (kill-current-buffer))
+          (kill-buffer))
 
         (unless (= ret 0)
           (error err-msg)))))
@@ -201,7 +206,9 @@
     (rust-new-project project-name "lib"))
 
   (use-package rust-mode
-    :defer t)
+    :defer t
+    :config
+    (setq exec-path (append exec-path '("/home/wojtek/.cargo/bin"))))
 
   ;; This requires some additional setup as the racer binary must be installed
   ;; and the Rust libstd sources must be installed.

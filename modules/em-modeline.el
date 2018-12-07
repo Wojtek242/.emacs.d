@@ -57,6 +57,7 @@ enabled."
         ""))
 
     ;; Set the modeline
+    (setq doom-modeline-python-executable "python3")
     (doom-modeline-def-modeline 'main
 
                                 '(bar
