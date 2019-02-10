@@ -30,12 +30,38 @@
   "Initialise the `em-org' module."
 
   (use-package org
+    :bind
+    (("C-c a" . org-agenda)
+     ("C-c c" . org-capture)
+     ("C-c i" . org-iswitchb)
+     ("C-c l" . org-store-link))
     :config
     ;; ------------------------------------------------------------------------
-    ;; Hide special characters for italics/bold/underline.
+    ;; Set variables.
     ;; ------------------------------------------------------------------------
 
-    (setq org-hide-emphasis-markers t)
+    (setq
+     ;; Hide special characters for italics/bold/underline.
+     org-hide-emphasis-markers t
+     ;; Add timestamp when tasks are marked as done.
+     org-log-done t)
+
+    ;; ------------------------------------------------------------------------
+    ;; Set workflow states.
+    ;; ------------------------------------------------------------------------
+
+    (setq org-todo-keywords
+          (quote ((sequence "TODO(t)"
+                            "NEXT(n)"
+                            "|"
+                            "DONE(d)")
+                  (sequence "WAIT(w@/!)"
+                            "HOLD(h@/!)"
+                            "|"
+                            "UNPLANNED(c@/!)"))))
+
+    (setq org-todo-keyword-faces
+          (quote (("NEXT" :foreground "#96DEFA" :weight bold))))
 
     ;; ------------------------------------------------------------------------
     ;; Better bullet points.
@@ -52,16 +78,20 @@
     ;; LaTeX font size.
     ;; ------------------------------------------------------------------------
 
-    (plist-put org-format-latex-options :scale 2.0))
+    (plist-put org-format-latex-options :scale 2.0)
+
+    ;; ------------------------------------------------------------------------
+    ;; Load agenda-files.
+    ;; ------------------------------------------------------------------------
+    (let ((org-dir "~/Workspace/org/"))
+      (load (concat org-dir "agenda-files.el"))))
 
   ;; ------------------------------------------------------------------------
   ;; Better header bullets
   ;; ------------------------------------------------------------------------
 
   (use-package org-bullets
-    :defer t
-    :init
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    :hook (org-mode . org-bullets-mode))
 
   )
 
