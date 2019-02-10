@@ -3,11 +3,7 @@
 * Visual
 
 ** TODO Clean up the theme file
-** TODO Fix doom-modeline in newest version
-
-* Editing
-
-** TODO Make better use of anzu
+** NEXT Fix doom-modeline in newest version
 
 * Programming modes
 
@@ -20,8 +16,10 @@
 
 * Useful keybindings
 
-** TODO Swap lines
-** TODO Better spellcheck keybinding
+** DONE Swap lines
+   CLOSED: [2019-02-10 Sun 12:09]
+** DONE Better spellcheck keybinding
+   CLOSED: [2019-02-10 Sun 12:12]
 
 * From reddit
 

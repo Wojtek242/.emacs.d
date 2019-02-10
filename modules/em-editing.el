@@ -227,6 +227,19 @@
           (indent-buffer)
           (whitespace-cleanup)))))
 
+  (defun transpose-lines-down ()
+    "Transpose the current line with the one below."
+    (interactive)
+    (next-line)
+    (transpose-lines 1)
+    (previous-line))
+
+  (defun transpose-lines-up ()
+    "Transpose the current line with the one above."
+    (interactive)
+    (transpose-lines 1)
+    (previous-line 2))
+
   ;; Key-bindings -------------------------------------------------------------
 
   ;; Override the beginning of line key-binding.
@@ -238,6 +251,10 @@
   ;; unfill-paragraph, closely related to fill-paragraph.
   (global-set-key (kbd "M-Q") 'unfill-paragraph)
 
+  ;; Transpose-lines keybindings
+  (global-set-key (kbd "M-<down>") 'transpose-lines-down)
+  (global-set-key (kbd "M-<up>") 'transpose-lines-up)
+
   ;; --------------------------------------------------------------------------
   ;; Additional key-bindings.
   ;; --------------------------------------------------------------------------
@@ -245,8 +262,11 @@
   ;; Toggle whitespace mode.
   (global-set-key (kbd "C-c w") 'whitespace-mode)
 
-  ;; Occur. More convenient than "M-s o"
+  ;; Occur. More convenient than "M-s o".
   (global-set-key (kbd "M-s M-o") 'occur)
+
+  ;; Flyspell correct word. More convenient than C-c $.
+  (global-set-key (kbd "C-c C-'") 'flyspell-correct-word-before-point)
 
   )
 
