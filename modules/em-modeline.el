@@ -62,6 +62,10 @@ enabled."
             (propertize str 'face 'doom-modeline-eyebrowse))
         ""))
 
+    (defun doom-modeline--active ()
+      "Whether is an active window."
+      t)
+
     ;; Set the modeline
     (setq column-number-mode t)
     (setq doom-modeline-python-executable "python3")
