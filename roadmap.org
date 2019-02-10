@@ -30,4 +30,5 @@
 
 * PDF reading
 
-** TODO Setup pdf-tools and org-noter
+** DONE Setup pdf-tools and org-noter
+   CLOSED: [2019-02-10 Sun 10:55]

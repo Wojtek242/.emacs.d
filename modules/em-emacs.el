@@ -23,6 +23,7 @@
     discover-my-major
     ibuffer-vc
     rainbow-mode
+    pdf-tools
     sr-speedbar
     which-key
     use-package)
@@ -218,6 +219,14 @@
 
   (add-hook 'prog-mode-hook 'goto-address-mode)
   (add-hook 'text-mode-hook 'goto-address-mode)
+
+  ;; --------------------------------------------------------------------------
+  ;; Use PDF Tools instead of DocView.
+  ;; --------------------------------------------------------------------------
+
+  (use-package pdf-tools
+    :config
+    (pdf-tools-install))
 
   ;; --------------------------------------------------------------------------
   ;; Tramp configuration.

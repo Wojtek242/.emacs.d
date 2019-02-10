@@ -20,7 +20,8 @@
 
 (defvar emodule/em-org-packages
 
-  '(org-bullets)
+  '(org-bullets
+    org-noter)
 
   )
 
@@ -92,6 +93,13 @@
 
   (use-package org-bullets
     :hook (org-mode . org-bullets-mode))
+
+  ;; --------------------------------------------------------------------------
+  ;; Org-noter.
+  ;; --------------------------------------------------------------------------
+
+  (use-package org-noter
+    :defer t)
 
   )
 
