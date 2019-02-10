@@ -59,28 +59,33 @@ enabled."
                  (str (if (and tag (< 0 (length tag)))
                           tag
                         (when num (int-to-string num)))))
-            (format ":%s" (propertize str 'face 'doom-modeline-eyebrowse)))
+            (propertize str 'face 'doom-modeline-eyebrowse))
         ""))
 
     ;; Set the modeline
+    (setq column-number-mode t)
     (setq doom-modeline-python-executable "python3")
     (doom-modeline-def-modeline 'main
 
                                 '(bar
                                   "["
                                   perspective-name
+                                  ":"
                                   workspace-number
                                   "]"
+                                  window-number
                                   matches
-                                  " "
                                   buffer-info
-                                  "  %l:%c %p  "
+                                  remote-host
+                                  buffer-position
                                   selection-info)
 
-                                '(buffer-encoding
+                                '(lsp
+                                  debug
+                                  buffer-encoding
                                   major-mode
                                   vcs
-                                  flycheck))
+                                  checker))
     )
   )
 
