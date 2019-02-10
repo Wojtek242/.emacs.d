@@ -19,7 +19,8 @@
 
 (defvar emodule/em-modeline-packages
 
-  '(doom-modeline)
+  '(anzu
+    doom-modeline)
 
   )
 
@@ -36,6 +37,11 @@
     (after-init . doom-modeline-init)
     :config
     (setq-default doom-modeline-height 23)
+
+    ;; Set anzu-mode
+    (use-package anzu
+      :config
+      (global-anzu-mode 1))
 
     ;; Add perspective to modeline
     (doom-modeline-def-segment perspective-name
