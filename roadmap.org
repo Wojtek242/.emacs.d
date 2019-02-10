@@ -1,25 +1,33 @@
 #+TITLE: Emacs roadmap
 
-* Features for 2.0
+* Visual
 
-** Visual
+** TODO Clean up the theme file
+** TODO Fix doom-modeline in newest version
 
-   - [ ] Clean up the theme file
+* Editing
 
-** Programming modes
+** TODO Make better use of anzu
 
-   - [ ] Use LSP
-   - [ ] In particular for rust
-   - [ ] Better autocomplete
-   - [ ] Better C/C++
-   - [ ] Better Python
-   - [ ] Set web-dev environment
+* Programming modes
 
-** Useful keybindings
+** TODO Use LSP
+** TODO In particular for rust
+** TODO Better C/C++
+** TODO Better Python
+** TODO Set web-dev environment
+** TODO More native spellcheck
 
-   - [ ] Swap lines
+* Useful keybindings
 
-** From reddit
+** TODO Swap lines
+** TODO Better spellcheck keybinding
 
-   - [ ] objed
-   - [ ] Whatever else I have saved
+* From reddit
+
+** TODO objed
+** TODO Whatever else I have saved
+
+* PDF reading
+
+** TODO Setup pdf-tools and org-noter
