@@ -30,6 +30,7 @@
     flycheck-plantuml
     flycheck-pos-tip
     flycheck-rust
+    haskell-mode
     highlight-numbers
     highlight-symbol
     plantuml-mode
