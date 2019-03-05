@@ -62,9 +62,13 @@ enabled."
             (propertize str 'face 'doom-modeline-eyebrowse))
         ""))
 
-    (defun doom-modeline--active ()
-      "Whether is an active window."
-      t)
+    ;; Necessary to play nice with Helm
+    (add-hook 'helm-minibuffer-set-up-hook
+              (lambda ()
+                (advice-add #'doom-modeline--active :override (lambda () t))))
+    (add-hook 'helm-cleanup-hook
+              (lambda ()
+                (advice-remove #'doom-modeline--active (lambda () t))))
 
     ;; Set the modeline
     (setq column-number-mode t)
