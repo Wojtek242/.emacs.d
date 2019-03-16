@@ -160,7 +160,8 @@
         (progn
           (setq-default ispell-program-name "aspell")
           (setq-default ispell-extra-args '("--sug-mode=ultra")))
-      (setq-default ispell-program-name "ispell")))
+      (setq-default ispell-program-name "ispell"))
+    (unbind-key "C-M-i" flyspell-mode-map))
 
   ;; --------------------------------------------------------------------------
   ;; Commands.

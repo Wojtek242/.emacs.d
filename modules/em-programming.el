@@ -61,14 +61,19 @@
 
   (use-package lsp-mode
     :commands lsp
-    :config (require 'lsp-clients))
+    :config
+    (require 'lsp-clients))
 
   (use-package lsp-ui
     :commands lsp-ui-mode
+    :bind (("C-M-i" . lsp-ui-imenu))
     :config
     (setq lsp-ui-doc-enable nil)
-    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
+
+    (define-key lsp-ui-mode-map
+      [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+    (define-key lsp-ui-mode-map
+      [remap xref-find-references] #'lsp-ui-peek-find-references))
 
   ;; --------------------------------------------------------------------------
   ;; Company - complete anything.
