@@ -20,8 +20,9 @@
 
 (defvar emodule/em-version-control-packages
 
-  '(magit
-    diff-hl)
+  '(diff-hl
+    magit
+    magit-todos)
 
   )
 
@@ -46,10 +47,13 @@
     ("C-x g t" . magit-tag)
     :config
     (add-hook 'magit-mode-hook 'magit-load-config-extensions)
+    (add-hook 'magit-mode-hook 'magit-todos-mode)
     (setq magit-bury-buffer-function 'magit-mode-quit-window)
 
     ;; unbind C-x g
     (unbind-key "C-x g" magit-file-mode-map))
+
+  (use-package magit-todos)
 
   ;; --------------------------------------------------------------------------
   ;; Ediff.
