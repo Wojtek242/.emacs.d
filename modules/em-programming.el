@@ -20,8 +20,10 @@
 
 (defvar emodule/em-programming-packages
 
-  '(company
+  '(cargo
+    company
     company-c-headers
+    company-lsp
     dockerfile-mode
     elpy
     fic-mode
@@ -33,6 +35,8 @@
     haskell-mode
     highlight-numbers
     highlight-symbol
+    lsp-mode
+    lsp-ui
     plantuml-mode
     py-autopep8
     rust-mode
@@ -42,10 +46,7 @@
     vala-mode
     yaml-mode
     yasnippet
-    yasnippet-snippets
-
-    s
-    f)
+    yasnippet-snippets)
 
   )
 
@@ -53,6 +54,20 @@
 
 (defun emodule/em-programming-init ()
   "Initialise the `em-programming' module."
+
+  ;; --------------------------------------------------------------------------
+  ;; Set up LSP first.
+  ;; --------------------------------------------------------------------------
+
+  (use-package lsp-mode
+    :commands lsp
+    :config (require 'lsp-clients))
+
+  (use-package lsp-ui
+    :commands lsp-ui-mode
+    :config
+    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
   ;; --------------------------------------------------------------------------
   ;; Company - complete anything.
@@ -69,6 +84,9 @@
     (add-to-list 'company-backends 'company-c-headers)
     (setq company-backends (delete 'company-clang company-backends))
     (setq company-backends (delete 'company-dabbrev company-backends)))
+
+  (use-package company-lsp
+    :commands company-lsp)
 
   ;; Functions args -----------------------------------------------------------
 
@@ -209,32 +227,18 @@
     (interactive "sLibrary project name: ")
     (rust-new-project project-name "lib"))
 
+  ;; LSP requires RLS, install with
+  ;; rustup component add rls rust-analysis rust-src
   (use-package rust-mode
     :defer t
+    :hook (rust-mode . lsp)
     :config
-    (setq exec-path (append exec-path '("/home/wojtek/.cargo/bin"))))
+    (setq exec-path (append exec-path '("/home/wojtek/.cargo/bin")))
+    (add-hook 'rust-mode-hook 'flycheck-mode))
 
-  ;; This requires some additional setup as the racer binary must be installed
-  ;; and the Rust libstd sources must be installed.
-  ;; $ rustup component add rust-src
-  ;; $ cargo install racer
-  (add-to-list 'load-path "~/.emacs.d/emacs-deferred")
-  (add-to-list 'load-path "~/.emacs.d/emacs-racer")
-  (use-package racer
-    :init
-    (add-hook 'rust-mode-hook #'racer-mode)
-    (add-hook 'racer-mode-hook #'eldoc-mode)
-    :config
-    ;; For racer to work, it needs to know where to find the standard library
-    ;; sources.  The easiest way to do it without having a machine dependent
-    ;; setup is to set the environment variable RUST_SRC_PATH.  If that's
-    ;; undesirable or not possible, set the variable below instead.
-    ;; (setq-default
-    ;;  racer-rust-src-path
-    ;;  "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/")
-    (setq-default racer-use-company-backend t)
-    (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-    (setq-default company-tooltip-align-annotations t))
+  ;; Add keybindings for interacting with Cargo
+  (use-package cargo
+    :hook (rust-mode . cargo-minor-mode))
 
   (use-package toml-mode
     :mode "\\.lock\\'")

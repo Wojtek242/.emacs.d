@@ -15,5 +15,6 @@ session*
 eww-bookmarks
 eshell
 \.cache
+\.lsp-session*
 \#*
 *~
