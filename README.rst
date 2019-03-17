@@ -36,8 +36,8 @@ External Support for Programming Languages
 
   Install RLS suing ``rustup``
 
-  ::
-     rustup component add rls rust-analysis rust-src
+::
+   rustup component add rls rust-analysis rust-src
 
 - Python:
 
@@ -47,19 +47,19 @@ External Support for Programming Languages
 
   Install the language server:
 
-  ::
-     pip3 install 'python-language-server[all]'
+::
+   pip3 install 'python-language-server[all]'
 
 - C/C++:
 
   Uses ``ccls`` as the language server
 
-  ::
-     apt install clang libclang-dev
-     git clone --depth=1 --recursive https://github.com/MaskRay/ccls
-     cd ccls
-     cmake -H. -BRelease
-     cmake --build Release
+::
+   apt install clang libclang-dev
+   git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+   cd ccls
+   cmake -H. -BRelease
+   cmake --build Release
 
   And make sure ``Release/ccls`` is in the ``$PATH``
 
