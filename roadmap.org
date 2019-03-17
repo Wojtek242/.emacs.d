@@ -3,33 +3,3 @@
 * Visual
 
 ** TODO Clean up the theme file
-** NEXT Fix doom-modeline in newest version
-*** DONE [[https://github.com/seagle0128/doom-modeline/issues/114#issuecomment-462171562][Workaround]]
-    CLOSED: [2019-02-10 Sun 23:17]
-*** NEXT Implement proper fix to [[https://github.com/seagle0128/doom-modeline/issues/114#issuecomment-462171562][GitHub issue]]
-
-* Programming modes
-
-** TODO Use LSP
-** TODO In particular for rust
-** TODO Better C/C++
-** TODO Better Python
-** TODO Set web-dev environment
-** TODO More native spellcheck
-
-* Useful keybindings
-
-** DONE Swap lines
-   CLOSED: [2019-02-10 Sun 12:09]
-** DONE Better spellcheck keybinding
-   CLOSED: [2019-02-10 Sun 12:12]
-
-* From reddit
-
-** TODO objed
-** TODO Whatever else I have saved
-
-* PDF reading
-
-** DONE Setup pdf-tools and org-noter
-   CLOSED: [2019-02-10 Sun 10:55]
