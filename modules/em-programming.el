@@ -146,16 +146,23 @@
 
   (use-package python
     :init
-    (setq python-shell-interpreter "python3"))
+    (setq python-shell-interpreter "python3")
+    :hook
+    (python-mode . lsp))
 
   (use-package elpy
     :hook (python-mode . elpy-mode)
+    :after flycheck
+    :init (elpy-enable)
     :config
     (unbind-key "C-c C-f" python-mode-map)
     (unbind-key "C-c C-f" elpy-mode-map)
     (setq elpy-rpc-python-command "python3")
     (setq python-shell-interpreter "ipython3"
-          python-shell-interpreter-args "-i --simple-prompt"))
+          python-shell-interpreter-args "-i --simple-prompt")
+
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
 
   (use-package py-autopep8
     ;; Note that this package require autopep8 to be installed.
