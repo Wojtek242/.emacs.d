@@ -21,6 +21,7 @@
 (defvar emodule/em-programming-packages
 
   '(cargo
+    ccls
     company
     company-c-headers
     company-lsp
@@ -67,9 +68,10 @@
   (use-package lsp-ui
     :commands lsp-ui-mode
     :bind (("C-M-i" . lsp-ui-imenu))
-    :config
+    :init
     (setq lsp-ui-doc-enable nil)
-
+    (setq lsp-prefer-flymake nil)
+    :config
     (define-key lsp-ui-mode-map
       [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
     (define-key lsp-ui-mode-map
@@ -316,23 +318,15 @@
     (define-key yas-minor-mode-map (kbd "<C-return>")  'yas-expand))
 
   ;; --------------------------------------------------------------------------
-  ;; Configure CEDET.
+  ;; Configure C/C++.
   ;; --------------------------------------------------------------------------
 
   (use-package cc-mode
     :defer t)
 
-  ;; To add include paths for semantic to parse, add them to
-  ;; `semantic-add-system-include'.  This includes any local system includes,
-  ;; such as those in `/usr/local/include'.
-  (use-package semantic
-    :config
-    (global-semanticdb-minor-mode 1)
-    (global-semantic-idle-scheduler-mode 1)
-    (semantic-mode 1)
-
-    (use-package stickyfunc-enhance)
-    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode))
+  (use-package ccls
+    :hook ((c-mode c++-mode objc-mode) .
+           (lambda () (require 'ccls) (lsp))))
 
   ;; For this to work, need to specify project roots in the variable
   ;; `ede-cpp-root-project', e.g.

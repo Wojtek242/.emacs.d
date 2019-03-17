@@ -114,7 +114,6 @@
                   em-emacs
                   em-files
                   em-helm
-                  em-helm-gtags
                   em-modeline
                   em-org
                   em-parentheses
