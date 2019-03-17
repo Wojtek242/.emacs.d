@@ -22,8 +22,9 @@
   '(deadgrep
     discover-my-major
     ibuffer-vc
-    rainbow-mode
+    objed
     pdf-tools
+    rainbow-mode
     treemacs
     treemacs-projectile
     treemacs-icons-dired
@@ -37,6 +38,14 @@
 
 (defun emodule/em-emacs-init ()
   "Initialise the `em-emacs' module."
+
+  ;; --------------------------------------------------------------------------
+  ;; Enable objed.
+  ;; --------------------------------------------------------------------------
+
+  (use-package objed
+    :config
+    (objed-mode))
 
   ;; --------------------------------------------------------------------------
   ;; Use deadgrep.
