@@ -29,20 +29,39 @@ in order to get all the icons used by the modeline
 
    M-x all-the-icons-install-fonts
 
-Rust support
-------------
+External Support for Programming Languages
+------------------------------------------
 
-If you would like to use this configuration with the Rust programming language
-you will want to also clone the submodules to get the patched version of Racer
-and Deferred so when cloning remember to use the ``--recursive`` option
+- Rust:
 
-::
+  Install RLS suing ``rustup``
 
-   git clone --recursive https://github.com/Wojtek242/.emacs.d ~/.emacs.d
+  ::
+     rustup component add rls rust-analysis rust-src
 
-You will also have to install the ``racer`` (available on crates.io) and the
-Rust standard library sources. Furthermore, you will need to set the
-environment variable ``RUST_SRC_PATH`` to point at this source directory.
+- Python:
+
+  The python configurations assumes ``python3`` and ``ipython3`` is installed
+
+  Furthermore, install ``jedi``, ``autopep8``, ``flake8`` using ``pip3``
+
+  Install the language server:
+
+  ::
+     pip3 install 'python-language-server[all]'
+
+- C/C++:
+
+  Uses ``ccls`` as the language server
+
+  ::
+     apt install clang libclang-dev
+     git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+     cd ccls
+     cmake -H. -BRelease
+     cmake --build Release
+
+  And make sure ``Release/ccls`` is in the ``$PATH``
 
 Package Management
 ------------------
