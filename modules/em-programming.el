@@ -30,6 +30,7 @@
     fic-mode
     function-args
     flycheck
+    flycheck-haskell
     flycheck-plantuml
     flycheck-pos-tip
     flycheck-rust
@@ -210,6 +211,15 @@
     (setq highlight-symbol-idle-delay 0.2
           highlight-symbol-on-navigation-p t))
 
+  ;; --------------------------------------------------------------------------
+  ;; Haskell.
+  ;; --------------------------------------------------------------------------
+
+  (use-package haskell-mode
+    :after flycheck
+    :hook
+    (require flycheck-haskell)
+    (haskell-mode . flycheck-haskell-setup))
 
   ;; --------------------------------------------------------------------------
   ;; Configure Rust environment.
