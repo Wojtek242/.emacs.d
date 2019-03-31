@@ -47,8 +47,7 @@
     :bind
     (("M-/" . objed-activate))
     :config
-    (unbind-key "M-o" objed-map)
-    (objed-mode))
+    (unbind-key "M-o" objed-map))
 
   ;; --------------------------------------------------------------------------
   ;; Use deadgrep.
