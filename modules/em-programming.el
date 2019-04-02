@@ -64,7 +64,8 @@
   (use-package lsp-mode
     :commands lsp
     :config
-    (require 'lsp-clients))
+    (require 'lsp-clients)
+    (setq lsp-enable-indentation nil))
 
   (use-package lsp-ui
     :commands lsp-ui-mode
@@ -87,12 +88,14 @@
     (after-init . global-company-mode)
     :config
     (setq company-idle-delay 0
-          company-minimum-prefix-length 1)
+          company-minimum-prefix-length 1
+          company-tooltip-align-annotations t)
     ;; For this to correctly complete headers, need to add all include paths to
     ;; `company-c-headers-path-system'.
     (add-to-list 'company-backends 'company-c-headers)
     (setq company-backends (delete 'company-clang company-backends))
-    (setq company-backends (delete 'company-dabbrev company-backends)))
+    (setq company-backends (delete 'company-dabbrev company-backends))
+    (setq company-backends (delete 'company-capf company-backends)))
 
   (use-package company-lsp
     :commands company-lsp)
