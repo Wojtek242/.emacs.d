@@ -84,8 +84,10 @@
     ;; ------------------------------------------------------------------------
     ;; Load agenda-files.
     ;; ------------------------------------------------------------------------
-    (let ((org-dir "~/Workspace/org/"))
-      (load (concat org-dir "agenda-files.el"))))
+    (let* ((org-dir "~/Workspace/org/")
+           (file-list (concat org-dir "agenda-files.el")))
+      (when (file-exists-p file-list)
+        (load file-list))))
 
   ;; ------------------------------------------------------------------------
   ;; Better header bullets
