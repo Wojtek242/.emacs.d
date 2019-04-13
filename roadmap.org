@@ -2,4 +2,8 @@
 
 * Visual
 
-** TODO Clean up the theme file
+** TODO Fork doom-modeline
+
+** TODO Have a few pre-set split window configs
+
+** TODO Activate treemacs icons always
