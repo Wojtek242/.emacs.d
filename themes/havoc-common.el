@@ -5,7 +5,7 @@
 ;; Author: Wojciech Kozlowski <wk@wojciechkozlowski.eu>
 ;; Keywords: faces
 ;; Compatibility: 24.1
-;; Version: 0.0.1
+;; Version: 1.0.0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -23,10 +23,11 @@
 ;;; Commentary:
 
 ;; havoc-dark - an adaptation of the underwater theme, a gentle deep blue
-;; theme, by Jon-Michael Deldin.  Code structure and some other colours taken
-;; from the spacemacs theme.
+;; theme, by Jon-Michael Deldin.
 
 ;; havoc-light - an adaptation of the default Emacs theme.
+
+;; Code structure and some other colours taken from the spacemacs theme.
 
 ;;; Code:
 
