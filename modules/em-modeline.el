@@ -17,10 +17,21 @@
 
 ;;; Code:
 
+;; FIXME: move back to doom-modeline package
+;; Currently, I'm running doom-modeline from a local checkout, because the
+;; newest versions don't play nicely with treemacs.
+
 (defvar emodule/em-modeline-packages
 
   '(anzu
-    doom-modeline)
+    ;; doom-modeline
+
+    ;; doom-modeline dependencies.
+    ;; Needed to load from local checkout.
+    all-the-icons
+    eldoc-eval
+    shrink-path
+    )
 
   )
 
@@ -32,6 +43,7 @@
   ;; Note that doom-modeline requires all-the-icons which in turn require the
   ;; user to manually install the fonts with the command `M-x
   ;; all-the-icons-install-fonts'.
+  (add-to-list 'load-path "~/.emacs.d/doom-modeline")
   (use-package doom-modeline
     :hook
     (after-init . doom-modeline-init)

@@ -1,0 +1,3 @@
+[submodule "doom-modeline"]
+	path = doom-modeline
+	url = https://github.com/seagle0128/doom-modeline.git

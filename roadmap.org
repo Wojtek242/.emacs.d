@@ -2,7 +2,4 @@
 
 * Visual
 
-** TODO Fork doom-modeline
-
 ** TODO Have a few pre-set split window configs
-
