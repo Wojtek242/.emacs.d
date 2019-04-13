@@ -6,4 +6,3 @@
 
 ** TODO Have a few pre-set split window configs
 
-** TODO Activate treemacs icons always
