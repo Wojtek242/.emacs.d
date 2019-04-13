@@ -59,7 +59,7 @@ enabled."
                  (str (if (and tag (< 0 (length tag)))
                           tag
                         (when num (int-to-string num)))))
-            (propertize str 'face 'doom-modeline-eyebrowse))
+            (propertize str 'face 'eyebrowse-mode-line-active))
         ""))
 
     ;; Necessary to play nice with Helm
