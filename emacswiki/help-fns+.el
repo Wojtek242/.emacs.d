@@ -1700,7 +1700,7 @@ Return the description that was displayed, as a string."
                    (help-fns--analyze-function function))
                  (doc-raw
                   (condition-case nil
-                      ;; FIXME: Maybe `documentation' should return nil for invalid functions, not signal an error.
+                      ;; Maybe `documentation' should return nil for invalid functions, not signal an error.
                       (documentation function 'RAW)
                     ((invalid-function void-function) nil))) ; E.g., an alias for a not yet defined function.
                  (key-bind-buf  (current-buffer))
@@ -1719,7 +1719,6 @@ Return the description that was displayed, as a string."
                 (help-fns--key-bindings function)
                 (with-current-buffer standard-output
                   (setq doc  (condition-case nil
-                                 ;; FIXME:
                                  ;; Maybe `help-fns--signature' should return `doc' for invalid functions, not signal error.
                                  (help-fns--signature function doc-raw (if (subrp def) (indirect-function real-def) real-def)
                                                       real-function key-bind-buf)
