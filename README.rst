@@ -34,7 +34,7 @@ External Support for Programming Languages
 
 - Rust:
 
-  Install RLS suing ``rustup``
+  Install RLS using ``rustup``
 
 ::
    rustup component add rls rust-analysis rust-src
