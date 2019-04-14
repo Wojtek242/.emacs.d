@@ -1,3 +1,6 @@
 [submodule "doom-modeline"]
 	path = doom-modeline
 	url = https://github.com/seagle0128/doom-modeline.git
+[submodule "ide-mode"]
+	path = ide-mode
+	url = git@gitlab.wojciechkozlowski.eu:wojtek/ide-mode.git
