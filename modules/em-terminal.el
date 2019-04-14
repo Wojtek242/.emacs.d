@@ -94,7 +94,7 @@
       (interactive)
       (let ((is-term (string= "term-mode" major-mode))
             (is-running (term-check-proc (buffer-name)))
-            (term-cmd "/bin/bash")
+            (term-cmd "/bin/zsh")
             (anon-term (first-matching-buffer "^*ansi-term*")))
         (if is-term
             (if is-running
