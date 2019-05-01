@@ -27,6 +27,7 @@
     company-lsp
     dockerfile-mode
     elpy
+    feature-mode
     fic-mode
     function-args
     flycheck
@@ -173,6 +174,14 @@
   (use-package py-autopep8
     ;; Note that this package require autopep8 to be installed.
     :bind (("C-c C-f" . py-autopep8-buffer)))
+
+  ;; --------------------------------------------------------------------------
+  ;; Configure feature mode for use with `ecukes' for Emacs package
+  ;; development.
+  ;; --------------------------------------------------------------------------
+
+  (use-package feature-mode
+    :defer t)
 
   ;; --------------------------------------------------------------------------
   ;; FIC mode.
@@ -381,6 +390,8 @@
      ("C-c r" . recompile))
     :config
     (setq-default
+     ;; Default compile commande
+     compile-command "make "
      ;; Just save before compiling.
      compilation-ask-about-save nil
      ;; Just kill old compile processes before starting the new one.

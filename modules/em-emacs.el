@@ -268,7 +268,8 @@
   ;; --------------------------------------------------------------------------
   ;; Add directories to exec-path.
   ;; --------------------------------------------------------------------------
-  (setq exec-path (append exec-path '("/home/wojtek/.local/bin")))
+  (setq exec-path (append exec-path '("/home/wojtek/.local/bin"
+                                      "/home/wojtek/.cask/bin")))
 
   )
 
