@@ -33,10 +33,18 @@
   (use-package org
     :bind
     (("C-c a" . org-agenda)
+     ("C-c b" . org-switchb)
      ("C-c c" . org-capture)
-     ("C-c i" . org-iswitchb)
      ("C-c l" . org-store-link))
     :config
+    ;; ------------------------------------------------------------------------
+    ;; Rebind some keys.
+    ;; ------------------------------------------------------------------------
+    (define-key org-mode-map (kbd "C-c C-n") 'org-forward-heading-same-level)
+    (define-key org-mode-map (kbd "C-c C-p") 'org-backward-heading-same-level)
+    (define-key org-mode-map (kbd "C-c C-f") 'org-next-visible-heading)
+    (define-key org-mode-map (kbd "C-c C-b") 'org-previous-visible-heading)
+
     ;; ------------------------------------------------------------------------
     ;; Set variables.
     ;; ------------------------------------------------------------------------
@@ -45,7 +53,9 @@
      ;; Hide special characters for italics/bold/underline.
      org-hide-emphasis-markers t
      ;; Add timestamp when tasks are marked as done.
-     org-log-done t)
+     org-log-done t
+     ;; Open org files unfolded
+     org-startup-folded nil)
 
     ;; ------------------------------------------------------------------------
     ;; Set workflow states.
