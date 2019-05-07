@@ -40,6 +40,8 @@
 
   (use-package eyebrowse
     :after perspective
+    :init
+    (setq eyebrowse-keymap-prefix (kbd "C-x C-x"))
     :config
     (setq eyebrowse-default-workspace-slot 0)
 
