@@ -141,6 +141,11 @@
   ;; Add path.
   (add-to-list 'load-path "~/.emacs.d/ide-mode")
   (require 'ide-mode)
+  (require 'ide-mode-config)
+  (setq ide-mode/term-default (lambda () (ansi-term "zsh")))
+  (define-key ide-mode-map (kbd "M-i") 'ide-mode/select-term-window)
+  (ide-mode)
+  (ide-mode/start)
 
   ;; --------------------------------------------------------------------------
   ;; Load any custom variables.
