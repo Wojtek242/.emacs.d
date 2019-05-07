@@ -1,5 +1,0 @@
-#+TITLE: Emacs roadmap
-
-* Visual
-
-** TODO Have a few pre-set split window configs
