@@ -24,14 +24,14 @@
   - Use customised Doom modeline
   - Org mode configuration
   - Add eshell support
-  - Replace workgroups2 with perspectives, eyebrowse, and custom glue code
-  - Add emacswiki.org packages that got deleted from Melpa
-  - Add/improve support for Python, Docker, Rust, Plantuml, Yaml
+  - Replace =workgroups2= with =perspectives=, =eyebrowse=, and custom glue code
+  - Add =emacswiki.org= packages that got deleted from Melpa
+  - Add/improve support for Python, Docker, Rust, Plantuml, YAML
   - Add box comments
   - Add snippets
   - Other minor quality of life improvements and fixes
-  - Absorb `emodule` as part of the `.emacs.d` repository
-  - Support upgrade/restore in `emodule`
+  - Absorb =emodule= as part of the =.emacs.d= repository
+  - Support upgrade/restore in =emodule=
 
 * [2017-09-02] Alpha
 
