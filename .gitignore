@@ -10,6 +10,7 @@ transient
 # Files
 custom.el
 ede-projects.el
+elpa.tar.xz
 flycheck_*.elc
 .lsp-session-v1
 places
