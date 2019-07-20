@@ -1,11 +1,9 @@
 ;;; init.el --- Emacs Initialization File
 ;;
-;; Copyright (c) 2017 Wojciech Kozlowski
+;; Copyright (c) 2017-2019 Wojciech Kozlowski
 ;;
 ;; Author: Wojciech Kozlowski <wk@wojciechkozlowski.eu>
-;; URL: https://gitlab.wojciechkozlowski.eu/config/emacs.d
-;; URL: https://github.com/Wojtek242/.emacs.d
-;; Created: 17 Aug 2017
+;; Created: 2017-08-17
 ;;
 ;;; License: GPLv3
 
@@ -46,7 +44,7 @@
   ;; Font ---------------------------------------------------------------------
 
   (let* ((font-name "Source Code Pro")
-         (font-size 10)
+         (font-size 13.5)
          (font-spec (concat font-name "-" (int-to-string font-size))))
 
     (set-frame-font font-spec nil t)
@@ -78,11 +76,11 @@
   ;; Splash screen ------------------------------------------------------------
 
   ;; Add path.
-  (add-to-list 'load-path "~/.emacs.d/initial-buffer")
-  (require 'initial-buffer)
+  (add-to-list 'load-path "~/.emacs.d/init-buffer")
+  (require 'init-buffer)
 
   ;; Set the initial buffer.
-  (setq initial-buffer-choice 'initial-buffer/goto-buffer)
+  (setq-default init-buffer-choice 'init-buffer/goto-buffer)
 
   ;; --------------------------------------------------------------------------
   ;; Change file in which custom variable changes are saved.
@@ -110,17 +108,14 @@
   ;; --------------------------------------------------------------------------
 
   (emodule/init '(
-                  em-editing
-                  em-emacs
-                  em-files
-                  em-helm
-                  em-modeline
-                  em-org
-                  em-parentheses
-                  em-programming
-                  em-terminal
-                  em-version-control
-                  em-workflow
+                  emacs
+                  helm
+                  languages
+                  modeline
+                  org
+                  programming
+                  terminal
+                  vcs
                   ))
 
 
@@ -136,16 +131,6 @@
   ;;                               END MODULES                               ;;
   ;;                                                                         ;;
   ;; *********************************************************************** ;;
-
-
-  ;; Add path.
-  (add-to-list 'load-path "~/.emacs.d/ide-mode")
-  (require 'ide-mode)
-  (require 'ide-mode-config)
-  (setq ide-mode/term-default (lambda () (ansi-term "zsh")))
-  (define-key ide-mode-map (kbd "M-i") 'ide-mode/select-term-window)
-  (ide-mode)
-  (ide-mode/start)
 
   ;; --------------------------------------------------------------------------
   ;; Load any custom variables.

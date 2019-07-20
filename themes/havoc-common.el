@@ -1,6 +1,6 @@
 ;;; havoc-common.el --- definition of `Havoc' themes.
 
-;; Copyright (C) 2017 Wojciech Kozlowski
+;; Copyright (C) 2017-2019 Wojciech Kozlowski
 
 ;; Author: Wojciech Kozlowski <wk@wojciechkozlowski.eu>
 ;; Keywords: faces
@@ -95,7 +95,7 @@
           (*base-volatile-highlight* *bg-2*)
 
           (*base-line-number*     (if (eq variant 'dark) "#46577C" "#B3B3B3"))
-          (*base-line-number-bg*  (if (eq variant 'dark) "#071017" "#FAFDFF"))
+          (*base-line-number-bg*  (if (eq variant 'dark) "#22252c" "#FAFDFF"))
           (*base-mb-prompt*       (if (eq variant 'dark) "#8AC6F2" "#0000FF"))
           (*base-vertical-border* (if (eq variant 'dark) "#0A1721" "#C2C2C2")))
 
@@ -112,10 +112,10 @@
        ;; Peripherals.
        ;; ---------------------------------------------------------------------
        `(fringe ((t (:background ,*base-bg* :foreground ,*base-fg*))))
-       `(linum ((t (:background ,*base-line-number-bg* :foreground ,*base-line-number*
-                                :underline nil :bold nil :italic nil))))
-       `(minibuffer-prompt ((t (:foreground ,*base-mb-prompt*
-                                            :weight bold))))
+       `(line-number ((t (:background ,*base-line-number-bg* :foreground ,*base-line-number*))))
+       `(line-number-current-line ((t (:background ,*base-line-number-bg* :foreground ,*base-cursor-block*
+                                                   :weight bold))))
+       `(minibuffer-prompt ((t (:foreground ,*base-mb-prompt* :weight bold))))
        `(vertical-border ((t (:foreground ,*base-vertical-border*))))
 
        ;; ---------------------------------------------------------------------
@@ -140,14 +140,12 @@
        `(info-xref ((t (:foreground ,*base-info* :underline t))))
        `(Info-quoted ((t (:foreground ,*base-info*))))
 
-       )
+       ;; ---------------------------------------------------------------------
+       ;; Fill column line.
+       ;; ---------------------------------------------------------------------
+       `(fill-column-indicator ((t (:foreground ,*base-fci*))))
 
-      ;; ----------------------------------------------------------------------
-      ;; Fill column line.
-      ;; ----------------------------------------------------------------------
-      (setq fci-rule-color *base-fci*)
-
-      )
+       ))
 
     ;; ------------------------------------------------------------------------
     ;; Mode line and header line.

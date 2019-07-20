@@ -1,9 +1,9 @@
 ;;; emodule.el --- Helpful automation functions for `package'
 ;;
-;; Copyright (C) 2017 Wojciech Kozlowski
+;; Copyright (C) 2017-2019 Wojciech Kozlowski
 ;;
 ;; Author: Wojciech Kozlowski <wk@wojciechkozlowski.eu>
-;; Created: 23 Aug 2017
+;; Created: 2017-08-23
 ;; Version: 1.0.0
 ;; Keywords: tools
 ;; Package-Requires:

@@ -1,20 +1,20 @@
+# Directories
 auto-save-list
-bookmarks
+.backups
+.cache
 elpa
+eshell
+semanticdb
+transient
+
+# Files
 custom.el
-recentf
+ede-projects.el
+flycheck_*.elc
+.lsp-session-v1
 places
 projectile-bookmarks.eld
-projectile.cache
-semanticdb
-ede-projects.el
-tramp
-transient
-url
-session*
-eww-bookmarks
-eshell
-\.cache
-\.lsp-session*
-\#*
-*~
+recentf
+
+# Globs
+*\~
