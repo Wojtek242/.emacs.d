@@ -72,9 +72,6 @@
   but is much smaller with fewer features and thus simpler.  For instructions,
   see its own [[emodule/README.org][README file]].
 
-  A detailed justification for using =emodule= over its alternatives can be
-  found in the [[DEVLOG.org#EModule][Dev Log]].
-
 * Theme
 
   The theme in use started with the =underwater= theme and has been heavily
@@ -82,7 +79,3 @@
   new faces introduced by the installed packages.
 
   The theme files are located in the [[themes][themes]] directory.
-
-* Dev Log
-
-  The development history of this configuration is chronicled in the [[DEVLOG.org][Dev Log]].
