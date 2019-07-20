@@ -1,0 +1,38 @@
+#+TITLE: Changelog
+#+AUTHOR: Wojciech Kozlowski
+#+EMAIL: wk@wojciechkozlowski.eu
+
+* [2019-07-21] v2.0
+
+  - Major refactor of module structure
+  - Switch to LSP for C/C++, Rust, and Python
+  - Drop =emacs-racer= and =emacs-deferred=
+  - Update PDF support with =pdf-tools= and =org-noter=
+  - Use native line numbers and fill column indicator
+  - Update org module with ability to manage an agenda
+  - Change default terminal to =zsh=
+  - Various quality of life improvements for programming
+  - Refactor and update theme file
+  - Remove unused packages
+  - Remove support for unused languages
+
+* [2018-11-10] v1.0
+
+  - New splash screen
+  - =Tramp= configuration
+  - Use =ripgrep= with =deadgrep= instead of grep if available
+  - Use customised Doom modeline
+  - Org mode configuration
+  - Add eshell support
+  - Replace workgroups2 with perspectives, eyebrowse, and custom glue code
+  - Add emacswiki.org packages that got deleted from Melpa
+  - Add/improve support for Python, Docker, Rust, Plantuml, Yaml
+  - Add box comments
+  - Add snippets
+  - Other minor quality of life improvements and fixes
+  - Absorb `emodule` as part of the `.emacs.d` repository
+  - Support upgrade/restore in `emodule`
+
+* [2017-09-02] Alpha
+
+  Initial version.
