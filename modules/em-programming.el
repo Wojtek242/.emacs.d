@@ -89,7 +89,7 @@
     (after-init . global-company-mode)
     :config
     (setq company-idle-delay 0
-          company-minimum-prefix-length 1
+          company-minimum-prefix-length 3
           company-tooltip-align-annotations t)
     ;; For this to correctly complete headers, need to add all include paths to
     ;; `company-c-headers-path-system'.
@@ -364,6 +364,9 @@
     (global-ede-mode))
 
   (add-hook 'c-mode-common-hook 'hs-minor-mode)
+
+  ;; Emacs C/C++ settings.
+  (setq c-basic-offset 4)
 
   ;; --------------------------------------------------------------------------
   ;; Debugging options.
