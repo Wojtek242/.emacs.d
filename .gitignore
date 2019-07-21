@@ -16,6 +16,8 @@ flycheck_*.elc
 places
 projectile-bookmarks.eld
 recentf
+session.*
+tramp
 
 # Globs
 *\~

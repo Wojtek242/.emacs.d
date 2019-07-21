@@ -19,8 +19,10 @@
 
 (defvar emodule/helm-packages
 
-  '(helm
-    helm-projectile)
+  '(ace-jump-helm-line
+    helm
+    helm-projectile
+    swiper-helm)
 
   )
 
@@ -28,6 +30,20 @@
 
 (defun emodule/helm-init ()
   "Initialise the `helm' module."
+
+  ;; --------------------------------------------------------------------------
+  ;; `ace-jump-helm-line'
+  ;; --------------------------------------------------------------------------
+
+  (use-package ace-jump-helm-line
+    :after helm
+    :bind
+    (:map helm-map
+          ("C-'" . ace-jump-helm-line)))
+
+  ;; --------------------------------------------------------------------------
+  ;; `helm'
+  ;; --------------------------------------------------------------------------
 
   (use-package helm
     :init
@@ -109,7 +125,7 @@
     (global-set-key (kbd "C-c h M-o") 'helm-occur))
 
   ;; ------------------------------------------------------------------------
-  ;; Configure projectile.
+  ;; `helm-projectile'
   ;; ------------------------------------------------------------------------
 
   (use-package helm-projectile
@@ -117,6 +133,18 @@
     :config
     (setq-default projectile-completion-system 'helm)
     (helm-projectile-on))
+
+  ;; --------------------------------------------------------------------------
+  ;; `swiper-helm'
+  ;; --------------------------------------------------------------------------
+
+  (use-package swiper-helm
+    :after helm
+    :bind
+    (("C-s" . swiper-helm)
+     ("M-s M-s" . isearch-forward))
+    :config
+    (setq swiper-helm-display-function 'helm-default-display-buffer))
 
   )
 

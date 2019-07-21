@@ -20,7 +20,7 @@
 
 (defvar emodule/terminal-packages
 
-  '()
+  '(tramp-term)
 
   )
 
@@ -179,6 +179,13 @@
     :config
     (setq eshell-visual-commands (nconc eshell-visual-commands '("htop"
                                                                  "tmux"))))
+
+  ;; --------------------------------------------------------------------------
+  ;; `tramp-term'
+  ;; --------------------------------------------------------------------------
+
+  (use-package tramp-term
+    :defer t)
 
   )
 

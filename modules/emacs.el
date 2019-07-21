@@ -19,7 +19,8 @@
 
 (defvar emodule/emacs-packages
 
-  '(deadgrep
+  '(ace-jump-mode
+    deadgrep
     discover-my-major
     duplicate-thing
     expand-region
@@ -32,7 +33,6 @@
     rainbow-mode
     recentf-ext
     smartparens
-    swiper
     treemacs-icons-dired
     undo-tree
     use-package
@@ -322,6 +322,13 @@
   (global-set-key (kbd "M-Q") 'unfill-paragraph)
 
   ;; --------------------------------------------------------------------------
+  ;; `ace-jump-mode'
+  ;; --------------------------------------------------------------------------
+
+  (use-package ace-jump-mode
+    :bind (("C-c SPC" . ace-jump-mode)))
+
+  ;; --------------------------------------------------------------------------
   ;; `deadgrep'
   ;; --------------------------------------------------------------------------
 
@@ -331,7 +338,14 @@
 	  (lambda () (read-directory-name "Base directory: "
 					  nil default-directory t)))
     :bind
-    (("C-x C-g" . deadgrep)))
+    (("C-x C-g" . deadgrep))
+    (:map deadgrep-mode-map
+          ("C-o" . deadgrep-open-result-other-window))
+    :config
+    (defun deadgrep-open-result-other-window ()
+      "Open the result in other window without changing to it."
+      (interactive)
+      (save-selected-window (deadgrep-visit-result-other-window))))
 
   ;; Use rgrep if ripgrep not present.
   (unless (executable-find "rg")
@@ -510,10 +524,13 @@
 
   (use-package smartparens
     :config
+    (require 'smartparens-config)
+
+    (sp-with-modes '(c-mode c++-mode)
+      (sp-local-pair "<" ">"))
+
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)
-
-    (require 'smartparens-config)
 
     ;; Key-bindings -----------------------------------------------------------
 
@@ -571,16 +588,6 @@
      sp-navigate-reindent-after-up-in-string nil
      ;; Do not highlight space between parentheses.
      sp-highlight-pair-overlay nil))
-
-  ;; --------------------------------------------------------------------------
-  ;; Configure `swiper'.
-  ;; --------------------------------------------------------------------------
-
-  (use-package swiper
-    :bind
-    (("M-s M-s" . swiper))
-    :config
-    (setq ivy-count-format "%d/%d "))
 
   ;; --------------------------------------------------------------------------
   ;; `tramp'
