@@ -100,7 +100,7 @@
 
   ;; Update buffers when files change.
   (global-auto-revert-mode)
-  
+
   ;; Replace selected rather than inserting text at point.
   (delete-selection-mode)
 
@@ -142,10 +142,10 @@
   ;; --------------------------------------------------------------------------
 
   (add-hook 'minibuffer-setup-hook
-	    (lambda () (setq gc-cons-threshold most-positive-fixnum)))
+            (lambda () (setq gc-cons-threshold most-positive-fixnum)))
 
   (add-hook 'minibuffer-exit-hook
-	    (lambda () (setq gc-cons-threshold 800000)))
+            (lambda () (setq gc-cons-threshold 800000)))
 
   ;; --------------------------------------------------------------------------
   ;; Additional key-bindings.
@@ -159,15 +159,15 @@
 
   ;; Kill other window (cyclic order).
   (global-set-key (kbd "C-z")
-		  (lambda ()
-		    (interactive)
-		    (quit-window t (next-window (selected-window)))))
+                  (lambda ()
+                    (interactive)
+                    (quit-window t (next-window (selected-window)))))
 
   ;; Kill current buffer without prompting.
   (global-set-key (kbd "C-x k")
-		  (lambda ()
-		    (interactive)
-		    (let (kill-buffer-query-functions) (kill-buffer))))
+                  (lambda ()
+                    (interactive)
+                    (let (kill-buffer-query-functions) (kill-buffer))))
 
   ;; Change active window.  More convenient than "C-x o".
   (global-set-key (kbd "M-o") 'other-window)
@@ -304,7 +304,7 @@
 
   ;; Override the indent-region key-binding
   (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
-  
+
   ;; --------------------------------------------------------------------------
   ;; Unfill paragraph - inverse of fill paragraph.
   ;; --------------------------------------------------------------------------
@@ -335,8 +335,8 @@
   (use-package deadgrep
     :init
     (setq deadgrep-project-root-function
-	  (lambda () (read-directory-name "Base directory: "
-					  nil default-directory t)))
+          (lambda () (read-directory-name "Base directory: "
+                                          nil default-directory t)))
     :bind
     (("C-x C-g" . deadgrep))
     (:map deadgrep-mode-map
@@ -501,7 +501,7 @@
   ;; --------------------------------------------------------------------------
   ;; `rainbow-mode'
   ;; --------------------------------------------------------------------------
-  
+
   (use-package rainbow-mode
     :defer t)
 
@@ -642,7 +642,7 @@
   ;; --------------------------------------------------------------------------
   ;; `which-key'
   ;; --------------------------------------------------------------------------
-  
+
   (use-package which-key
     :init
     (setq which-key-separator " ")

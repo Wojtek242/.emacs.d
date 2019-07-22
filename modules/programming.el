@@ -127,14 +127,14 @@
   (defun make-box-comment ()
     (interactive)
     (let ((comm-start (box-comment-char))
-	  beg indent len)
+          beg indent len)
 
       ;; ----------------------------------------------------------------------
       ;; Find beginning of comment.
       ;; ----------------------------------------------------------------------
       (end-of-line)
       (unless (search-backward comm-start nil t)
-	(error "Not in comment!"))
+        (error "Not in comment!"))
 
       ;; ----------------------------------------------------------------------
       ;; Reformat into a single line.
