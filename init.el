@@ -44,7 +44,7 @@
   ;; Font ---------------------------------------------------------------------
 
   (let* ((font-name "Source Code Pro")
-         (font-size 13.5)
+         (font-size 10)
          (font-spec (concat font-name "-" (int-to-string font-size))))
 
     (set-frame-font font-spec nil t)
