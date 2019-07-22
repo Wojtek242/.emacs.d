@@ -340,7 +340,8 @@
     :bind
     (("C-x C-g" . deadgrep))
     (:map deadgrep-mode-map
-          ("C-o" . deadgrep-open-result-other-window))
+          ("C-o" . deadgrep-open-result-other-window)
+          ("<RET>" . deadgrep-visit-result-other-window))
     :config
     (defun deadgrep-open-result-other-window ()
       "Open the result in other window without changing to it."
