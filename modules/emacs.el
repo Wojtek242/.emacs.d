@@ -134,8 +134,10 @@
   (setq-default max-lisp-eval-depth 24000) ;; 30x orignal value
 
   ;; Add directories to exec-path.
-  (setq exec-path (append exec-path '("/home/wojtek/.local/bin"
-                                      "/home/wojtek/.cask/bin")))
+  (let ((home-dir (getenv "HOME")))
+    (setq exec-path
+          (append exec-path `(,(concat home-dir "/.local/bin")
+                              ,(concat home-dir "/.cask/bin")))))
 
   ;; --------------------------------------------------------------------------
   ;; Configure garbage collection.
