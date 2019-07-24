@@ -46,12 +46,17 @@
     (setq
      ;; Hide special characters for italics/bold/underline.
      org-hide-emphasis-markers t
-     ;; Add timestamp when tasks are marked as done.
-     org-log-done t
      ;; Open org files unfolded
      org-startup-folded nil
      ;; Catch edits in invisible areas (space after the ellipsis ...)
-     org-catch-invisible-edits 'error)
+     org-catch-invisible-edits 'error
+     ;; Don't warn about deadlines - they're pretty visible as is
+     org-deadline-warning-days 0)
+
+    (setq org-agenda-prefix-format '((agenda . " %i %?-12t% s %b")
+                                     (todo . " %i %-24b")
+                                     (tags . " %i %b")
+                                     (search . " %i %b")))
 
     ;; ------------------------------------------------------------------------
     ;; Set workflow states.
@@ -90,10 +95,7 @@
     ;; ------------------------------------------------------------------------
     ;; Load agenda-files.
     ;; ------------------------------------------------------------------------
-    (let* ((org-dir "~/Workspace/org/")
-           (file-list (concat org-dir "agenda-files.el")))
-      (when (file-exists-p file-list)
-        (load file-list))))
+    (setq org-agenda-files '("~/Workspace/agenda.org"))
 
   ;; ------------------------------------------------------------------------
   ;; Better header bullets
