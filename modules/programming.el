@@ -190,7 +190,9 @@
     (setq company-backends (delete 'company-capf company-backends)))
 
   (use-package company-lsp
-    :commands company-lsp)
+    :commands company-lsp
+    :config
+    (setq company-lsp-cache-candidates 'auto))
 
   ;; --------------------------------------------------------------------------
   ;; `compile'
