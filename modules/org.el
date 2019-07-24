@@ -49,7 +49,9 @@
      ;; Add timestamp when tasks are marked as done.
      org-log-done t
      ;; Open org files unfolded
-     org-startup-folded nil)
+     org-startup-folded nil
+     ;; Catch edits in invisible areas (space after the ellipsis ...)
+     org-catch-invisible-edits 'error)
 
     ;; ------------------------------------------------------------------------
     ;; Set workflow states.
