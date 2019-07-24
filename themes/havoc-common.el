@@ -71,7 +71,8 @@
 
         ;; Common error/success colours.
         (*success*            (if (eq variant 'dark) "#86DC2F"        "#42AE2C"))
-        (*warning*            (if (eq variant 'dark) "#C62626"        "#C62626"))
+        (*warning*            (if (eq variant 'dark) "#FFC0CB"        "#FFC0CB"))
+        (*error*              (if (eq variant 'dark) "#C62626"        "#C62626"))
 
         ;; Common diff colours.
         (*diff-added-bg*      (if (eq variant 'dark) "#336622"        "#DDFFDD"))
@@ -203,7 +204,7 @@
     ;; ------------------------------------------------------------------------
     ;; Search highlighting.
     ;; ------------------------------------------------------------------------
-    (let ((*search-fail-bg*  *warning*)
+    (let ((*search-fail-bg*  *error*)
           (*search-other-bg* *highlight-1*)
 
           (*search-bg* (if (eq variant 'dark) "#AF81F4" "#AF81F4"))
@@ -221,7 +222,7 @@
     ;; Parentheses.
     ;; ------------------------------------------------------------------------
     (let ((*paren-match* *success*)
-          (*paren-mismatch* *warning*)
+          (*paren-mismatch* *error*)
 
           (*paren-hlp-1* (if (eq variant 'dark) "#FF6A6A" "#FF6A6A"))
           (*paren-hlp-2* (if (eq variant 'dark) "#EE6363" "#EE6363"))
@@ -318,7 +319,7 @@
        `(font-lock-doc-string-face ((t (:foreground ,*font-lock-doc*))))
        `(font-lock-function-name-face ((t (:foreground ,*font-lock-function* :weight bold))))
        `(font-lock-keyword-face ((t (:foreground ,*font-lock-keyword* :weight bold))))
-       `(font-lock-negation-char-face ((t (:foreground ,*font-lock-negate*))))
+       `(font-lock-negation-char-face ((t (:foreground ,*font-lock-negate* :weight bold))))
        `(font-lock-preprocessor-face ((t (:foreground ,*font-lock-preproc*))))
        `(font-lock-reference-face ((t (:foreground ,*font-lock-reference*))))
        `(font-lock-regexp-grouping-backslash ((t (:foreground ,*font-lock-regexp*))))
