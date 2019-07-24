@@ -21,6 +21,7 @@
 
   '(ace-jump-helm-line
     helm
+    helm-flyspell
     helm-projectile
     swiper-helm)
 
@@ -123,6 +124,13 @@
     ;; these have to overridden here rather than with other keys in `:bind'.
     (global-set-key (kbd "C-c h x") 'helm-register)
     (global-set-key (kbd "C-c h M-o") 'helm-occur))
+
+  ;; --------------------------------------------------------------------------
+  ;; `helm-flyspell'
+  ;; --------------------------------------------------------------------------
+
+  (use-package helm-flyspell
+    :bind (("C-c C-'" . helm-flyspell-correct)))
 
   ;; ------------------------------------------------------------------------
   ;; `helm-projectile'
