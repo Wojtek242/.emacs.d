@@ -67,6 +67,8 @@
    large-file-warning-threshold 10485760
    ;; Keep point in same position on the screen when scrolling.
    scroll-preserve-screen-position 1
+   ;; sentences end with a single space
+   sentence-end-double-space nil
    ;; Indentation size - applies even when indent-tabs-mode is nil.
    tab-width 8
    ;; Highlight lines that are too long in whitespace mode.
@@ -157,12 +159,6 @@
 
   ;; Occur. More convenient than "M-s o".
   (global-set-key (kbd "M-s M-o") 'occur)
-
-  ;; Kill other window (cyclic order).
-  (global-set-key (kbd "C-z")
-                  (lambda ()
-                    (interactive)
-                    (quit-window t (next-window (selected-window)))))
 
   ;; Kill current buffer without prompting.
   (global-set-key (kbd "C-x k")
@@ -260,15 +256,15 @@
   (defun transpose-lines-down ()
     "Transpose the current line with the one below."
     (interactive)
-    (next-line)
+    (forward-line 1)
     (transpose-lines 1)
-    (previous-line))
+    (forward-line -1))
 
   (defun transpose-lines-up ()
     "Transpose the current line with the one above."
     (interactive)
     (transpose-lines 1)
-    (previous-line 2))
+    (forward-line -2))
 
   ;; Key-bindings -------------------------------------------------------------
 

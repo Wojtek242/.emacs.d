@@ -8,6 +8,7 @@ semanticdb
 transient
 
 # Files
+bookmarks
 custom.el
 ede-projects.el
 elpa.tar.xz
