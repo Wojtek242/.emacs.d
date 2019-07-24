@@ -40,6 +40,7 @@
     volatile-highlights
     which-key
     whole-line-or-region
+    winner
     ws-butler)
 
   )
@@ -638,6 +639,14 @@
   (use-package volatile-highlights
     :config
     (volatile-highlights-mode t))
+
+  ;; --------------------------------------------------------------------------
+  ;; `winner' - undo/redo window configuration.
+  ;; --------------------------------------------------------------------------
+
+  (use-package winner
+    :init (winner-mode 1)
+    :bind (("C-z" . winner-undo)))
 
   ;; --------------------------------------------------------------------------
   ;; `which-key'
