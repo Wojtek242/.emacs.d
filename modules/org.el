@@ -73,7 +73,9 @@
                             "UNPLANNED(c@/!)"))))
 
     (setq org-todo-keyword-faces
-          (quote (("NEXT" :foreground "#96DEFA" :weight bold))))
+          (quote (("NEXT" :foreground "#96DEFA" :weight bold)
+                  ("WAIT" :foreground "#798A9B" :weight bold)
+                  ("HOLD" :foreground "#798A9B" :weight bold))))
 
     ;; ------------------------------------------------------------------------
     ;; Better bullet points.

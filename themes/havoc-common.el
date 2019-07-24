@@ -303,7 +303,7 @@
           (*font-lock-string*    *info*)
           (*font-lock-type*      *highlight-2*)
           (*font-lock-variable*  *normal-standout*)
-          (*font-lock-warning*   *warning*)
+          (*font-lock-warning*   *error*)
 
           (*font-lock-comment* (if (eq variant 'dark) "#4E6F91" "#B22222"))
           (*font-lock-regexp*  (if (eq variant 'dark) "#EF7760" "#EF7760")))
@@ -327,7 +327,7 @@
        `(font-lock-string-face ((t (:foreground ,*font-lock-string*))))
        `(font-lock-type-face ((t (:foreground ,*font-lock-type* :weight bold))))
        `(font-lock-variable-name-face ((t (:foreground ,*font-lock-variable*))))
-       `(font-lock-warning-face ((t (:foreground ,*font-lock-warning*))))
+       `(font-lock-warning-face ((t (:foreground ,*font-lock-warning* :weight bold))))
 
        ))
 
@@ -402,12 +402,12 @@
           (*org-2*           *head-2*)
           (*org-3*           *head-3*)
           (*org-4*           *head-4*)
-          (*org-special*     *normal-standout*)
-          (*org-link*        *normal-standout*)
           (*org-checkbox-bg* *bg-1*)
           (*org-checkbox-fg* *normal-standout*)
           (*org-clock-bg*    *info*)
           (*org-clock-fg*    *bg-1*)
+          (*org-link*        *normal-standout*)
+          (*org-special*     *normal-standout*)
 
           (*org-date* (if (eq variant 'dark) "#FFCCFF" "#FFCCFF")))
 
