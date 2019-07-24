@@ -31,6 +31,8 @@
   "Initialise the `org' module."
 
   (use-package org
+    :hook
+    (org-mode . auto-fill-mode)
     :bind
     (("C-c a" . org-agenda)
      ("C-c b" . org-switchb)
