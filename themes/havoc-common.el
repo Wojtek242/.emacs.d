@@ -49,7 +49,7 @@
 
         ;; Common heading/highlight colours.
         (*head-1*             (if (eq variant 'dark) "#4F97D7"        "#3A81C3"))
-        (*head-1-bg*          (if (eq variant 'dark) "#333377"        "#293239"))
+        (*head-1-bg*          (if (eq variant 'dark) "#333377"        "#90AECE"))
         (*head-2*             (if (eq variant 'dark) "#2D9574"        "#2D9574"))
         (*head-3*             (if (eq variant 'dark) "#67B11D"        "#67B11D"))
         (*head-4*             (if (eq variant 'dark) "#AF81F4"        "#AF81F4"))
