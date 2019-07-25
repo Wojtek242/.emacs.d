@@ -64,7 +64,8 @@
         (*constant*           (if (eq variant 'dark) "#A45BAD"        "#5F9EA0"))
         (*highlight-1*        (if (eq variant 'dark) "#3E71A1"        "#DA70D6"))
         (*highlight-2*        (if (eq variant 'dark) "#5BA0EB"        "#228B22"))
-        (*info*               (if (eq variant 'dark) "#89E14B"        "#BC8F8F"))
+        (*info*               (if (eq variant 'dark) "#0D98BA"        "#BC8F8F"))
+        (*string*             (if (eq variant 'dark) "#89E14B"        "#BC8F8F"))
         (*name*               (if (eq variant 'dark) "#AF81F4"        "#0000FF"))
         (*tooltip*            (if (eq variant 'dark) "#E1E1E0"        "#000000"))
         (*tooltip-bg*         (if (eq variant 'dark) "#495765"        "#E2DAEF"))
@@ -154,7 +155,7 @@
     (let ((*line-active-bg*   *active-line*)
           (*line-active-fg*   *normal*)
           (*line-perspective* *head-1*)
-          (*line-eyebrowse*   *info*)
+          (*line-eyebrowse*   *string*)
 
           (*line-header-bg*   (if (eq variant 'dark) "#0A1721" "#F2F2F2"))
           (*line-inactive-bg* (if (eq variant 'dark) "#0A1721" "#C9D5E3"))
@@ -300,7 +301,7 @@
           (*font-lock-negate*    *warning*)
           (*font-lock-preproc*   *normal-standout*)
           (*font-lock-reference* *constant*)
-          (*font-lock-string*    *info*)
+          (*font-lock-string*    *string*)
           (*font-lock-type*      *highlight-2*)
           (*font-lock-variable*  *normal-standout*)
           (*font-lock-warning*   *error*)
@@ -519,7 +520,7 @@
     ;; Magit.
     ;; ------------------------------------------------------------------------
     (let ((*magit-blame-bg*        *active-line*)
-          (*magit-blame-info*      *info*)
+          (*magit-blame-info*      *string*)
           (*magit-blame-hash*      *name*)
           (*magit-branch-local*    *head-1*)
           (*magit-branch-remote*   *head-2*)
@@ -665,7 +666,7 @@
           (*helm-header-fg*    *normal*)
 
           (*helm-directory*    *normal-standout*)
-          (*helm-exec*         *info*)
+          (*helm-exec*         *string*)
           (*helm-line-number*  *highlight-2*)
           (*helm-prefix*       *normal-standout*)
           (*helm-process*      *normal-standout*)
