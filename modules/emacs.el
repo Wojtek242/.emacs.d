@@ -26,6 +26,7 @@
     expand-region
     highlight-parentheses
     ibuffer-vc
+    iedit
     pdf-tools
     perspective
     projectile
@@ -461,6 +462,13 @@
                   (vc-status 16 16 :left)
                   " "
                   filename-and-process))))
+
+  ;; --------------------------------------------------------------------------
+  ;; `iedit'
+  ;; --------------------------------------------------------------------------
+
+  (use-package iedit
+    :bind (("C-;" . iedit-mode)))
 
   ;; --------------------------------------------------------------------------
   ;; `pdf-tools' - use instead of DocView.
