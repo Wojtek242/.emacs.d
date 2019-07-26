@@ -200,8 +200,8 @@
 
   (use-package compile
     :bind
-    (("C-c c" . compile)
-     ("C-c r" . recompile))
+    (("C-x C-." . compile)
+     ("C-x C-," . recompile))
     :config
     (setq-default
      ;; Default compile commande

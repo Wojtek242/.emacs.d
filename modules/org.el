@@ -54,7 +54,7 @@
      org-deadline-warning-days 0)
 
     (setq org-agenda-prefix-format '((agenda . " %i %?-12t% s %b")
-                                     (todo . " %i %-24b")
+                                     (todo . " %i %-48b")
                                      (tags . " %i %b")
                                      (search . " %i %b")))
 
@@ -95,9 +95,14 @@
     (plist-put org-format-latex-options :scale 2.0)
 
     ;; ------------------------------------------------------------------------
-    ;; Load agenda-files.
+    ;; Setup agenda and capture files.
     ;; ------------------------------------------------------------------------
-    (setq org-agenda-files '("~/Workspace/agenda.org")))
+
+    (setq
+     ;; File for org-capture
+     org-default-notes-file "~/Workspace/notes.org"
+     ;; Org-agenda files
+     org-agenda-files '("~/Workspace/agenda.org")))
 
   ;; ------------------------------------------------------------------------
   ;; Better header bullets
