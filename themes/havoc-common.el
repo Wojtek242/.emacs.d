@@ -64,7 +64,7 @@
         (*constant*           (if (eq variant 'dark) "#A45BAD"        "#5F9EA0"))
         (*highlight-1*        (if (eq variant 'dark) "#3E71A1"        "#DA70D6"))
         (*highlight-2*        (if (eq variant 'dark) "#5BA0EB"        "#228B22"))
-        (*info*               (if (eq variant 'dark) "#0D98BA"        "#BC8F8F"))
+        (*info*               (if (eq variant 'dark) "#69B1BD"        "#BC8F8F"))
         (*string*             (if (eq variant 'dark) "#89E14B"        "#BC8F8F"))
         (*name*               (if (eq variant 'dark) "#AF81F4"        "#0000FF"))
         (*tooltip*            (if (eq variant 'dark) "#E1E1E0"        "#000000"))
