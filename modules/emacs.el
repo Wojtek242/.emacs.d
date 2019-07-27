@@ -21,6 +21,7 @@
 
   '(ace-jump-mode
     deadgrep
+    discover
     discover-my-major
     duplicate-thing
     expand-region
@@ -387,6 +388,13 @@
   (use-package treemacs-icons-dired
     :after dired
     :hook (dired-mode . treemacs-icons-dired-mode))
+
+  ;; --------------------------------------------------------------------------
+  ;; `discover'
+  ;; --------------------------------------------------------------------------
+
+  (use-package discover
+    :init (global-discover-mode))
 
   ;; --------------------------------------------------------------------------
   ;; `discover-my-major'
