@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: c-src
+# key: c_
+# --
+#+begin_src c
+$0
+#+end_src
