@@ -84,8 +84,13 @@
   (use-package python
     :init
     (setq python-shell-interpreter "python3")
+    (defun x-lsp-disable-snippet ()
+      "Set `lsp-enable-snippet' to nil in local buffer only."
+      (make-local-variable 'lsp-enable-snippet)
+      (setq lsp-enable-snippet nil))
     :hook
-    (python-mode . lsp))
+    (python-mode . lsp)
+    (python-mode . x-lsp-disable-snippet))
 
   (use-package py-autopep8
     ;; Note that this package require autopep8 to be installed.
