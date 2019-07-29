@@ -21,6 +21,7 @@
 
   '(ace-jump-mode
     deadgrep
+    dired-subtree
     discover
     discover-my-major
     duplicate-thing
@@ -371,6 +372,18 @@
 
     ;; Automatically refresh dired buffer on changes.
     (add-hook 'dired-mode-hook 'auto-revert-mode))
+
+  (use-package dired-subtree
+    :after dired
+    :bind (:map dired-mode-map
+                ("TAB" . x-dired-subtree-toggle)
+                ("<tab>" . x-dired-subtree-toggle))
+    :config
+    (defun x-dired-subtree-toggle ()
+      "Toggle dired subtree and revert buffer."
+      (interactive)
+      (dired-subtree-toggle)
+      (dired-revert)))
 
   (use-package dired-x
     :after dired
