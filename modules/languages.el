@@ -26,6 +26,7 @@
     ;; Dockerfile
     dockerfile-mode
     ;; Python
+    cython-mode
     py-autopep8
     ;; Rust
     cargo
@@ -76,6 +77,9 @@
   ;; --------------------------------------------------------------------------
   ;; Python.
   ;; --------------------------------------------------------------------------
+
+  (use-package cython-mode
+    :defer t)
 
   (use-package python
     :init
