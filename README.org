@@ -4,10 +4,25 @@
 
 * Emacs version
 
-  This configuration is maintained only for the Emacs master branch version.
-  It may work on some older version or you may have to remove the features that
-  rely on the newer Emacs versions.  Currently, this configuration uses a few
+  This configuration is maintained only for the Emacs master branch version. It
+  may work on some older version or you may have to remove the features that
+  rely on the newer Emacs versions. Currently, this configuration uses a few
   features from Emacs 26 and 27.
+
+  To fully leverage the features used in this configuration, Emacs must be
+  compiled with the right options.
+
+** Native JSON
+
+   This configuration uses ~lsp-mode~ for some programming languages which is
+   much faster if Emacs is compiled with native JSON support. Emacs will by
+   default compile with native JSON support if the ~jansson~ library is present
+   (including headers).
+
+** Dynamic modules
+
+   ~vterm~ uses dynamic modules. In order to enable dynamic modules, Emacs must
+   be compiled with the ~--with-modules~ option (not enabled by default).
 
 * Installation
 
@@ -17,13 +32,19 @@
   $ git clone https://github.com/Wojtek242/.emacs.d ~/.emacs.d
   #+END_SRC
 
-  This configuration uses the [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] font.  If you do not have it
+  This configuration uses the [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] font. If you do not have it
   installed and it isn't available through your distribution you can install
   the font by running
 
   #+BEGIN_SRC
   $ git clone https://github.com/adobe-fonts/source-code-pro.git --branch release ~/.local/source-code-pro
   $ sudo cp ~/.local/source-code-pro/OTF/*.otf /usr/local/share/fonts
+  #+END_SRC
+
+  Once the initial setup completes, you also need to run the following in Emacs
+
+  #+BEGIN_SRC
+  M-x all-the-icons-install-fonts
   #+END_SRC
 
 * External Support for Programming Languages
@@ -57,6 +78,9 @@
    $ pip3 install 'python-language-server[all]'
    #+END_SRC
 
+   Note that when using Python virtual environments it is best to install the
+   language server in the environment itself.
+
 ** Rust
 
    Install RLS using ~rustup~
@@ -67,10 +91,10 @@
 
 * Package Management
 
-  This =.emacs.d= uses its own small framework for package management located
-  in the [[emodule][emodule]] directory.  Its operation is heavily inspired by [[http://spacemacs.org/][Spacemacs]],
-  but is much smaller with fewer features and thus simpler.  For instructions,
-  see its own [[emodule/README.org][README file]].
+  This =.emacs.d= uses its own small framework for package management located in
+  the [[emodule][emodule]] directory. Its operation is heavily inspired by [[http://spacemacs.org/][Spacemacs]], but is
+  much smaller with fewer features and thus simpler. For instructions, see its
+  own [[emodule/README.org][README file]].
 
 * Theme
 
