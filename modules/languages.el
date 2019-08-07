@@ -26,6 +26,7 @@
     ;; Dockerfile
     dockerfile-mode
     ;; Python
+    pyvenv
     cython-mode
     py-autopep8
     ;; Rust
@@ -95,6 +96,9 @@
   (use-package py-autopep8
     ;; Note that this package require autopep8 to be installed.
     :bind (("C-c C-f" . py-autopep8-buffer)))
+
+  (use-package pyvenv
+    :defer t)
 
   ;; --------------------------------------------------------------------------
   ;; Rust.

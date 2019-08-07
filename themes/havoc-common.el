@@ -182,6 +182,11 @@
        `(eyebrowse-mode-line-active ((t (:foreground ,*line-eyebrowse* :weight bold))))
 
        ;; ---------------------------------------------------------------------
+       ;; Pyvenv virtualenv.
+       ;; ---------------------------------------------------------------------
+       `(pyvenv-active-face ((t (:foreground ,*line-perspective* :weight bold))))
+
+       ;; ---------------------------------------------------------------------
        ;; Header line.
        ;; ---------------------------------------------------------------------
        `(header-line ((t (:background ,*line-header-bg* :foreground ,*line-active-fg*))))

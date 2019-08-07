@@ -59,6 +59,17 @@
           (persp-format-name (persp-name (persp-curr)))
         ""))
 
+    ;; Display active python virtualenv.
+    (defface pyvenv-active-face
+      '((t (:inherit persp-selected-face)))
+      "The face used to highlight the active virtualenv on the modeline.")
+
+    (doom-modeline-def-segment pyvenv-venv
+      "Active Python virtualenv. Requires `pyvenv' to be enabled."
+      (if (bound-and-true-p pyvenv-virtual-env-name)
+          (propertize pyvenv-virtual-env-name 'face 'pyvenv-active-face)
+        ""))
+
     ;; Necessary to play nice with Helm.
     (add-hook 'helm-minibuffer-set-up-hook
               (lambda ()
@@ -70,7 +81,7 @@
     ;; Define custom modeline.
     (doom-modeline-def-modeline 'my-line
       '(bar "[" perspective-name "]" window-number matches buffer-info remote-host buffer-position selection-info)
-      '(lsp debug major-mode vcs checker bar))
+      '(lsp debug pyvenv-venv major-mode vcs checker bar))
 
     (add-hook 'doom-modeline-mode-hook
               (lambda () (doom-modeline-set-modeline 'my-line 'default))))
