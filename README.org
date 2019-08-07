@@ -19,10 +19,26 @@
    default compile with native JSON support if the ~jansson~ library is present
    (including headers).
 
-** Dynamic modules
+** Vterm
 
-   ~vterm~ uses dynamic modules. In order to enable dynamic modules, Emacs must
-   be compiled with the ~--with-modules~ option (not enabled by default).
+*** Dynamic modules
+
+    ~vterm~ uses dynamic modules. In order to enable dynamic modules, Emacs must
+    be compiled with the ~--with-modules~ option (not enabled by default).
+
+*** Pre-requisites
+
+    ~vterm~ requires =cmake= and =libtool= to be installed.
+
+*** Directory tracking
+
+    To enable directory tracking in vterm, put this in =.zshrc=
+
+    #+BEGIN_SRC
+    function chpwd() {
+        print -Pn "\e]51;$(pwd)\e\\";
+    }
+    #+END_SRC
 
 * Installation
 
