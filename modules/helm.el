@@ -150,7 +150,7 @@
     :after helm
     :bind
     (("C-s" . swiper-helm)
-     ("M-s M-s" . isearch-forward))
+     ("C-c C-s" . isearch-forward))
     :config
     (setq swiper-helm-display-function 'helm-default-display-buffer))
 
