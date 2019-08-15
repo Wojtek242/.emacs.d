@@ -439,6 +439,40 @@
        ))
 
     ;; ------------------------------------------------------------------------
+    ;; Messages.
+    ;; ------------------------------------------------------------------------
+
+    (let ((*header-name*    *head-2*)
+          (*header-subject* *name*)
+          (*header-other*   *head-1*))
+
+      (custom-theme-set-faces
+       theme-name
+
+       `(message-header-name ((t (:foreground ,*header-name* :weight bold))))
+       `(message-header-subject ((t (:foreground ,*header-subject* :weight bold :height 1.25))))
+       `(message-header-other ((t (:foreground ,*header-other* :weight bold))))
+
+       ))
+
+    ;; ------------------------------------------------------------------------
+    ;; Elfeed.
+    ;; ------------------------------------------------------------------------
+
+    (let ((*search-date* *normal-standout*)
+          (*search-feed* *name*)
+          (*search-tag*  *normal-standout*))
+
+      (custom-theme-set-faces
+       theme-name
+
+       `(elfeed-search-date-face ((t (:foreground ,*search-date*))))
+       `(elfeed-search-feed-face ((t (:foreground ,*search-feed*))))
+       `(elfeed-search-tag-face ((t (:foreground ,*search-tag* :weight bold))))
+
+       ))
+
+    ;; ------------------------------------------------------------------------
     ;; Diff.
     ;; ------------------------------------------------------------------------
     (let ((*diff-header*        *header-bg*)

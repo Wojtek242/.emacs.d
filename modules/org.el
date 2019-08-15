@@ -1,4 +1,4 @@
-;;; org.el --- Module file for org-mode configuration.
+;;; org.el --- Module file for org-mode and org-like package configuration.
 ;;
 ;; Copyright (C) 2017-2019 Wojciech Kozlowski
 ;;
@@ -20,7 +20,8 @@
 
 (defvar emodule/org-packages
 
-  '(org-bullets
+  '(elfeed
+    org-bullets
     org-noter)
 
   )
@@ -29,6 +30,23 @@
 
 (defun emodule/org-init ()
   "Initialise the `org' module."
+
+  ;; --------------------------------------------------------------------------
+  ;; `elfeed'
+  ;; --------------------------------------------------------------------------
+
+  (use-package elfeed
+    :bind
+    (("C-x w" . elfeed))
+    :config
+    (let ((elfeed-feeds-file "~/Workspace/rss.xml"))
+      (when (file-exists-p elfeed-feeds-file)
+        (elfeed-load-opml elfeed-feeds-file)
+        (run-at-time nil 3600 'elfeed-update))))
+
+  ;; --------------------------------------------------------------------------
+  ;; `org'
+  ;; --------------------------------------------------------------------------
 
   (use-package org
     :hook
