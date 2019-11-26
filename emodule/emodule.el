@@ -183,7 +183,7 @@ dependency of one that is."
   (let ((needed (cl-loop for p in pkgs
                          if (assq p package-alist)
                          ;; `p' and its dependencies are needed.
-                         append (cons p (package--get-deps p)))))
+                         append (cons p (package--get-deps (list p))))))
     (cl-loop for p in (mapcar #'car package-alist)
              unless (memq p needed)
              collect p)))

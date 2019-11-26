@@ -123,8 +123,8 @@
        ;; ---------------------------------------------------------------------
        ;; Region highlighting.
        ;; ---------------------------------------------------------------------
-       `(region ((t (:background ,*base-region*))))
-       `(vhl/default-face ((t (:background ,*base-volatile-highlight*))))
+       `(region ((t (:background ,*base-region* :extend t))))
+       `(vhl/default-face ((t (:background ,*base-volatile-highlight* :extend t))))
 
        ;; ---------------------------------------------------------------------
        ;; Highlights.
@@ -133,7 +133,7 @@
        `(highlight ((t (:background ,*base-highlight*))))
        `(highlight-symbol-face ((t (:background ,*base-highlight-symbol*))))
        `(highlight-numbers-number ((t (:foreground ,*base-highlight-numbers*))))
-       `(hl-line ((t (:background ,*base-highlight*))))
+       `(hl-line ((t (:background ,*base-highlight* :extend t))))
 
        ;; ---------------------------------------------------------------------
        ;; Info and buttons.
@@ -499,9 +499,9 @@
       (custom-theme-set-faces
        theme-name
 
-       `(diff-header ((t (:background ,*diff-header*))))
+       `(diff-header ((t (:background ,*diff-header* :extend t))))
        `(diff-file-header ((t (:foreground ,*diff-file-header-fg*))))
-       `(diff-hunk-header ((t (:background ,*diff-hunk-bg* :foreground ,*diff-hunk-fg*))))
+       `(diff-hunk-header ((t (:background ,*diff-hunk-bg* :foreground ,*diff-hunk-fg* :extend t))))
 
        `(diff-added ((t (:foreground ,*diff-added*))))
        `(diff-changed ((t (:foreground ,*diff-changed*))))
@@ -511,13 +511,13 @@
        `(diff-indicator-changed ((t (:foreground ,*diff-changed*))))
        `(diff-indicator-removed ((t (:foreground ,*diff-removed*))))
 
-       `(diff-refine-added ((t (:background ,*diff-added* :foreground ,*diff-refine-fg*))))
-       `(diff-refine-changed ((t (:background ,*diff-changed* :foreground ,*diff-refine-fg*))))
-       `(diff-refine-removed ((t (:background ,*diff-removed* :foreground ,*diff-refine-fg*))))
+       `(diff-refine-added ((t (:background ,*diff-added* :foreground ,*diff-refine-fg* :extend t))))
+       `(diff-refine-changed ((t (:background ,*diff-changed* :foreground ,*diff-refine-fg* :extend t))))
+       `(diff-refine-removed ((t (:background ,*diff-removed* :foreground ,*diff-refine-fg* :extend t))))
 
-       `(diff-hl-insert ((t (:background ,*diff-hl-added-bg* :foreground ,*diff-hl-added-fg*))))
-       `(diff-hl-change ((t (:background ,*diff-hl-changed-bg* :foreground ,*diff-hl-changed-fg*))))
-       `(diff-hl-delete ((t (:background ,*diff-hl-removed-bg* :foreground ,*diff-hl-removed-fg*))))
+       `(diff-hl-insert ((t (:background ,*diff-hl-added-bg* :foreground ,*diff-hl-added-fg* :extend t))))
+       `(diff-hl-change ((t (:background ,*diff-hl-changed-bg* :foreground ,*diff-hl-changed-fg* :extend t))))
+       `(diff-hl-delete ((t (:background ,*diff-hl-removed-bg* :foreground ,*diff-hl-removed-fg* :extend t))))
 
        ))
 
@@ -538,25 +538,25 @@
       (custom-theme-set-faces
        theme-name
 
-       `(ediff-current-diff-Ancestor ((t (:background ,*ediff-ancestor-bg* :foreground ,*ediff-ancestor-fg*))))
-       `(ediff-current-diff-A ((t (:background ,*ediff-current-A-bg* :foreground ,*ediff-current-A-fg*))))
-       `(ediff-current-diff-B ((t (:background ,*ediff-current-B-bg* :foreground ,*ediff-current-B-fg*))))
-       `(ediff-current-diff-C ((t (:background ,*ediff-current-C-bg* :foreground ,*ediff-current-C-fg*))))
+       `(ediff-current-diff-Ancestor ((t (:background ,*ediff-ancestor-bg* :foreground ,*ediff-ancestor-fg* :extend t))))
+       `(ediff-current-diff-A ((t (:background ,*ediff-current-A-bg* :foreground ,*ediff-current-A-fg* :extend t))))
+       `(ediff-current-diff-B ((t (:background ,*ediff-current-B-bg* :foreground ,*ediff-current-B-fg* :extend t))))
+       `(ediff-current-diff-C ((t (:background ,*ediff-current-C-bg* :foreground ,*ediff-current-C-fg* :extend t))))
 
-       `(ediff-even-diff-Ancestor ((t (:background ,*ediff-bg*))))
-       `(ediff-even-diff-A ((t (:background ,*ediff-bg*))))
-       `(ediff-even-diff-B ((t (:background ,*ediff-bg*))))
-       `(ediff-even-diff-C ((t (:background ,*ediff-bg*))))
+       `(ediff-even-diff-Ancestor ((t (:background ,*ediff-bg* :extend t))))
+       `(ediff-even-diff-A ((t (:background ,*ediff-bg* :extend t))))
+       `(ediff-even-diff-B ((t (:background ,*ediff-bg* :extend t))))
+       `(ediff-even-diff-C ((t (:background ,*ediff-bg* :extend t))))
 
-       `(ediff-fine-diff-Ancestor ((t (:background nil :weight bold))))
-       `(ediff-fine-diff-A ((t (:background nil :weight bold))))
-       `(ediff-fine-diff-B ((t (:background nil :weight bold))))
-       `(ediff-fine-diff-C ((t (:background nil :weight bold))))
+       `(ediff-fine-diff-Ancestor ((t (:background nil :weight bold :extend t))))
+       `(ediff-fine-diff-A ((t (:background nil :weight bold :extend t))))
+       `(ediff-fine-diff-B ((t (:background nil :weight bold :extend t))))
+       `(ediff-fine-diff-C ((t (:background nil :weight bold :extend t))))
 
-       `(ediff-odd-diff-Ancestor ((t (:background ,*ediff-bg*))))
-       `(ediff-odd-diff-A ((t (:background ,*ediff-bg*))))
-       `(ediff-odd-diff-B ((t (:background ,*ediff-bg*))))
-       `(ediff-odd-diff-C ((t (:background ,*ediff-bg*))))
+       `(ediff-odd-diff-Ancestor ((t (:background ,*ediff-bg* :extend t))))
+       `(ediff-odd-diff-A ((t (:background ,*ediff-bg* :extend t))))
+       `(ediff-odd-diff-B ((t (:background ,*ediff-bg* :extend t))))
+       `(ediff-odd-diff-C ((t (:background ,*ediff-bg* :extend t))))
 
        ))
 
@@ -605,7 +605,7 @@
        ;; ---------------------------------------------------------------------
        `(magit-blame-date ((t :background ,*magit-blame-bg* :foreground ,*magit-blame-info*)))
        `(magit-blame-hash ((t :background ,*magit-blame-bg* :foreground ,*magit-blame-hash*)))
-       `(magit-blame-heading ((t :background ,*magit-blame-bg* :foreground ,*magit-blame-info*)))
+       `(magit-blame-heading ((t :background ,*magit-blame-bg* :foreground ,*magit-blame-info* :extend t)))
        `(magit-blame-name ((t :background ,*magit-blame-bg* :foreground ,*magit-blame-fg*)))
        `(magit-blame-summary ((t :background ,*magit-blame-bg* :foreground ,*magit-blame-fg*)))
 
@@ -619,15 +619,15 @@
        ;; ---------------------------------------------------------------------
        ;; Magit diff.
        ;; ---------------------------------------------------------------------
-       `(magit-diff-context-highlight ((t (:background ,*magit-highlight-bg* :foreground ,*magit-highlight-fg*))))
+       `(magit-diff-context-highlight ((t (:background ,*magit-highlight-bg* :foreground ,*magit-highlight-fg* :extend t))))
        `(magit-diff-file-heading ((t (:foreground ,*magit-heading*))))
        `(magit-diff-file-heading-highlight ((t (:foreground ,*magit-heading*))))
-       `(magit-diff-hunk-heading ((t (:background ,*magit-hunk-heading-bg* :foreground ,*magit-hunk-heading-fg*))))
-       `(magit-diff-hunk-heading-highlight ((t (:background ,*magit-hunk-heading-bg* :foreground ,*magit-hunk-heading-fg*))))
-       `(magit-diff-added ((t (:background ,*magit-diff-added-bg* :foreground ,*magit-diff-added-fg*))))
-       `(magit-diff-added-highlight ((t (:background ,*magit-diff-added-hl-bg* :foreground ,*magit-diff-added-hl-fg*))))
-       `(magit-diff-removed ((t (:background ,*magit-diff-removed-bg* :foreground ,*magit-diff-removed-fg*))))
-       `(magit-diff-removed-highlight ((t (:background ,*magit-diff-removed-hl-bg* :foreground ,*magit-diff-removed-hl-fg*))))
+       `(magit-diff-hunk-heading ((t (:background ,*magit-hunk-heading-bg* :foreground ,*magit-hunk-heading-fg* :extend t))))
+       `(magit-diff-hunk-heading-highlight ((t (:background ,*magit-hunk-heading-bg* :foreground ,*magit-hunk-heading-fg* :extend t))))
+       `(magit-diff-added ((t (:background ,*magit-diff-added-bg* :foreground ,*magit-diff-added-fg* :extend t))))
+       `(magit-diff-added-highlight ((t (:background ,*magit-diff-added-hl-bg* :foreground ,*magit-diff-added-hl-fg* :extend t))))
+       `(magit-diff-removed ((t (:background ,*magit-diff-removed-bg* :foreground ,*magit-diff-removed-fg* :extend t))))
+       `(magit-diff-removed-highlight ((t (:background ,*magit-diff-removed-hl-bg* :foreground ,*magit-diff-removed-hl-fg* :extend t))))
 
        ;; ---------------------------------------------------------------------
        ;; Magit diffstat.
@@ -662,7 +662,7 @@
        `(magit-process-ok ((t (:foreground ,*magit-ok* :weight bold))))
 
        `(magit-section-heading ((t (:foreground ,*magit-heading* :weight bold))))
-       `(magit-section-highlight ((t (:background ,*magit-highlight-bg*))))
+       `(magit-section-highlight ((t (:background ,*magit-highlight-bg* :extend t))))
 
      ))
 
@@ -789,12 +789,12 @@
 
        `(helm-moccur-buffer ((t (:background ,*helm-bg* :foreground ,*helm-fg-bright*))))
 
-       `(helm-selection ((t (:background ,*helm-select*))))
-       `(helm-selection-line ((t (:background ,*helm-select-line*))))
+       `(helm-selection ((t (:background ,*helm-select* :extend t))))
+       `(helm-selection-line ((t (:background ,*helm-select-line* :extend t))))
 
        `(helm-separator ((t (:background ,*helm-bg* :foreground ,*helm-fg-dark*))))
 
-       `(helm-source-header ((t (:background ,*helm-header-bg* :foreground ,*helm-header-fg* :weight bold))))
+       `(helm-source-header ((t (:background ,*helm-header-bg* :foreground ,*helm-header-fg* :weight bold :extend t))))
 
        `(helm-time-zone-current ((t (:background ,*helm-bg* :foreground ,*helm-fg-bright*))))
        `(helm-time-zone-home ((t (:background ,*helm-bg* :foreground ,*helm-fg-dark*))))
