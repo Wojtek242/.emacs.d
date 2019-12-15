@@ -20,6 +20,7 @@
 (defvar emodule/emacs-packages
 
   '(ace-jump-mode
+    ace-window
     deadgrep
     dired-subtree
     discover
@@ -170,10 +171,6 @@
                   (lambda ()
                     (interactive)
                     (let (kill-buffer-query-functions) (kill-buffer))))
-
-  ;; Change active window.  More convenient than "C-x o".
-  (global-set-key (kbd "M-o") 'other-window)
-  (global-set-key (kbd "M-O") (lambda () (interactive) (other-window -1)))
 
   ;; Scroll up/down, but keep point in place.
   (global-set-key (kbd "C-<") (lambda()
@@ -329,6 +326,13 @@
 
   (use-package ace-jump-mode
     :bind (("C-c SPC" . ace-jump-mode)))
+
+  ;; --------------------------------------------------------------------------
+  ;; `ace-window'
+  ;; --------------------------------------------------------------------------
+
+  (use-package ace-window
+    :bind (("M-o" . ace-window)))
 
   ;; --------------------------------------------------------------------------
   ;; `deadgrep'
