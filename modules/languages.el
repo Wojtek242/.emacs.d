@@ -56,9 +56,8 @@
     :hook ((c-mode c++-mode objc-mode) .
            (lambda () (require 'ccls) (lsp))))
 
-  (setq-default
-   c-default-style "linux"
-   c-basic-offset 4)
+  (setq-default c-default-style "linux"
+                c-basic-offset 4)
 
   ;; --------------------------------------------------------------------------
   ;; Dockerfile.
@@ -66,6 +65,12 @@
 
   (use-package dockerfile-mode
     :defer t)
+
+  ;; --------------------------------------------------------------------------
+  ;; JSON.
+  ;; --------------------------------------------------------------------------
+
+  (setq-default js-indent-level 2)
 
   ;; --------------------------------------------------------------------------
   ;; kOS.
