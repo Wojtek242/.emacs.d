@@ -108,7 +108,8 @@
 
     (defun x-vterm-setup ()
       (define-key vterm-mode-map
-        [remap whole-line-or-region-yank] 'vterm-yank))
+        [remap whole-line-or-region-yank] 'vterm-yank)
+      (define-key vterm-mode-map (kbd "C-S-v") 'vterm-yank))
 
     (defun x-vterm-recycle ()
       "Kill current buffer and start a vterm in it."
@@ -116,6 +117,13 @@
         (kill-buffer (current-buffer))
         (let ((default-directory working-directory))
           (vterm))))
+
+    (defun x-vterm-other-window ()
+      "Start vterm in other window unless in initial buffer."
+      (interactive)
+      (if (equal major-mode 'init-buffer-mode)
+          (vterm)
+        (vterm-other-window)))
 
     (defun visit-vterm ()
       "Open or switch to active vterm.
@@ -141,10 +149,12 @@
                                    (buffer-list))))
           (if anon-term
               (progn
-                (switch-to-buffer-other-window anon-term)
+                (if (equal major-mode 'init-buffer-mode)
+                    (switch-to-buffer anon-term)
+                  (switch-to-buffer-other-window anon-term))
                 (unless (term-check-proc (buffer-name))
                   (x-vterm-recycle)))
-            (vterm-other-window)))))
+            (x-vterm-other-window)))))
 
     :hook
     (vterm-mode . x-vterm-setup)
