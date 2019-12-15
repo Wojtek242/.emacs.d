@@ -109,7 +109,12 @@
     (defun x-vterm-setup ()
       (define-key vterm-mode-map
         [remap whole-line-or-region-yank] 'vterm-yank)
-      (define-key vterm-mode-map (kbd "C-S-v") 'vterm-yank))
+      (define-key vterm-mode-map (kbd "C-S-v") 'vterm-yank)
+
+      (define-key vterm-mode-map
+        [remap scroll-up-command] 'vterm--self-insert)
+      (define-key vterm-mode-map
+        [remap scroll-down-command] 'vterm--self-insert))
 
     (defun x-vterm-recycle ()
       "Kill current buffer and start a vterm in it."
