@@ -19,29 +19,40 @@
 ;; Placeholder for user customization code
 (defvar p4_16-mode-hook nil)
 
+(defun p4_16-electric-brace (arg)
+  "Insert a brace."
+  (interactive "*P")
+  (self-insert-command (prefix-numeric-value arg))
+  (save-excursion
+    (move-beginning-of-line nil)
+    (indent-for-tab-command)))
+
 ;; Define the keymap (for now it is pretty much default)
 (defvar p4_16-mode-map
   (let ((map (make-keymap)))
-    (define-key map "\C-j" 'newline-and-indent)
+    (define-key map "\C-j"      'newline-and-indent)
+    (define-key map "{"         'p4_16-electric-brace)
+    (define-key map "}"         'p4_16-electric-brace)
+    (define-key map "\C-c\C-c"  'comment-region)
     map)
   "Keymap for P4_16 major mode")
 
 ;; Syntactic HighLighting
 
 ;; Main keywors (declarations and operators)
-(setq p4_16-keywords 
+(setq p4_16-keywords
       '("action" "apply"
         "control"
-        "default" 
+        "default"
         "else" "enum" "extern" "exit"
         "header" "header_union"
         "if"
         "match_kind"
-        "package" "parser" 
+        "package" "parser"
         "return"
         "select" "state" "struct" "switch"
-        "table"  "transition" "tuple" "typedef"
-        "verify" 
+        "table"  "transition" "tuple" "typedef" "type"
+        "verify"
         ))
 
 (setq p4_16-annotations
@@ -50,14 +61,14 @@
 
 (setq p4_16-attributes
       '("const" "in" "inout" "out"
-        ;; Tables 
+        ;; Tables
         "key" "actions" "default_action" "entries" "implementation"
         "counters" "meters"
         ))
 
 (setq p4_16-variables
       '("packet_in" "packet_out"
-       ))
+        ))
 
 (setq p4_16-operations
       '("&&&" ".." "++" "?" ":"))
@@ -97,7 +108,7 @@
         ))
 
 (setq p4_16-cpp
-      '("#include" 
+      '("#include"
         "#define" "#undef"
         "#if" "#ifdef" "#ifndef"
         "#elif" "#else"
@@ -209,14 +220,19 @@
   (set-syntax-table p4_16-mode-syntax-table)
   (use-local-map p4_16-mode-map)
   (set (make-local-variable 'font-lock-defaults) '(p4_16-font-lock-keywords))
-  (set (make-local-variable 'indent-line-function) 'p4_16-indent-line)  
+  (set (make-local-variable 'indent-line-function) 'p4_16-indent-line)
   (setq major-mode 'p4_16-mode)
   (setq mode-name "P4_16")
   (setq imenu-generic-expression p4_16-imenu-generic-expression)
+  ;; Setting this to nil causes indentation to use only space
+  ;; characters, never tabs.
+  (setq indent-tabs-mode nil)
+  (setq comment-start "// ")
+  (setq comment-end "")
   (imenu-add-to-menubar "P4_16")
   (cscope-minor-mode)
   (run-hooks 'p4_16-mode-hook)
-)
+  )
 
 ;; The most important line
 (provide 'p4_16-mode)
