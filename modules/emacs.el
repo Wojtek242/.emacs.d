@@ -377,6 +377,11 @@
     ;; Automatically refresh dired buffer on changes.
     (add-hook 'dired-mode-hook 'auto-revert-mode))
 
+  (use-package dired-aux
+    :after dired
+    :config
+    (add-to-list 'dired-compress-files-alist '("\\.tar\\'" . "tar -cf %o %i")))
+
   (use-package dired-subtree
     :after dired
     :bind (:map dired-mode-map
