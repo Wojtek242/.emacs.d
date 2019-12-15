@@ -26,9 +26,8 @@
                '("melpa" . "https://melpa.org/packages/") t)
   (package-initialize)
 
-  ;; Local copies of packages no longer provided by MELPA.  See
-  ;; https://github.com/melpa/melpa/pull/5008.
-  (add-to-list 'load-path "~/.emacs.d/emacswiki/")
+  ;; External .el files that are not available from MELPA.
+  (add-to-list 'load-path "~/.emacs.d/external/")
 
   ;; --------------------------------------------------------------------------
   ;; Load `emodule'.
