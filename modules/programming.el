@@ -199,6 +199,13 @@
   ;; --------------------------------------------------------------------------
 
   (use-package compile
+    :init
+    (defun compilation-exit-autoclose (status code msg)
+      "Close *compilation* buffer if compilation exits successfully."
+      (when (and (eq status 'exit) (zerop code))
+        ;; Timer is necessary otherwise message is printed into another buffer
+        (run-with-timer 0.5 nil (lambda () (kill-buffer "*compilation*"))))
+      (cons msg code))
     :bind
     (("C-x C-." . compile)
      ("C-x C-," . recompile))
@@ -212,6 +219,15 @@
      compilation-always-kill t
      ;; Automatically scroll to first error.
      compilation-scroll-output 'first-error)
+
+    (defun toggle-compilation-exit-autoclose ()
+      "Toggle autoclose on successful compilation."
+      (interactive)
+      (if compilation-exit-message-function
+          (setq-default compilation-exit-message-function
+                        nil)
+        (setq-default compilation-exit-message-function
+                      'compilation-exit-autoclose)))
 
     ;; ansi-colors
     (ignore-errors
