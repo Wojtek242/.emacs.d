@@ -70,6 +70,20 @@
           (propertize pyvenv-virtual-env-name 'face 'pyvenv-active-face)
         ""))
 
+    (doom-modeline-def-segment workspace-number
+      "The current workspace name or number.
+
+       Requires `eyebrowse-mode' to be enabled."
+
+      (if (bound-and-true-p eyebrowse-mode)
+          (let* ((num (eyebrowse--get 'current-slot))
+                 (tag (when num (nth 2 (assoc num (eyebrowse--get 'window-configs)))))
+                 (str (if (and tag (< 0 (length tag)))
+                          tag
+                        (when num (int-to-string num)))))
+            (propertize str 'face 'eyebrowse-mode-line-active))
+        ""))
+
     ;; Necessary to play nice with Helm.
     (add-hook 'helm-minibuffer-set-up-hook
               (lambda ()
@@ -80,7 +94,7 @@
 
     ;; Define custom modeline.
     (doom-modeline-def-modeline 'my-line
-      '(bar "[" perspective-name "]" window-number matches buffer-info remote-host buffer-position selection-info)
+      '(bar "[" perspective-name ":" workspace-number "]" window-number matches buffer-info remote-host buffer-position selection-info)
       '(lsp debug pyvenv-venv major-mode vcs checker bar))
 
     (add-hook 'doom-modeline-mode-hook
