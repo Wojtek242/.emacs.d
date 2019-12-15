@@ -157,6 +157,7 @@
           (*line-perspective* *head-1*)
           (*line-eyebrowse*   *string*)
 
+          (*zoom-window-bg*   (if (eq variant 'dark) "#33455b" "#90AECE"))
           (*line-header-bg*   (if (eq variant 'dark) "#0A1721" "#F2F2F2"))
           (*line-inactive-bg* (if (eq variant 'dark) "#0A1721" "#C9D5E3"))
           (*line-inactive-fg* (if (eq variant 'dark) "#798A9B" "#333333")))
@@ -191,7 +192,11 @@
        ;; ---------------------------------------------------------------------
        `(header-line ((t (:background ,*line-header-bg* :foreground ,*line-active-fg*))))
 
-       ))
+       )
+
+      (setq zoom-window-mode-line-color *zoom-window-bg*)
+
+      )
 
     ;; ------------------------------------------------------------------------
     ;; Whitespace.
@@ -272,7 +277,7 @@
                               ,*paren-hlp-2*
                               ,*paren-hlp-3*))
 
-    )
+      )
 
     ;; ------------------------------------------------------------------------
     ;; Checker highlights.

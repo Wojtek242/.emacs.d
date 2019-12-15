@@ -45,7 +45,8 @@
     which-key
     whole-line-or-region
     winner
-    ws-butler)
+    ws-butler
+    zoom-window)
 
   )
 
@@ -711,6 +712,13 @@
   (use-package ws-butler
     :config
     (ws-butler-global-mode))
+
+  ;; --------------------------------------------------------------------------
+  ;; `zoom-window'.
+  ;; --------------------------------------------------------------------------
+
+  (use-package zoom-window
+    :bind (("C-x C-z" . zoom-window-zoom)))
 
   )
 
