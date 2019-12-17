@@ -174,7 +174,7 @@
        ;; ---------------------------------------------------------------------
        ;; Doom mode line.
        ;; ---------------------------------------------------------------------
-       `(doom-modeline-inactive-bar ((t (:inherit mode-line-inactive))))
+       `(doom-modeline-bar-inactive ((t (:inherit mode-line-inactive))))
 
        ;; ---------------------------------------------------------------------
        ;; Perspective:eyebrowse.

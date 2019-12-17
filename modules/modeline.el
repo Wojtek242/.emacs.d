@@ -48,15 +48,23 @@
     (after-init . doom-modeline-mode)
     :config
     (setq column-number-mode t
-          doom-modeline-height 23
+          doom-modeline-height 25
           doom-modeline-checker-simple-format nil
           doom-modeline-env-python-executable "python3")
+
+    ;; Convenience function for correct active/inactive handling.
+    (defun x-doom-active-switch (str)
+      "Correctly apply active/inactive mode line face to STR."
+      (if (doom-modeline--active)
+          str
+        (propertize str 'face 'mode-line-inactive)))
 
     ;; Custom perspective display - display only the active perspective.
     (doom-modeline-def-segment perspective-name
       "Perspectives list and selection. Requires `persp-mode' to be enabled."
       (if (bound-and-true-p persp-mode)
-          (persp-format-name (persp-name (persp-curr)))
+          (x-doom-active-switch
+           (persp-format-name (persp-name (persp-curr))))
         ""))
 
     ;; Display active python virtualenv.
@@ -67,7 +75,8 @@
     (doom-modeline-def-segment pyvenv-venv
       "Active Python virtualenv. Requires `pyvenv' to be enabled."
       (if (bound-and-true-p pyvenv-virtual-env-name)
-          (propertize pyvenv-virtual-env-name 'face 'pyvenv-active-face)
+          (x-doom-active-switch
+           (propertize pyvenv-virtual-env-name 'face 'pyvenv-active-face))
         ""))
 
     (doom-modeline-def-segment workspace-number
@@ -77,25 +86,26 @@
 
       (if (bound-and-true-p eyebrowse-mode)
           (let* ((num (eyebrowse--get 'current-slot))
-                 (tag (when num (nth 2 (assoc num (eyebrowse--get 'window-configs)))))
+                 (tag (when num
+                        (nth 2 (assoc num (eyebrowse--get 'window-configs)))))
                  (str (if (and tag (< 0 (length tag)))
                           tag
                         (when num (int-to-string num)))))
-            (propertize str 'face 'eyebrowse-mode-line-active))
+            (x-doom-active-switch
+             (propertize str 'face 'eyebrowse-mode-line-active)))
         ""))
 
-    ;; Necessary to play nice with Helm.
-    (add-hook 'helm-minibuffer-set-up-hook
-              (lambda ()
-                (advice-add #'doom-modeline--active :override (lambda () t))))
-    (add-hook 'helm-cleanup-hook
-              (lambda ()
-                (advice-remove #'doom-modeline--active (lambda () t))))
+    (doom-modeline-def-segment left-bracket (x-doom-active-switch "["))
+    (doom-modeline-def-segment right-bracket (x-doom-active-switch "]"))
+    (doom-modeline-def-segment colon (x-doom-active-switch ":"))
 
     ;; Define custom modeline.
     (doom-modeline-def-modeline 'my-line
-      '(bar "[" perspective-name ":" workspace-number "]" window-number matches buffer-info remote-host buffer-position selection-info)
-      '(lsp debug pyvenv-venv major-mode vcs checker bar))
+      '(bar
+        left-bracket perspective-name colon workspace-number right-bracket
+        window-number matches buffer-info remote-host
+        buffer-position selection-info)
+      '(lsp debug pyvenv-venv major-mode vcs checker))
 
     (add-hook 'doom-modeline-mode-hook
               (lambda () (doom-modeline-set-modeline 'my-line 'default))))
