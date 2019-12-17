@@ -53,37 +53,27 @@
           doom-modeline-env-python-executable "python3")
 
     ;; Convenience function for correct active/inactive handling.
-    (defun x-doom-active-switch (str)
-      "Correctly apply active/inactive mode line face to STR."
+    (defun emodule/modeline-inactive-switch (str)
+      "Apply inactive mode line face to STR if necessary."
       (if (doom-modeline--active)
           str
         (propertize str 'face 'mode-line-inactive)))
 
     ;; Custom perspective display - display only the active perspective.
-    (doom-modeline-def-segment perspective-name
-      "Perspectives list and selection. Requires `persp-mode' to be enabled."
+    (defun emodule/modeline-persp ()
+      "Return the formatted perspective name."
       (if (bound-and-true-p persp-mode)
-          (x-doom-active-switch
-           (persp-format-name (persp-name (persp-curr))))
+          (persp-format-name (persp-name (persp-curr)))
         ""))
 
-    ;; Display active python virtualenv.
-    (defface pyvenv-active-face
-      '((t (:inherit persp-selected-face)))
-      "The face used to highlight the active virtualenv on the modeline.")
+    (doom-modeline-def-segment emodule/modeline-persp-segment
+      "Currently chose perspective."
+      (emodule/modeline-inactive-switch
+       (concat "[" (emodule/modeline-persp) "]")))
 
-    (doom-modeline-def-segment pyvenv-venv
-      "Active Python virtualenv. Requires `pyvenv' to be enabled."
-      (if (bound-and-true-p pyvenv-virtual-env-name)
-          (x-doom-active-switch
-           (propertize pyvenv-virtual-env-name 'face 'pyvenv-active-face))
-        ""))
-
-    (doom-modeline-def-segment workspace-number
-      "The current workspace name or number.
-
-       Requires `eyebrowse-mode' to be enabled."
-
+    ;; The current eyebrowse workspace number.
+    (defun emodule/modeline-eyebrowse ()
+      "Return the currently active eyebrowse workspace."
       (if (bound-and-true-p eyebrowse-mode)
           (let* ((num (eyebrowse--get 'current-slot))
                  (tag (when num
@@ -91,21 +81,57 @@
                  (str (if (and tag (< 0 (length tag)))
                           tag
                         (when num (int-to-string num)))))
-            (x-doom-active-switch
-             (propertize str 'face 'eyebrowse-mode-line-active)))
+             (propertize str 'face 'eyebrowse-mode-line-active))
         ""))
 
-    (doom-modeline-def-segment left-bracket (x-doom-active-switch "["))
-    (doom-modeline-def-segment right-bracket (x-doom-active-switch "]"))
-    (doom-modeline-def-segment colon (x-doom-active-switch ":"))
+    (doom-modeline-def-segment emodule/modeline-eyebrowse-segment
+      "The current workspace name or number."
+      (emodule/modeline-inactive-switch (emodule/modeline-eyebrowse)))
+
+    ;; A combined segment.
+    (doom-modeline-def-segment emodule/modeline-persp-eyebrowse-segment
+      (emodule/modeline-inactive-switch
+       (concat "[" (emodule/modeline-persp)
+               ":" (emodule/modeline-eyebrowse)
+               "]")))
+
+    ;; Display active python virtualenv.
+    (defface pyvenv-active-face
+      '((t (:inherit persp-selected-face)))
+      "The face used to highlight the active virtualenv on the modeline."
+      :group 'emodule/modeline-faces)
+
+    (defun emodule/modeline-pyvenv ()
+      "Return the formatted virtualenv name."
+      (if (bound-and-true-p pyvenv-virtual-env-name)
+          (propertize pyvenv-virtual-env-name 'face 'pyvenv-active-face)
+        ""))
+
+    (doom-modeline-def-segment emodule/modeline-pyvenv-segment
+      "Active Python virtualenv."
+      (emodule/modeline-inactive-switch (emodule/modeline-pyvenv)))
 
     ;; Define custom modeline.
     (doom-modeline-def-modeline 'my-line
       '(bar
-        left-bracket perspective-name colon workspace-number right-bracket
+        emodule/modeline-persp-eyebrowse-segment
         window-number matches buffer-info remote-host
         buffer-position selection-info)
-      '(lsp debug pyvenv-venv major-mode vcs checker))
+      '(lsp debug emodule/modeline-pyvenv-segment major-mode vcs checker))
+
+    ;; Project modeline (used in Dired).
+    (doom-modeline-def-modeline 'project
+      '(bar
+        emodule/modeline-persp-eyebrowse-segment
+        window-number buffer-default-directory)
+      '(debug major-mode process))
+
+    ;; VCS modeline (used in magit).
+    (doom-modeline-def-modeline 'vcs
+      '(bar
+        emodule/modeline-persp-eyebrowse-segment
+        window-number matches buffer-info buffer-position selection-info)
+      '(debug minor-modes buffer-encoding major-mode process))
 
     (add-hook 'doom-modeline-mode-hook
               (lambda () (doom-modeline-set-modeline 'my-line 'default))))
