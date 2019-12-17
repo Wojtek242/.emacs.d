@@ -55,6 +55,7 @@
      ("M-x" . helm-M-x)
      ("M-y" . helm-show-kill-ring)
      ("C-x b" . helm-mini)
+     ("C-x C-b" . helm-mini)
      ("C-M-j" . helm-semantic-or-imenu)
      ("C-h SPC" . helm-all-mark-rings))
     :config
