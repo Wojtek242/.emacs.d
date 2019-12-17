@@ -164,7 +164,8 @@
     :hook
     (vterm-mode . x-vterm-setup)
     :bind
-    (("C-x '" . visit-vterm)))
+    (("C-x C-'" . vterm)
+     ("C-x '" . visit-vterm)))
 
   )
 
