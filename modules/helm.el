@@ -89,13 +89,8 @@
      helm-imenu-fuzzy-match t
      helm-apropos-fuzzy-match t
      helm-lisp-fuzzy-completion t
-     ;; Autoresize settings - by setting max = 0, these settings are used to
-     ;; control the helm window size.
-     helm-autoresize-max-height 0
-     helm-autoresize-min-height 35)
-
-    ;; Enable autoresize to adjust helm window size.
-    (helm-autoresize-mode 1)
+     ;; While auresize is disabled these variable are in use.
+     helm-display-buffer-default-height 0.35)
 
     ;; Hide minibuffer --------------------------------------------------------
 
