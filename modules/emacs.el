@@ -443,8 +443,6 @@
 
   (use-package eyebrowse
     :after perspective
-    :init
-    (setq eyebrowse-keymap-prefix (kbd "C-x C-x"))
     :config
     (require 'eyepersp)
     (setq eyebrowse-default-workspace-slot 0)

@@ -75,13 +75,18 @@
     (defun emodule/modeline-eyebrowse ()
       "Return the currently active eyebrowse workspace."
       (if (bound-and-true-p eyebrowse-mode)
-          (let* ((num (eyebrowse--get 'current-slot))
-                 (tag (when num
-                        (nth 2 (assoc num (eyebrowse--get 'window-configs)))))
-                 (str (if (and tag (< 0 (length tag)))
-                          tag
-                        (when num (int-to-string num)))))
-             (propertize str 'face 'eyebrowse-mode-line-active))
+          (let* ((cur (eyebrowse--get 'current-slot))
+                 (all (mapcar 'car (eyebrowse--get 'window-configs)))
+                 strs)
+            (setq strs
+                  (mapcar (lambda (el)
+                            (if (= cur el)
+                                (propertize (int-to-string el)
+                                            'face
+                                            'eyebrowse-mode-line-active)
+                              (int-to-string el)))
+                          all))
+            (apply 'concat strs))
         ""))
 
     (doom-modeline-def-segment emodule/modeline-eyebrowse-segment
