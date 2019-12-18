@@ -192,9 +192,14 @@
        ;; ---------------------------------------------------------------------
        `(header-line ((t (:background ,*line-header-bg* :foreground ,*line-active-fg*))))
 
+       ;; ---------------------------------------------------------------------
+       ;; Zoom window.
+       ;; ---------------------------------------------------------------------
+       `(zoom-window-mode-line ((t (:background ,*zoom-window-bg*))))
+
        )
 
-      (setq zoom-window-mode-line-color *zoom-window-bg*)
+      (setq zoom-window-mode-line-bg *zoom-window-bg*)
 
       )
 

@@ -33,68 +33,59 @@
   "Zoom window like tmux"
   :group 'windows)
 
-(defcustom zoom-window-mode-line-color "green"
-  "Color of mode-line when zoom-window is enabled."
+(defcustom zoom-window-mode-line-bg (face-background 'mode-line)
+  "The face of the modeline when zoom-window is enabled."
   :type 'string)
 
-(defvar zoom-window--control-block nil)
-(defvar zoom-window--window-configuration (make-hash-table :test #'equal))
-(defvar zoom-window--orig-color nil)
+(cl-defstruct zoom-window-
+  (enabled nil)
+  (mode-line-bg (face-background 'mode-line))
+  (buffers nil)
+  (window-configuration nil))
+(defvar zoom-window--cb (make-zoom-window-))
 
 (defun zoom-window--save-mode-line-color ()
   "Save the original mode line color."
-  (setq zoom-window--orig-color (face-background 'mode-line)))
+  (setf (zoom-window--mode-line-bg zoom-window--cb)
+        (face-background 'mode-line)))
 
 (defun zoom-window--save-buffers ()
   "Save the current buffer list."
   (let ((buffers (cl-loop for window in (window-list)
                           collect (window-buffer window))))
-    (set-frame-parameter (window-frame nil) 'zoom-window-buffers buffers)))
+    (setf (zoom-window--buffers zoom-window--cb) buffers)))
 
 (defun zoom-window--get-buffers ()
   "Get the saved buffer list."
-  (frame-parameter (window-frame nil) 'zoom-window-buffers))
+  (zoom-window--buffers zoom-window--cb))
 
 (defun zoom-window--restore-mode-line-face ()
   "Restore the original mode line face."
-  (let ((color zoom-window--orig-color))
-    (set-face-background 'mode-line color (window-frame nil))))
-
-(defun zoom-window--configuration-key ()
-  "Get the window configuration key."
-  (let ((parent-id (frame-parameter (window-frame nil) 'parent-id)))
-    (if (not parent-id)
-        :zoom-window ;; not support multiple frame
-      (format ":zoom-window-%d" parent-id))))
+  (set-face-background 'mode-line (zoom-window--mode-line-bg zoom-window--cb)))
 
 (defun zoom-window--save-window-configuration ()
   "Save the window configuration."
-  (let ((key (zoom-window--configuration-key))
-        (window-conf (list (current-window-configuration) (point-marker))))
-    (puthash key window-conf zoom-window--window-configuration)))
+    (setf (zoom-window--window-configuration zoom-window--cb)
+          (list (current-window-configuration) (point-marker))))
 
 (defun zoom-window--restore-window-configuration ()
   "Restore the window configuration."
-  (let* ((key (zoom-window--configuration-key))
-         (window-context (gethash key zoom-window--window-configuration 'not-found)))
-    (when (eq window-context 'not-found)
-      (error "Window configuration is not found"))
+  (let* ((window-context (zoom-window--window-configuration zoom-window--cb)))
     (let ((window-conf (cl-first window-context))
           (marker (cl-second window-context)))
       (set-window-configuration window-conf)
       (when (marker-buffer marker)
         (goto-char marker))
-      (remhash key zoom-window--window-configuration))))
+      (setf (zoom-window--window-configuration zoom-window--cb) nil))))
 
 (defun zoom-window--toggle-enabled ()
   "Toggle the enabled flag."
-  (let* ((curframe (window-frame nil))
-         (status (frame-parameter curframe 'zoom-window-enabled)))
-    (set-frame-parameter curframe 'zoom-window-enabled (not status))))
+  (let ((status (zoom-window--enabled zoom-window--cb)))
+    (setf (zoom-window--enabled zoom-window--cb) (not status))))
 
 (defun zoom-window--enable-p ()
   "Return t if zoom is enabled."
-  (frame-parameter (window-frame nil) 'zoom-window-enabled))
+  (zoom-window--enabled zoom-window--cb))
 
 (defsubst zoom-window--goto-line (line)
   "Go to the given LINE in the current buffer."
@@ -113,22 +104,25 @@
     (zoom-window--goto-line current-line)
     (move-to-column current-column)))
 
+(defun zoom-window--do-zoom ()
+  "Zoom window."
+  (zoom-window--save-mode-line-color)
+  (zoom-window--save-buffers)
+  (zoom-window--save-window-configuration)
+  (delete-other-windows)
+  (set-face-background 'mode-line zoom-window-mode-line-bg))
+
 ;;;###autoload
 (defun zoom-window-zoom ()
   "Zoom/un-zoom window."
   (interactive)
-  (let ((enabled (zoom-window--enable-p))
-        (curframe (window-frame nil)))
+  (let ((enabled (zoom-window--enable-p)))
     (if (and (one-window-p) (not enabled))
         (message "There is only one window!!")
       (if enabled
           (with-demoted-errors "Warning: %S"
             (zoom-window--do-unzoom))
-        (zoom-window--save-mode-line-color)
-        (zoom-window--save-buffers)
-        (zoom-window--save-window-configuration)
-        (delete-other-windows)
-        (set-face-background 'mode-line zoom-window-mode-line-color curframe))
+        (zoom-window--do-zoom))
       (force-mode-line-update)
       (zoom-window--toggle-enabled))))
 
