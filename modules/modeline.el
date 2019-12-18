@@ -76,17 +76,14 @@
       "Return the currently active eyebrowse workspace."
       (if (bound-and-true-p eyebrowse-mode)
           (let* ((cur (eyebrowse--get 'current-slot))
-                 (all (mapcar 'car (eyebrowse--get 'window-configs)))
-                 strs)
-            (setq strs
-                  (mapcar (lambda (el)
-                            (if (= cur el)
-                                (propertize (int-to-string el)
-                                            'face
-                                            'eyebrowse-mode-line-active)
-                              (int-to-string el)))
-                          all))
-            (apply 'concat strs))
+                 (all (--map (car it) (eyebrowse--get 'window-configs)))
+                 (str (--map (if (= cur it)
+                                 (propertize (int-to-string it)
+                                             'face
+                                             'eyebrowse-mode-line-active)
+                               (int-to-string it))
+                             all)))
+            (apply 'concat str))
         ""))
 
     (doom-modeline-def-segment emodule/modeline-eyebrowse-segment
