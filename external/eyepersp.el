@@ -25,13 +25,15 @@
 (defvar eyepersp/perspectives nil)
 
 (defun eyepersp/get-persp-parameters (persp)
-  "Return alist of parameters for perspective PERSP.
-If the alist did not exist, create one and initialise the values
-to nil."
+  "Return alist of parameters for perspective PERSP."
   (assoc persp eyepersp/perspectives))
 
+(defun eyepersp/delete-persp-parameters (persp)
+  "Delete PERSP state."
+  (assoc-delete-all persp eyepersp/perspectives))
+
 (defun eyepersp/persp-parameter-cons (param-name persp)
-  "Return value of PARAM-NAME for perspective PERSP.
+  "Return the cons for PARAM-NAME for perspective PERSP.
 If none was set, returns nil."
   (assoc param-name (eyepersp/get-persp-parameters persp)))
 
@@ -54,23 +56,17 @@ If none was set, returns nil."
         (setq param (cadr persp-params))))
     (setcdr param value)))
 
-(defun eyepersp/get-persp-workspace (&optional persp frame)
+(defun eyepersp/get-persp-workspace (&optional persp)
   "Get the correct workspace parameters for perspective.
 PERSP is the perspective, and defaults to the current
-perspective. FRAME is the frame where the parameters are expected
-to be used, and defaults to the current frame."
+perspective."
   (or persp (setq persp (persp-curr)))
-  (let ((param-names (if (display-graphic-p frame)
-                         '(gui-eyebrowse-window-configs
-                           gui-eyebrowse-current-slot
-                           gui-eyebrowse-last-slot)
-                       '(term-eyebrowse-window-configs
-                         term-eyebrowse-current-slot
-                         term-eyebrowse-last-slot))))
+  (let ((param-names '(eyepersp-eyebrowse-window-configs
+                       eyepersp-eyebrowse-current-slot
+                       eyepersp-eyebrowse-last-slot)))
     (--map (eyepersp/persp-parameter it persp) param-names)))
 
-(defun eyepersp/set-persp-workspace (workspace-params
-                                        &optional persp frame)
+(defun eyepersp/set-persp-workspace (workspace-params &optional persp)
   "Set workspace parameters for perspective.
 WORKSPACE-PARAMS should be a list containing 3 elements in
 this order:
@@ -78,40 +74,30 @@ this order:
  - current-slot, as returned by (eyebrowse--get 'current-slot)
  - last-slot, as returned by (eyebrowse--get 'last-slot)
 PERSP is the perspective, and defaults to the current
-perspective. FRAME is the frame where the parameters came from,
-and defaults to the current frame. Each perspective has two sets
-of workspace parameters: one set for graphical frames, and one
-set for terminal frames."
+perspective."
   (or persp (setq persp (persp-curr)))
-  (let ((param-names (if (display-graphic-p frame)
-                         '(gui-eyebrowse-window-configs
-                           gui-eyebrowse-current-slot
-                           gui-eyebrowse-last-slot)
-                       '(term-eyebrowse-window-configs
-                         term-eyebrowse-current-slot
-                         term-eyebrowse-last-slot))))
+  (let ((param-names '(eyepersp-eyebrowse-window-configs
+                       eyepersp-eyebrowse-current-slot
+                       eyepersp-eyebrowse-last-slot)))
     (--zip-with (eyepersp/set-persp-parameter it other persp)
                 param-names workspace-params)))
 
-(defun eyepersp/load-eyebrowse-for-perspective (&optional frame)
+(defun eyepersp/load-eyebrowse-for-perspective ()
   "Load an eyebrowse workspace according to a perspective's parameters.
-FRAME's perspective is the perspective that is considered,
-defaulting to the current frame's perspective. If the perspective
-doesn't have a workspace, create one."
-  (let* ((workspace-params
-          (eyepersp/get-persp-workspace (persp-curr frame) frame))
+If the perspective doesn't have a workspace, create one."
+  (let* ((workspace-params (eyepersp/get-persp-workspace))
          (window-configs (nth 0 workspace-params))
          (current-slot (nth 1 workspace-params))
          (last-slot (nth 2 workspace-params)))
     (if window-configs
         (progn
-          (eyebrowse--set 'window-configs window-configs frame)
-          (eyebrowse--set 'current-slot current-slot frame)
-          (eyebrowse--set 'last-slot last-slot frame)
+          (eyebrowse--set 'window-configs window-configs)
+          (eyebrowse--set 'current-slot current-slot)
+          (eyebrowse--set 'last-slot last-slot)
           (eyebrowse--load-window-config current-slot))
-      (eyebrowse--set 'window-configs nil frame)
-      (eyebrowse-init frame)
-      (eyepersp/save-eyebrowse-for-perspective frame))))
+      (eyebrowse--set 'window-configs nil)
+      (eyebrowse-init)
+      (eyepersp/save-eyebrowse-for-perspective))))
 
 (defun eyepersp/update-eyebrowse-for-perspective (&rest _args)
   "Update and save current frame's eyebrowse workspace to its perspective."
@@ -122,15 +108,13 @@ doesn't have a workspace, create one."
      (eyebrowse--current-window-config current-slot current-tag)))
   (eyepersp/save-eyebrowse-for-perspective))
 
-(defun eyepersp/save-eyebrowse-for-perspective (&optional frame)
+(defun eyepersp/save-eyebrowse-for-perspective ()
   "Save FRAME's eyebrowse workspace to FRAME's perspective.
 FRAME defaults to the current frame."
-  (eyepersp/set-persp-workspace (list
-                                    (eyebrowse--get 'window-configs frame)
-                                    (eyebrowse--get 'current-slot frame)
-                                    (eyebrowse--get 'last-slot frame))
-                                   (persp-curr frame)
-                                   frame))
+  (eyepersp/set-persp-workspace (list (eyebrowse--get 'window-configs)
+                                      (eyebrowse--get 'current-slot)
+                                      (eyebrowse--get 'last-slot))
+                                (persp-curr)))
 
 (add-hook 'persp-before-switch-hook
           #'eyepersp/update-eyebrowse-for-perspective)
@@ -138,6 +122,8 @@ FRAME defaults to the current frame."
           #'eyepersp/save-eyebrowse-for-perspective)
 (add-hook 'persp-activated-hook
           #'eyepersp/load-eyebrowse-for-perspective)
+(add-hook 'persp-killed-hook
+          (lambda () (eyepersp/delete-persp-parameters (persp-curr))))
 
 (provide 'eyepersp)
 ;;; eyepersp.el ends here
