@@ -80,14 +80,15 @@
    whitespace-line-column fill-column)
 
   ;; Backup settings.
-  (defvar backup-directory "~/.emacs.d/.backups")
+  (defvar backup-directory
+    (concat (file-name-as-directory user-emacs-directory) "backups"))
   (if (not (file-exists-p backup-directory))
       (make-directory backup-directory t))
 
   (setq-default
    ;; Backup a file the first time it is saved.
    make-backup-files t
-   ;; Save backup files in ~/.emacs.d/.backups.
+   ;; Save backup files in <user-emacs-directory>/.backups.
    backup-directory-alist `((".*" . ,backup-directory))
    ;; Copy the current file into backup directory.
    backup-by-copying t
@@ -571,9 +572,6 @@
   (use-package smartparens
     :config
     (require 'smartparens-config)
-
-    (sp-with-modes '(c-mode c++-mode)
-      (sp-local-pair "<" ">"))
 
     (smartparens-global-mode t)
     (show-smartparens-global-mode t)

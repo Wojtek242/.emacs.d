@@ -19,12 +19,12 @@ and removal.
   Import the package:
 
   #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/emodule")
+  (add-to-list 'load-path (concat (file-name-as-directory user-emacs-directory) "emodule"))
   (require 'emodule)
   #+END_SRC
 
   Define one or more modules in the modules directory (by default
-  =~/.emacs.d/modules=).  The module =MODULE=, is expected to be
+  =<user-emacs-directory>/modules=).  The module =MODULE=, is expected to be
   defined in a file called =MODULE.el= which will define the list of
   required packages in ~emodule/MODULE-packages~ and any accompanying
   initialisation in the function ~emodule/MODULE-init~.

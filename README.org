@@ -45,7 +45,7 @@
   Clone this repository into your home directory:
 
   #+BEGIN_SRC
-  $ git clone https://github.com/Wojtek242/.emacs.d ~/.emacs.d
+  $ git clone https://github.com/Wojtek242/.emacs.d ~/.config/emacs
   #+END_SRC
 
   This configuration uses the [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] font. If you do not have it

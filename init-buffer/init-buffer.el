@@ -15,7 +15,9 @@
 ;;
 ;;; Code:
 
-(defconst init-buffer/banner-file "~/.emacs.d/init-buffer/blue-robot.png"
+(defconst init-buffer/banner-file
+  (concat (file-name-as-directory user-emacs-directory)
+          "init-buffer/blue-robot.png")
   "Location of the banner image to use.")
 
 (defconst init-buffer/name "*GNU Emacs*"

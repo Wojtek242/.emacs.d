@@ -62,8 +62,8 @@
     ;; ------------------------------------------------------------------------
 
     (setq
-     ;; Hide special characters for italics/bold/underline.
-     org-hide-emphasis-markers t
+     ;; Do not hide special characters for italics/bold/underline.
+     org-hide-emphasis-markers nil
      ;; Open org files unfolded
      org-startup-folded nil
      ;; Catch edits in invisible areas (space after the ellipsis ...)

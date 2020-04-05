@@ -18,6 +18,14 @@
 (let ((gc-cons-threshold most-positive-fixnum))
 
   ;; --------------------------------------------------------------------------
+  ;; Helper function to get correct configuration directory.
+  ;; --------------------------------------------------------------------------
+
+  (defun emacs-dir (rel)
+    "Obtain full path to REL."
+    (concat (file-name-as-directory user-emacs-directory) rel))
+
+  ;; --------------------------------------------------------------------------
   ;; Initialise and setup `package'.
   ;; --------------------------------------------------------------------------
 
@@ -27,13 +35,13 @@
   (package-initialize)
 
   ;; External .el files that are not available from MELPA.
-  (add-to-list 'load-path "~/.emacs.d/external/")
+  (add-to-list 'load-path (emacs-dir "external"))
 
   ;; --------------------------------------------------------------------------
   ;; Load `emodule'.
   ;; --------------------------------------------------------------------------
 
-  (add-to-list 'load-path "~/.emacs.d/emodule")
+  (add-to-list 'load-path (emacs-dir "emodule"))
   (require 'emodule)
 
   ;; --------------------------------------------------------------------------
@@ -66,8 +74,8 @@
   ;; Theme --------------------------------------------------------------------
 
   ;; Add the necessary paths.
-  (add-to-list 'load-path "~/.emacs.d/themes/")
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+  (add-to-list 'load-path (emacs-dir "themes"))
+  (add-to-list 'custom-theme-load-path (emacs-dir "themes"))
 
   ;; Load the dark theme by default.
   (load-theme 'havoc-dark t) ;; Load personal theme
@@ -75,7 +83,7 @@
   ;; Splash screen ------------------------------------------------------------
 
   ;; Add path.
-  (add-to-list 'load-path "~/.emacs.d/init-buffer")
+  (add-to-list 'load-path (emacs-dir "init-buffer"))
   (require 'init-buffer)
 
   ;; Set the initial buffer.
@@ -85,7 +93,7 @@
   ;; Change file in which custom variable changes are saved.
   ;; --------------------------------------------------------------------------
 
-  (setq-default custom-file "~/.emacs.d/custom.el")
+  (setq-default custom-file (emacs-dir "custom.el"))
 
 
   ;; *********************************************************************** ;;
@@ -141,5 +149,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(put 'narrow-to-region 'disabled nil)
-(put 'downcase-region 'disabled nil)

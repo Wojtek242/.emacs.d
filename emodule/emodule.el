@@ -55,7 +55,8 @@ may fix the problem.  Note that subsequent attempts are only made
 after attempting to install all other packages first."
   :type 'integer)
 
-(defcustom emodule/modules-dir "~/.emacs.d/modules/"
+(defcustom emodule/modules-dir
+  (concat (file-name-as-directory user-emacs-directory) "modules")
   "Directory in which module files are to be found."
   :type 'string)
 
@@ -183,7 +184,7 @@ dependency of one that is."
   (let ((needed (cl-loop for p in pkgs
                          if (assq p package-alist)
                          ;; `p' and its dependencies are needed.
-                         append (cons p (package--get-deps p)))))
+                         append (cons p (package--get-deps (list p))))))
     (cl-loop for p in (mapcar #'car package-alist)
              unless (memq p needed)
              collect p)))
@@ -301,7 +302,7 @@ this macro."
   "Create a backup of the elpa directory in elpa.tar.xz."
   (interactive)
   (message "Backing up elpa...")
-  (let* ((default-directory "~/.emacs.d")
+  (let* ((default-directory user-emacs-directory)
          (dir "elpa")
          (archive (format "%s.tar.xz" dir)))
     (emodule/unset-logs-read-only)
@@ -328,7 +329,7 @@ this macro."
   "Restore elpa directory state from backup."
   (interactive)
   (message "Restoring elpa...")
-  (let* ((default-directory "~/.emacs.d")
+  (let* ((default-directory user-emacs-directory)
          (dir "elpa")
          (dir-bkp (format "%s.bkp" dir))
          (archive (format "%s.tar.xz" dir)))
