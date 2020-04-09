@@ -59,7 +59,7 @@ Internal use, do not set this variable.")
     map)
   "Keymap for initial buffer mode.")
 
-(define-derived-mode init-buffer-mode fundamental-mode "Initial buffer"
+(define-derived-mode init-buffer-mode fundamental-mode "Init"
   "Major mode for startup screen."
   :group 'init-buffer
   :syntax-table nil
