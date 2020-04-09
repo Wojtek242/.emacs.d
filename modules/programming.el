@@ -306,7 +306,8 @@
     :commands lsp-ui-mode
     :init
     (setq lsp-ui-doc-enable nil
-          lsp-prefer-flymake nil
+          lsp-diagnostic-package :flycheck
+          lsp-flycheck-live-reporting nil
           lsp-ui-sideline-enable nil)
     :config
     (define-key lsp-ui-mode-map
