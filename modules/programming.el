@@ -298,16 +298,19 @@
 
   (use-package lsp-mode
     :commands lsp
+    :init
+    (setq lsp-diagnostic-package :flycheck
+          lsp-flycheck-live-reporting nil
+          lsp-signature-auto-activate t
+          lsp-signature-doc-lines 1
+          lsp-enable-indentation nil)
     :config
-    (require 'lsp-clients)
-    (setq lsp-enable-indentation nil))
+    (require 'lsp-clients))
 
   (use-package lsp-ui
     :commands lsp-ui-mode
     :init
     (setq lsp-ui-doc-enable nil
-          lsp-diagnostic-package :flycheck
-          lsp-flycheck-live-reporting nil
           lsp-ui-sideline-enable nil)
     :config
     (define-key lsp-ui-mode-map
