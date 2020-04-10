@@ -20,8 +20,7 @@
 
 (defvar emodule/languages-packages
 
-  '(
-    ;; C/C++
+  '(;; C/C++
     ccls
     ;; Dockerfile
     dockerfile-mode
