@@ -22,8 +22,7 @@
 ;;; Code:
 
 (require 'package)
-(with-no-warnings
-  (require 'cl))
+(require 'cl-lib)
 
 (defgroup emodule nil
   "Further automate working with `package'"
@@ -214,7 +213,7 @@ DESIRED-PKGS unless NO-SET-SELECTED is non-nil"
         (install-pkgs nil))
     (while (and (< attempt emodule/install-attempts)
                 (setq install-pkgs
-                      (remove-if #'package-installed-p desired-pkgs)))
+                      (cl-remove-if #'package-installed-p desired-pkgs)))
       (if (= attempt 0)
           (progn
             (emodule/print-log "*** Install packages ***")
@@ -226,7 +225,7 @@ DESIRED-PKGS unless NO-SET-SELECTED is non-nil"
       (setq attempt (1+ attempt))))
 
   ;; Print an error message if not all packages were installed.
-  (let ((failed-pkgs (remove-if #'package-installed-p desired-pkgs)))
+  (let ((failed-pkgs (cl-remove-if #'package-installed-p desired-pkgs)))
     (when failed-pkgs
       (emodule/print-error-log
        "*** WARNING: NOT ALL PACKAGES WERE INSTALLED ***")
