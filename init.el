@@ -59,11 +59,6 @@
     (set-face-attribute 'italic nil           ;; Emacs does not set italic face
                         :family (concat font-name "-Italic")))
 
-  ;; Fullscreen ---------------------------------------------------------------
-
-  (toggle-frame-maximized)
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
   ;; Visual clutter -----------------------------------------------------------
 
   (scroll-bar-mode -1)
