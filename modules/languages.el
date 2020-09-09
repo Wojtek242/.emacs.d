@@ -26,6 +26,8 @@
     dockerfile-mode
     ;; P4
     xcscope
+    ;; PlantUML
+    plantuml-mode
     ;; Protobuf
     protobuf-mode
     ;; Python
@@ -105,6 +107,16 @@
   ;; Note needs xcscope
   (use-package p4_16-mode
     :mode "\\.p4\\'")
+
+  ;; --------------------------------------------------------------------------
+  ;; PlantUML.
+  ;; --------------------------------------------------------------------------
+
+  (use-package plantuml-mode
+    :mode "\\.pu\\'"
+    :init
+    (setq plantuml-default-exec-mode 'executable)
+    (setq plantuml-output-type "png"))
 
   ;; --------------------------------------------------------------------------
   ;; Protobuf.
