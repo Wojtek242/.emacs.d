@@ -716,6 +716,7 @@
 
           (*helm-directory*    *normal-standout*)
           (*helm-exec*         *string*)
+          (*helm-file-ext*     *success*)
           (*helm-line-number*  *highlight-2*)
           (*helm-prefix*       *normal-standout*)
           (*helm-process*      *normal-standout*)
@@ -761,6 +762,7 @@
        `(helm-ff-dotted-symlink-directory ((t (:background ,*helm-bg* :foreground ,*helm-symlink* :weight bold))))
        `(helm-ff-executable ((t (:background ,*helm-bg* :foreground ,*helm-exec* :weight normal))))
        `(helm-ff-file ((t (:background ,*helm-bg* :foreground ,*helm-fg* :weight normal))))
+       `(helm-ff-file-extension ((t (:background ,*helm-bg* :foreground ,*helm-file-ext* :weight normal))))
        `(helm-ff-invalid-symlink ((t (:background ,*helm-bg* :foreground ,*helm-warning* :weight bold))))
        `(helm-ff-prefix ((t (:background ,*helm-prefix* :foreground ,*helm-bg* :weight normal))))
        `(helm-ff-symlink ((t (:background ,*helm-bg* :foreground ,*helm-symlink* :weight bold))))
