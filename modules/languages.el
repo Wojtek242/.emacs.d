@@ -20,8 +20,11 @@
 
 (defvar emodule/languages-packages
 
-  '(;; C/C++
+  '(;; CMake
+    cmake-mode
+    ;; C/C++
     ccls
+    clang-format
     ;; Dockerfile
     dockerfile-mode
     ;; P4
@@ -58,6 +61,13 @@
     :mode ("\\.g4\\'" . antlr-v4-mode))
 
   ;; --------------------------------------------------------------------------
+  ;; CMake.
+  ;; --------------------------------------------------------------------------
+
+  (use-package cmake-mode
+    :defer t)
+
+  ;; --------------------------------------------------------------------------
   ;; C/C++.
   ;; --------------------------------------------------------------------------
 
@@ -67,6 +77,14 @@
 
   (setq-default c-default-style "linux"
                 c-basic-offset 4)
+
+  (use-package clang-format
+    :bind (:map c-mode-map
+                ("C-c C-f" . clang-format-buffer)
+           :map c++-mode-map
+                ("C-c C-f" . clang-format-buffer)
+           :map objc-mode-map
+                ("C-c C-f" . clang-format-buffer)))
 
   ;; --------------------------------------------------------------------------
   ;; Dockerfile.
