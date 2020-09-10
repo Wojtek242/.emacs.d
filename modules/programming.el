@@ -303,9 +303,7 @@
           lsp-flycheck-live-reporting nil
           lsp-signature-auto-activate t
           lsp-signature-doc-lines 1
-          lsp-enable-indentation nil)
-    :config
-    (require 'lsp-clients))
+          lsp-enable-indentation nil))
 
   (use-package lsp-ui
     :commands lsp-ui-mode
