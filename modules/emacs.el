@@ -31,6 +31,7 @@
     highlight-parentheses
     ibuffer-vc
     iedit
+    impatient-mode
     pdf-tools
     perspective
     projectile
@@ -518,6 +519,23 @@
     :hook
     ((mail-mode . auto-fill-mode)
      (mail-mode . (lambda () (setq fill-column 71)))))
+
+  ;; --------------------------------------------------------------------------
+  ;; `impatient-mode'
+  ;; --------------------------------------------------------------------------
+
+  ;; To preview markdown, start an HTTP daemon `httpd-start' and enable
+  ;; `impatient-mode'. Then, in a browser, visit http://localhost:8080/imp.
+  (defun markdown-html (buffer)
+    (princ (with-current-buffer buffer
+             (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>"
+                     (buffer-substring-no-properties (point-min)
+                                                     (point-max))))
+           (current-buffer)))
+
+  (use-package impatient-mode
+    :hook ((markdown-mode . (lambda () (setq imp-user-filter
+                                             'markdown-html)))))
 
   ;; --------------------------------------------------------------------------
   ;; `pdf-tools' - use instead of DocView.

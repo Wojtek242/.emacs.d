@@ -299,11 +299,11 @@
   (use-package lsp-mode
     :commands lsp
     :init
-    (setq lsp-diagnostic-package :flycheck
-          lsp-flycheck-live-reporting nil
+    (setq lsp-diagnostics-provider :flycheck
           lsp-signature-auto-activate t
           lsp-signature-doc-lines 1
-          lsp-enable-indentation nil))
+          lsp-enable-indentation nil
+          lsp-file-watch-threshold 10000))
 
   (use-package lsp-ui
     :commands lsp-ui-mode
