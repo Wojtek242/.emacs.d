@@ -32,9 +32,9 @@
 (defun emodule/helm-init ()
   "Initialise the `helm' module."
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; `ace-jump-helm-line'
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
   (use-package ace-jump-helm-line
     :after helm
@@ -42,9 +42,9 @@
     (:map helm-map
           ("C-'" . ace-jump-helm-line)))
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; `helm'
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
   (use-package helm
     :init
@@ -61,15 +61,15 @@
     :config
     (helm-mode 1)
 
-    ;; Helm prefix ------------------------------------------------------------
+    ;; Helm prefix ---------------------------------------------------------------------------------
 
-    ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-    ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-    ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+    ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs. Changed to "C-c h". Note:
+    ;; We must set "C-c h" globally, because we cannot change `helm-command-prefix-key' once
+    ;; `helm-config' is loaded.
     (global-set-key (kbd "C-c h") 'helm-command-prefix)
     (global-unset-key (kbd "C-x c"))
 
-    ;; Helm settings ----------------------------------------------------------
+    ;; Helm settings -------------------------------------------------------------------------------
 
     (setq-default
      ;; Open helm buffer inside current window, not occupy whole other window.
@@ -93,7 +93,7 @@
      ;; While auresize is disabled these variable are in use.
      helm-display-buffer-default-height 0.35)
 
-    ;; Hide minibuffer --------------------------------------------------------
+    ;; Hide minibuffer -----------------------------------------------------------------------------
 
     (defun x-helm-hide-minibuffer-maybe ()
       "Hide minibuffer in Helm session if we use the header line
@@ -108,7 +108,7 @@
 
     (add-hook 'helm-minibuffer-set-up-hook 'x-helm-hide-minibuffer-maybe)
 
-    ;; Key-bindings -----------------------------------------------------------
+    ;; Key-bindings --------------------------------------------------------------------------------
 
     ;; Rebind tab to run persistent action.
     (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
@@ -116,21 +116,21 @@
     ;; List actions using C-z.
     (define-key helm-map (kbd "C-z") 'helm-select-action)
 
-    ;; Change some Helm default key-bindings.  Due to the `helm-config' require
-    ;; these have to overridden here rather than with other keys in `:bind'.
+    ;; Change some Helm default key-bindings. Due to the `helm-config' require these have to
+    ;; overridden here rather than with other keys in `:bind'.
     (global-set-key (kbd "C-c h x") 'helm-register)
     (global-set-key (kbd "C-c h M-o") 'helm-occur))
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; `helm-flyspell'
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
   (use-package helm-flyspell
     :bind (("C-c C-'" . helm-flyspell-correct)))
 
-  ;; ------------------------------------------------------------------------
+  ;; ---------------------------------------------------------------------------------------------
   ;; `helm-projectile'
-  ;; ------------------------------------------------------------------------
+  ;; ---------------------------------------------------------------------------------------------
 
   (use-package helm-projectile
     :after projectile
@@ -138,9 +138,9 @@
     (setq-default projectile-completion-system 'helm)
     (helm-projectile-on))
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; `swiper-helm'
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
   (use-package swiper-helm
     :after helm

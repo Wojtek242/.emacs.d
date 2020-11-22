@@ -13,7 +13,7 @@
 ;;; Commentary:
 ;;
 ;; This package serves to help further automate package management with
-;; `package'.  The aim of this package is to expose a simple API which when
+;; `package'. The aim of this package is to expose a simple API which when
 ;; provided with a list of desired packages will (i) install them and remove
 ;; any redundant packages, (ii) upgrade them, (iii) restore previous state.
 ;;
@@ -42,15 +42,15 @@ This buffer will be erased whenever
 
 (defcustom emodule/error-log "*EModule-Error-Log*"
   "Buffer to which error logs will be printed by `emodule'.
-This buffer will be erased whenever
-\\[emodule/install-packages] is called."
+This buffer will be erased whenever \\[emodule/install-packages]
+is called."
   :type 'string)
 
 (defcustom emodule/install-attempts 2
   "How many times to attempt a package installation.
 This only matters if for some reason a package fails to install
-on the first attempt.  Sometimes re-attempting the installation
-may fix the problem.  Note that subsequent attempts are only made
+on the first attempt. Sometimes re-attempting the installation
+may fix the problem. Note that subsequent attempts are only made
 after attempting to install all other packages first."
   :type 'integer)
 
@@ -162,11 +162,11 @@ Log errors to `emodule/error-log'."
 
 (defun emodule/delete-pkgs (delete-pkgs)
   "Delete all packages in DELETE-PKGS.
-This will attempt to delete all installed versions.  Log errors
-to `emodule/error-log'.  This assumes all DELETE-PKGS can
-be removed, including packages that are dependencies as it is
-assumed they would not be dependencies once all packages in
-DELETE-PKGS are removed."
+This will attempt to delete all installed versions. Log errors to
+`emodule/error-log'. This assumes all DELETE-PKGS can be removed,
+including packages that are dependencies as it is assumed they
+would not be dependencies once all packages in DELETE-PKGS are
+removed."
   (dolist (p delete-pkgs nil)
     (emodule/print-deleting p)
     (condition-case err
@@ -192,9 +192,9 @@ dependency of one that is."
   "Install DESIRED-PKGS and remove redundant packages.
 First, any missing packages will be installed followed by the
 deletion of all packages that are not dependencies of anything in
-DESIRED-PKGS.  Information logs will be printed to the
-`emodule/log' buffer whilst error messages will be printed
-to the `emodule/error-log' buffer.  Finally the
+DESIRED-PKGS. Information logs will be printed to the
+`emodule/log' buffer whilst error messages will be printed to the
+`emodule/error-log' buffer. Finally the
 `package-selected-packages' custom variable will be set to
 DESIRED-PKGS unless NO-SET-SELECTED is non-nil"
 
@@ -219,8 +219,7 @@ DESIRED-PKGS unless NO-SET-SELECTED is non-nil"
             (emodule/print-log "*** Install packages ***")
             (emodule/print-log "--- Refreshing package archives ---")
             (package-refresh-contents))
-        (emodule/print-log
-         "--- Re-attempt installation of failed packages ---"))
+        (emodule/print-log "--- Re-attempt installation of failed packages ---"))
       (emodule/install-pkgs install-pkgs)
       (setq attempt (1+ attempt))))
 
@@ -248,9 +247,7 @@ DESIRED-PKGS unless NO-SET-SELECTED is non-nil"
   "Load all definitions for module MOD.
 This function expects the module to be located in a file called
 MOD.el in the `emodule/modules-dir' directory."
-  (load (expand-file-name (format "%s/%s.el"
-                                  emodule/modules-dir
-                                  (symbol-name mod)))))
+  (load (expand-file-name (format "%s/%s.el" emodule/modules-dir (symbol-name mod)))))
 
 (defun emodule/load-module-list (modlist)
   "Load all modules in MODLIST."
@@ -305,8 +302,7 @@ this macro."
          (dir "elpa")
          (archive (format "%s.tar.xz" dir)))
     (emodule/unset-logs-read-only)
-    (emodule/print (format "*** Backing up %s into %s ***\n" dir archive)
-                   emodule/log)
+    (emodule/print (format "*** Backing up %s into %s ***\n" dir archive) emodule/log)
     (let* ((cmd (format "XZ_OPT=-9 tar -cJf %s %s" archive dir))
            (res (shell-command cmd nil emodule/error-log)))
       (unless (zerop res)
@@ -333,8 +329,7 @@ this macro."
          (dir-bkp (format "%s.bkp" dir))
          (archive (format "%s.tar.xz" dir)))
     (emodule/unset-logs-read-only)
-    (emodule/print (format "*** Restoring %s back from %s ***\n" dir archive)
-                   emodule/log)
+    (emodule/print (format "*** Restoring %s back from %s ***\n" dir archive) emodule/log)
     (when (file-directory-p dir)
       (emodule/clean-move-dir dir dir-bkp))
     (let* ((cmd (format "tar -xJf %s" archive))

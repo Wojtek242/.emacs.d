@@ -30,13 +30,12 @@
 (defun emodule/vcs-init ()
   "Initialise the `vcs' module."
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; `diff-hl'
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
-  ;; The `magit-post-refresh-hook' doesn't work very well if it's not the
-  ;; first in the list of hooks.  Therefore, we guarantee that in a hacky way
-  ;; by loading it after 0 seconds of idle time.
+  ;; The `magit-post-refresh-hook' doesn't work very well if it's not the first in the list of
+  ;; hooks. Therefore, we guarantee that in a hacky way by loading it after 0 seconds of idle time.
   (use-package diff-hl
     :defer 0
     :config
@@ -44,9 +43,9 @@
     (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
     (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; `diff-mode'
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
   (use-package diff-mode
     :init
@@ -68,10 +67,10 @@
 
     :config
 
-    ;; Extra functions --------------------------------------------------------
+    ;; Extra functions -----------------------------------------------------------------------------
 
-    ;; Display source in other window whilst keeping point in the diff file.
-    ;; Based on the code for `diff-goto-source.
+    ;; Display source in other window whilst keeping point in the diff file. Based on the code for
+    ;; `diff-goto-source.
     (defun x-diff-display-source (&optional other-file event)
       "Display the corresponding source line in another window.
     `diff-jump-to-old-file' (or its opposite if the OTHER-FILE
@@ -82,9 +81,8 @@
     invocations."
 
       (interactive (list current-prefix-arg last-input-event))
-      ;; When pointing at a removal line, we probably want to jump to
-      ;; the old location, and else to the new (i.e. as if reverting).
-      ;; This is a convenient detail when using smerge-diff.
+      ;; When pointing at a removal line, we probably want to jump to the old location, and else to
+      ;; the new (i.e. as if reverting). This is a convenient detail when using smerge-diff.
       (if event (posn-set-point (event-end event)))
       (let ((rev (not (save-excursion (beginning-of-line)
                                       (looking-at "[-<]")))))
@@ -96,7 +94,7 @@
               (goto-char (+ (car pos) (cdr src)))
               (diff-hunk-status-msg line-offset (diff-xor rev switched) t))))))
 
-    ;; Key-bindings -----------------------------------------------------------
+    ;; Key-bindings --------------------------------------------------------------------------------
 
     ;; This shadows new global key-binding for other-window.
     (define-key diff-mode-map (kbd "M-o") nil)
@@ -105,17 +103,17 @@
     ;; source in another window.
     (define-key diff-mode-map (kbd "C-o") 'x-diff-display-source))
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; `ediff'
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
   (setq ediff-diff-options "-w"
         ediff-split-window-function 'split-window-horizontally
         ediff-window-setup-function 'ediff-setup-windows-plain)
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; Load and configure `magit'.
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
   (use-package magit
     :bind

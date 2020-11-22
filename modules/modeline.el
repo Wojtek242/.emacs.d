@@ -29,19 +29,18 @@
 (defun emodule/modeline-init ()
   "Initialise the `modeline' module."
 
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
   ;; `anzu'
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
 
   (use-package anzu
     :config
     (global-anzu-mode 1))
 
-  ;; --------------------------------------------------------------------------
-  ;; `doom-modeline' - note that doom-modeline requires all-the-icons which in
-  ;; turn require the user to manually install the fonts with the command `M-x
-  ;; all-the-icons-install-fonts'.
-  ;; --------------------------------------------------------------------------
+  ;; -----------------------------------------------------------------------------------------------
+  ;; `doom-modeline' - note that doom-modeline requires all-the-icons which in turn require the user
+  ;; to manually install the fonts with the command `M-x all-the-icons-install-fonts'.
+  ;; -----------------------------------------------------------------------------------------------
 
   (use-package doom-modeline
     :hook
