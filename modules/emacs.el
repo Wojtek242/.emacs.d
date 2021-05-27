@@ -736,6 +736,7 @@
 
   (use-package whole-line-or-region
     :config
+    (define-key whole-line-or-region-local-mode-map [remap comment-dwim] nil)
     (whole-line-or-region-global-mode t))
 
   ;; --------------------------------------------------------------------------
