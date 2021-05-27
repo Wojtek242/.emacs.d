@@ -63,8 +63,8 @@
   (setq-default
    ;; This slows down cursor scrolling.
    auto-window-vscroll nil
-   ;; Standard fill-column width - last character is for end of line glyph.
-   fill-column 79
+   ;; Standard fill-column width.
+   fill-column 100
    ;; Do not use tab characters for indentation.
    indent-tabs-mode nil
    ;; Kill whole line when point at beginning of line.
