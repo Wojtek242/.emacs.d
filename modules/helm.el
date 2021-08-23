@@ -22,6 +22,7 @@
   '(ace-jump-helm-line
     helm
     helm-flyspell
+    helm-lsp
     helm-projectile
     swiper-helm)
 
@@ -127,6 +128,13 @@
 
   (use-package helm-flyspell
     :bind (("C-c C-'" . helm-flyspell-correct)))
+
+  ;; -----------------------------------------------------------------------------------------------
+  ;; `helm-lsp'
+  ;; -----------------------------------------------------------------------------------------------
+
+  (use-package helm-lsp
+    :after (helm lsp-mode))
 
   ;; ---------------------------------------------------------------------------------------------
   ;; `helm-projectile'
