@@ -22,7 +22,6 @@
 
   '(company
     company-c-headers
-    company-lsp
     fic-mode
     flycheck
     flycheck-pos-tip
@@ -188,11 +187,6 @@
     (setq company-backends (delete 'company-clang company-backends))
     (setq company-backends (delete 'company-dabbrev company-backends))
     (setq company-backends (delete 'company-capf company-backends)))
-
-  (use-package company-lsp
-    :commands company-lsp
-    :config
-    (setq company-lsp-cache-candidates 'auto))
 
   ;; -----------------------------------------------------------------------------------------------
   ;; `compile'
