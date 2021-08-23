@@ -440,7 +440,7 @@
   (use-package eyebrowse
     :after perspective
     :config
-    (require 'eyepersp)
+    ;; (require 'eyepersp)
     (setq eyebrowse-default-workspace-slot 0)
     (eyebrowse-mode))
 
