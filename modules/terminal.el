@@ -146,7 +146,7 @@
       (interactive)
       (if (string= "vterm-mode" major-mode)
           (if (term-check-proc (buffer-name))
-              (vterm-other-window)
+              (vterm-other-window t)
             (x-vterm-recycle))
         (let ((anon-term (seq-find (lambda (buffer)
                                      (with-current-buffer buffer
