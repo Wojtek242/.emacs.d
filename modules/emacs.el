@@ -153,7 +153,13 @@
 
   (add-hook 'minibuffer-setup-hook (lambda () (setq gc-cons-threshold most-positive-fixnum)))
 
-  (add-hook 'minibuffer-exit-hook (lambda () (setq gc-cons-threshold 800000)))
+  (add-hook 'minibuffer-exit-hook (lambda () (setq gc-cons-threshold 100000000)))
+
+  ;; -----------------------------------------------------------------------------------------------
+  ;; Increase the amount of data which Emacs reads from the process.
+  ;; -----------------------------------------------------------------------------------------------
+
+  (setq read-process-output-max (* 1024 1024)) ;; 1 MB
 
   ;; -----------------------------------------------------------------------------------------------
   ;; Additional key-bindings.

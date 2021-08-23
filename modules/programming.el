@@ -179,12 +179,12 @@
           ("C-p" . company-select-previous))
     :config
     (setq company-idle-delay 0
-          company-minimum-prefix-length 3
+          company-minimum-prefix-length 1
           company-tooltip-align-annotations t)
     ;; For this to correctly complete headers, need to add all include paths to
     ;; `company-c-headers-path-system'.
     (add-to-list 'company-backends 'company-c-headers)
-    (setq company-backends (delete 'company-clang company-backends))
+    ;; (setq company-backends (delete 'company-clang company-backends))
     (setq company-backends (delete 'company-dabbrev company-backends))
     (setq company-backends (delete 'company-capf company-backends)))
 
@@ -294,21 +294,17 @@
     :commands lsp
     :init
     (setq lsp-diagnostics-provider :flycheck
-          lsp-signature-auto-activate t
-          lsp-signature-doc-lines 1
           lsp-enable-indentation nil
-          lsp-file-watch-threshold 10000))
+          lsp-file-watch-threshold 25000)
+    :hook ((lsp-mode . lsp-enable-which-key-integration)))
 
   (use-package lsp-ui
     :commands lsp-ui-mode
-    :init
-    (setq lsp-ui-doc-enable nil
-          lsp-ui-sideline-enable nil)
+    :bind
+    (("M-#" . lsp-ui-doc-focus-frame))
     :config
-    (define-key lsp-ui-mode-map
-      [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-    (define-key lsp-ui-mode-map
-      [remap xref-find-references] #'lsp-ui-peek-find-references))
+    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
   ;; -----------------------------------------------------------------------------------------------
   ;; `semantic'

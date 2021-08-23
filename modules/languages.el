@@ -34,8 +34,9 @@
     ;; Protobuf
     protobuf-mode
     ;; Python
-    pyvenv
     cython-mode
+    lsp-pyright
+    pyvenv
     py-autopep8
     ;; Rust
     cargo
@@ -159,8 +160,13 @@
       (make-local-variable 'lsp-enable-snippet)
       (setq lsp-enable-snippet nil))
     :hook
-    (python-mode . lsp)
+    (python-mode . (lambda ()
+                     (require 'lsp-pyright)
+                     (lsp)))
     (python-mode . x-lsp-disable-snippet))
+
+  (use-package lsp-pyright
+    :defer t)
 
   (use-package py-autopep8
     ;; Note that this package require autopep8 to be installed.

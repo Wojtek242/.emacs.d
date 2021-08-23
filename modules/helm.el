@@ -134,7 +134,9 @@
   ;; -----------------------------------------------------------------------------------------------
 
   (use-package helm-lsp
-    :after (helm lsp-mode))
+    :after (helm lsp-mode)
+    :config
+    (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
 
   ;; ---------------------------------------------------------------------------------------------
   ;; `helm-projectile'
