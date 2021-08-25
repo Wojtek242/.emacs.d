@@ -184,7 +184,7 @@
     ;; For this to correctly complete headers, need to add all include paths to
     ;; `company-c-headers-path-system'.
     (add-to-list 'company-backends 'company-c-headers)
-    ;; (setq company-backends (delete 'company-clang company-backends))
+    (setq company-backends (delete 'company-clang company-backends))
     (setq company-backends (delete 'company-dabbrev company-backends))
     (setq company-backends (delete 'company-capf company-backends)))
 
