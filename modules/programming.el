@@ -300,6 +300,8 @@
 
   (use-package lsp-ui
     :commands lsp-ui-mode
+    :init
+    (setq lsp-ui-doc-alignment 'window)
     :bind
     (("M-#" . lsp-ui-doc-focus-frame))
     :config
