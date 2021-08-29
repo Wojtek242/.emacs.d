@@ -166,14 +166,16 @@
     (python-mode . x-lsp-disable-snippet))
 
   (use-package lsp-pyright
-    :defer t)
+    :defer t
+    :init
+    (setq lsp-pyright-venv-path "~/.virtualenvs"))
 
   (use-package py-autopep8
     ;; Note that this package require autopep8 to be installed.
     :bind (("C-c C-f" . py-autopep8-buffer)))
 
   (use-package pyvenv
-    :defer t)
+    :commands pyvenv-create)
 
   ;; -----------------------------------------------------------------------------------------------
   ;; Rust.
