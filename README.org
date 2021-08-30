@@ -71,39 +71,16 @@
 
 ** C/C++
 
-   Install =ccls= from source
-
-   #+BEGIN_SRC
-   $ apt install clang libclang-dev
-   $ git clone --depth=1 --recursive https://github.com/MaskRay/ccls
-   $ cd ccls
-   $ cmake -H. -BRelease
-   $ cmake --build Release
-   #+END_SRC
-
-   Ensure =Release/ccls= is in your =$PATH=.
+   Emacs will automatically download ~clangd~ if it isn't installed already.
 
 ** Python
 
-   This configuration assumes =python3= and to use the auto-formatting features
-   you need to have =autopep8= installed.
-
-   Install the Python language server using =pip3=
-
-   #+BEGIN_SRC
-   $ pip3 install 'python-language-server[all]'
-   #+END_SRC
-
-   Note that when using Python virtual environments it is best to install the
-   language server in the environment itself.
+   Emacs will automatically download ~pyright~ if it isn't installed already. Note that this
+   requires ~npm~ to be installed.
 
 ** Rust
 
-   Install RLS using ~rustup~
-
-   #+BEGIN_SRC
-   $ rustup component add rls rust-analysis rust-src
-   #+END_SRC
+   Install ~rust-analyzer~.
 
 * Package Management
 
