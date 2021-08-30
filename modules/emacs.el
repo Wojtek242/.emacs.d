@@ -461,6 +461,11 @@
     (((text-mode org-mode) . flyspell-mode)
      (prog-mode . flyspell-prog-mode))
     :config
+    (if (executable-find "aspell")
+        (progn
+          (setq-default ispell-program-name "aspell")
+          (setq-default ispell-extra-args '("--sug-mode=ultra" "--camel-case")))
+      (setq-default ispell-program-name "hunspell"))
     (unbind-key "C-M-i" flyspell-mode-map))
 
   ;; -----------------------------------------------------------------------------------------------
