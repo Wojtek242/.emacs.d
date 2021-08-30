@@ -4,6 +4,7 @@ auto-save-list
 .cache
 elpa
 eshell
+projects
 semanticdb
 transient
 url
