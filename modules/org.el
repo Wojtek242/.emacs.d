@@ -69,7 +69,9 @@
      ;; Catch edits in invisible areas (space after the ellipsis ...)
      org-catch-invisible-edits 'error
      ;; Don't warn about deadlines - they're pretty visible as is
-     org-deadline-warning-days 0)
+     org-deadline-warning-days 0
+     ;; Do not apply a special font to DONE headlines.
+     org-fontify-done-headline nil)
 
     (setq org-agenda-prefix-format '((agenda . " %i %?-12t% s %b")
                                      (todo . " %i %-48b")
@@ -92,7 +94,12 @@
 
     (setq org-todo-keyword-faces (quote (("NEXT" :foreground "#96DEFA" :weight bold)
                                          ("WAIT" :foreground "#798A9B" :weight bold)
-                                         ("HOLD" :foreground "#798A9B" :weight bold))))
+                                         ("HOLD" :foreground "#798A9B" :weight bold)
+                                         ;; For music collection files.
+                                         ("WISH" :foreground "#FFEE99" :weight bold)
+                                         ("MPEG" :foreground "#CCCCFF" :weight bold)
+                                         ("DISC" :foreground "#96DEFA" :weight bold)
+                                         ("DROP" :foreground "#798A9B" :weight bold))))
 
     ;; ---------------------------------------------------------------------------------------------
     ;; Better bullet points.
