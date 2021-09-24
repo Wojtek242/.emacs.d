@@ -238,8 +238,10 @@ DESIRED-PKGS unless NO-SET-SELECTED is non-nil"
       (emodule/print-log "*** Delete packages ***")
       (emodule/delete-pkgs delete-pkgs)))
 
+  ;; Update `package-selected-packages'
   (unless no-set-selected
-    (customize-save-variable 'package-selected-packages desired-pkgs)))
+    (setq package-selected-packages desired-pkgs)
+    (customize-save-variable 'package-selected-packages package-selected-packages)))
 
 ;;; Init functions:
 
