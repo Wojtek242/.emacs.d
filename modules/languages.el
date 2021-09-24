@@ -168,7 +168,7 @@
   (use-package lsp-pyright
     :defer t
     :init
-    (setq lsp-pyright-venv-path "~/.virtualenvs"))
+    (setq lsp-pyright-venv-path (concat (getenv "HOME") "/.virtualenvs")))
 
   (use-package py-autopep8
     ;; Note that this package require autopep8 to be installed.
