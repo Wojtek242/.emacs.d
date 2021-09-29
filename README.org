@@ -35,9 +35,15 @@
     To enable directory tracking in vterm, put this in =.zshrc=
 
     #+BEGIN_SRC
-    function chpwd() {
-        print -Pn "\e]51;$(pwd)\e\\";
+    vterm_printf(){
+        printf "\e]%s\e\\" "$1"
     }
+
+    vterm_prompt_end() {
+        vterm_printf "51;A$(whoami)@$(hostname):$(pwd)";
+    }
+    setopt PROMPT_SUBST
+    PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
     #+END_SRC
 
 * Installation
