@@ -209,7 +209,9 @@
     (rust-new-project project-name "lib"))
 
   (use-package rust-mode
-    :hook (rust-mode . lsp)
+    ;; Adding the lsp hook this way is required to ensure local variables from .dir-locals.el are
+    ;; passed to the LSP server.
+    :hook ((hack-local-variables . (lambda () (when (derived-mode-p 'rust-mode) (lsp)))))
     :config
     (setq exec-path (append exec-path '("/home/wojtek/.cargo/bin"))))
 
