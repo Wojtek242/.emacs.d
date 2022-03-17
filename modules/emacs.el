@@ -533,8 +533,7 @@
            (current-buffer)))
 
   (use-package impatient-mode
-    :hook ((markdown-mode . (lambda () (setq imp-user-filter
-                                             'markdown-html)))))
+    :hook ((markdown-mode . (lambda () (imp-set-user-filter 'markdown-html)))))
 
   ;; -----------------------------------------------------------------------------------------------
   ;; `pdf-tools' - use instead of DocView.
