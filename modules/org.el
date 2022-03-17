@@ -116,17 +116,7 @@
     ;; LaTeX font size.
     ;; ---------------------------------------------------------------------------------------------
 
-    (plist-put org-format-latex-options :scale 2.0)
-
-    ;; ---------------------------------------------------------------------------------------------
-    ;; Setup agenda and capture files.
-    ;; ---------------------------------------------------------------------------------------------
-
-    (setq
-     ;; File for org-capture
-     org-default-notes-file "~/Workspace/notes.org"
-     ;; Org-agenda files
-     org-agenda-files '("~/Workspace/agenda.org")))
+    (plist-put org-format-latex-options :scale 2.0))
 
   ;; -----------------------------------------------------------------------------------------------
   ;; Better header bullets
